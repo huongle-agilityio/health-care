@@ -1,7 +1,7 @@
 import { twMerge } from 'tailwind-merge';
 
 // Types
-import { CustomClassType } from '@/types/components';
+import { CustomClassType } from '@types';
 
 export const Skeleton = ({
   customClass = 'h-2.5 w-48 mb-3',

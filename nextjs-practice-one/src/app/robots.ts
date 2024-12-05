@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 // Constants
-import { DOMAIN } from '@/constants/meta';
+import { DOMAIN } from '@constants';
 
 export const robots = (): MetadataRoute.Robots => ({
   rules: {

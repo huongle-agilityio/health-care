@@ -1,16 +1,13 @@
 import Link from 'next/link';
 
 // Constants
-import { ROUTER } from '@/constants/router';
+import { ROUTER } from '@constants';
 
 // Components
-import {
-  LinkWithIcon,
-  type LinkWithIconProps,
-} from '@/components/LinkWithIcon';
+import { LinkWithIcon, LinkWithIconProps } from '@components';
 
 // Icons
-import { BoltIcon, CubeIcon, BugAntIcon, UserIcon } from '@/icons';
+import { BoltIcon, CubeIcon, BugAntIcon, UserIcon } from '@icons';
 
 const NAVIGATION_ITEMS: LinkWithIconProps[] = [
   {
@@ -33,7 +30,7 @@ const NAVIGATION_ITEMS: LinkWithIconProps[] = [
   },
 ];
 
-const Header = () => (
+export const Header = () => (
   <header className="sticky top-0 h-12 border-b bg-white">
     <nav className="container mx-auto h-full flex justify-between items-center">
       <div>
@@ -55,5 +52,3 @@ const Header = () => (
     </nav>
   </header>
 );
-
-export default Header;

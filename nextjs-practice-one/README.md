@@ -51,6 +51,7 @@ This is a [Next.js](https://nextjs.org/) practice built with [`create-next-app`]
   - Landing Page
   - Appointments Booking
   - Reviews
+  - Blog
   - Unauthenticated
     - Login
     - SignUp
