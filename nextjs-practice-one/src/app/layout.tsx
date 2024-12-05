@@ -1,15 +1,24 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Montserrat } from 'next/font/google';
+
+// CSS
+import './globals.css';
 
 // Components
 import Header from '@/layouts/Header';
-import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+// Providers
+import { Providers } from './providers';
+
+const montserrat = Montserrat({
+  weight: ['400', '500'],
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+});
 
 export const metadata: Metadata = {
-  title: 'Next.js Boilerplate',
-  description: 'Next.js 14+ boilerplate app',
+  title: 'CareMate',
+  description: 'Healthcare Application',
   icons: [
     {
       rel: 'icon',
@@ -25,9 +34,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Header />
-        {children}
+      <body className={montserrat.className}>
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   );
