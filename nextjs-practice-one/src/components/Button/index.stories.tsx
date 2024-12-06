@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 
 // Components
 import { Button } from './index';
-import { UserIcon } from '@icons';
+import { UserIcon } from '@/icons';
 
 const meta = {
   title: 'Components/Button',

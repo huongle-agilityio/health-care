@@ -1,4 +1,4 @@
-import { ButtonTest } from '@components/ButtonTest';
+import { ButtonTest } from '@/components/ButtonTest';
 
 const Homepage = () => {
   return (

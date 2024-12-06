@@ -1,13 +1,13 @@
 import Link from 'next/link';
 
 // Constants
-import { ROUTER } from '@constants';
+import { ROUTER } from '@/constants';
 
 // Components
-import { LinkWithIcon, LinkWithIconProps } from '@components';
+import { LinkWithIcon, LinkWithIconProps } from '@/components';
 
 // Icons
-import { BoltIcon, CubeIcon, BugAntIcon, UserIcon } from '@icons';
+import { BoltIcon, CubeIcon, BugAntIcon, UserIcon } from '@/icons';
 
 const NAVIGATION_ITEMS: LinkWithIconProps[] = [
   {

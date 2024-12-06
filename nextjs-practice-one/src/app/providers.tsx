@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { NextUIProvider } from '@nextui-org/system';
+import { NextUIProvider } from '@nextui-org/react';
 
 export interface ProvidersProps {
   children: ReactNode;

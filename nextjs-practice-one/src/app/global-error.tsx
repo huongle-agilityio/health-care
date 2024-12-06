@@ -1,11 +1,11 @@
 'use client';
 
 // Components
-import { Header } from '@layouts';
-import { Button } from '@components';
+import { Header } from '@/layouts';
+import { Button } from '@/components';
 
 // Types
-import { PageErrorProps } from '@types';
+import { PageErrorProps } from '@/types';
 
 export default function GlobalError({
   // error,

@@ -5,7 +5,7 @@ import { Montserrat } from 'next/font/google';
 import './globals.css';
 
 // Components
-import { Header } from '@layouts';
+import { Header } from '@/layouts';
 
 // Providers
 import { Providers } from './providers';

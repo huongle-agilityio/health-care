@@ -85,12 +85,11 @@ This is a [Next.js](https://nextjs.org/) practice built with [`create-next-app`]
   - Users can see the form with their information already filled in
   - Users can submit the form after filling in all the fields
 - Reviews
-  - Users can see the doctors' ranking
-  - Users can paginate with numbers and button prev/ next
+  - Users can see the upcoming feature Page
+- Blog
+  - Users can see the upcoming feature Page
 - Profile
   - Users can see their information
-  - Users can edit their information
-  - Users input information must be validated
   - Users can view appointments they have booked.
 
 ## How to run
