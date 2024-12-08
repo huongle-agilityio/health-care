@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
+import { ThemeProvider } from 'next-themes';
 import { NextUIProvider } from '@nextui-org/system';
 
 export interface ProvidersProps {
@@ -8,5 +9,11 @@ export interface ProvidersProps {
 }
 
 export function Providers({ children }: ProvidersProps) {
-  return <NextUIProvider>{children}</NextUIProvider>;
+  return (
+    <NextUIProvider>
+      <ThemeProvider attribute="class" defaultTheme="light">
+        {children}
+      </ThemeProvider>
+    </NextUIProvider>
+  );
 }
