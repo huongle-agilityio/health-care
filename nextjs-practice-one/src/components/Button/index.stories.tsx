@@ -2,8 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 
 // Components
-import { Button } from './index';
-import { UserIcon } from '@/icons';
+import { Button } from '.';
 
 const meta = {
   title: 'Components/Button',
@@ -16,15 +15,15 @@ const meta = {
     disabled: { control: 'boolean' },
     variant: {
       control: 'inline-radio',
-      options: [
-        'outline',
-        'primary',
-        'secondary',
-        'success',
-        'error',
-        'info',
-        'warning',
-      ],
+      options: ['bordered', 'solid'],
+    },
+    color: {
+      control: 'inline-radio',
+      options: ['default', 'primary', 'bordered', 'danger', 'warning'],
+    },
+    size: {
+      control: 'inline-radio',
+      options: ['xs', 'md', 'lg'],
     },
   },
   args: {
@@ -38,20 +37,32 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: 'Primary Button',
+    variant: 'solid',
+    color: 'default',
+  },
+};
+
+export const Primary: Story = {
+  args: {
+    children: 'Secondary Button',
+    variant: 'solid',
+    color: 'primary',
   },
 };
 
 export const Outline: Story = {
   args: {
     children: 'Outline Button',
-    variant: 'outline',
+    variant: 'bordered',
+    color: 'bordered',
   },
 };
 
-export const IconButton: Story = {
+export const Loading: Story = {
   args: {
-    startIcon: <UserIcon />,
-    children: 'Icon Button',
-    variant: 'outline',
+    children: 'Outline Button',
+    variant: 'solid',
+    color: 'default',
+    isLoading: true,
   },
 };
