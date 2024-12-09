@@ -1,50 +1,51 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 // Components
 import { Button } from '..';
 
 describe('Button component', () => {
-  test('renders the Button with children', () => {
+  test('Should render button with children', () => {
     render(<Button>Click me</Button>);
     expect(screen.getByText('Click me')).toBeInTheDocument();
   });
 
-  // test('renders startIcon and endIcon', () => {
-  //   render(
-  //     <Button startIcon={<span>Start</span>} endIcon={<span>End</span>}>
-  //       Click me
-  //     </Button>,
-  //   );
-  //   expect(screen.getByText('Start')).toBeInTheDocument();
-  //   expect(screen.getByText('End')).toBeInTheDocument();
-  // });
+  test('Should call function onPress when user click button', () => {
+    const handlePress = jest.fn();
+    const { getByRole } = render(
+      <Button onPress={handlePress}>Click me</Button>,
+    );
+    const button = getByRole('button');
+    fireEvent.click(button);
 
-  // test('applies the correct variant classes', () => {
-  //   render(<Button variant="success">Click me</Button>);
-  //   expect(screen.getByText('Click me')).toHaveClass(
-  //     'bg-green-600 text-white hover:bg-green-700 disabled:bg-green-400',
-  //   );
-  // });
+    expect(handlePress).toHaveBeenCalled();
+    expect(handlePress).toHaveBeenCalledTimes(1);
+  });
 
-  // test('applies customClass', () => {
-  //   render(<Button customClass="custom-class">Click me</Button>);
-  //   expect(screen.getByText('Click me')).toHaveClass('custom-class');
-  // });
+  test('Should not call function onPress when isLoading is true', () => {
+    const handlePress = jest.fn();
+    const { getByRole } = render(
+      <Button onPress={handlePress} isLoading>
+        Click me
+      </Button>,
+    );
+    const button = getByRole('button');
+    fireEvent.click(button);
 
-  // test('handles click events', () => {
-  //   const handleClick = jest.fn();
-  //   render(<Button onClick={handleClick}>Click me</Button>);
-  //   fireEvent.click(screen.getByText('Click me'));
-  //   expect(handleClick).toHaveBeenCalledTimes(1);
-  // });
+    expect(handlePress).not.toHaveBeenCalled();
+    expect(handlePress).toHaveBeenCalledTimes(0);
+  });
 
-  // test('is disabled when the disabled prop is set', () => {
-  //   render(<Button disabled>Click me</Button>);
-  //   expect(screen.getByText('Click me')).toBeDisabled();
-  // });
+  test('Should not call function onPress when isDisabled is true', () => {
+    const handlePress = jest.fn();
+    const { getByRole } = render(
+      <Button onPress={handlePress} isDisabled>
+        Click me
+      </Button>,
+    );
+    const button = getByRole('button');
+    fireEvent.click(button);
 
-  // test('renders button with type submit', () => {
-  //   render(<Button type="submit">Submit</Button>);
-  //   expect(screen.getByText('Submit')).toHaveAttribute('type', 'submit');
-  // });
+    expect(handlePress).not.toHaveBeenCalled();
+    expect(handlePress).toHaveBeenCalledTimes(0);
+  });
 });
