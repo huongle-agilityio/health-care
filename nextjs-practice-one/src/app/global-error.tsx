@@ -16,7 +16,7 @@ export default function GlobalError({
       <body>
         <Header />
         <h2>Something went wrong!</h2>
-        <Button variant="error" onClick={() => reset()}>
+        <Button variant="ghost" onClick={() => reset()}>
           Try again
         </Button>
       </body>
