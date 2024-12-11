@@ -26,6 +26,10 @@ export const baseColors = {
   orange: {
     100: '#db944b',
   },
+  red: {
+    50: '#fee2e2',
+    100: '#ef4444',
+  },
 };
 
 export const colors = {
@@ -47,8 +51,13 @@ export const colors = {
     '100': baseColors.green[400],
     '200': baseColors.gray[300],
     '300': baseColors.brown[200],
+    '400': baseColors.gray[200],
   },
   warning: {
     '100': baseColors.orange[100],
+  },
+  danger: {
+    '100': baseColors.red[100],
+    '200': baseColors.red[50],
   },
 };
