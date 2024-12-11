@@ -14,6 +14,7 @@ export const Button = extendVariants(ButtonNextUI, {
         'bg-transparent border-primary border-secondary-100 text-primary-300',
     },
     size: {
+      none: 'py-0 px-10 text-xs',
       xs: 'py-6 px-16 h-19 text-xs',
       md: 'py-10 px-20 h-21 text-xs',
       lg: 'py-10 px-18 h-22 text-base',
