@@ -3,6 +3,13 @@ export const fontFamily = {
 };
 
 export const fontSize = {
+  '3xs': [
+    '12px',
+    {
+      lineHeight: '14px',
+      fontWeight: '400',
+    },
+  ],
   '2xs': [
     '16px',
     {
