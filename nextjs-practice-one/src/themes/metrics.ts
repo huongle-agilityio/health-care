@@ -22,7 +22,10 @@ export const spacing = {
   20: '48px',
   21: '60px',
   22: '62px',
-  23: '88px',
+  24: '80px',
+  25: '88px',
+  30: '150px',
+  31: '175px',
 };
 
 export const screens = {
