@@ -23,7 +23,7 @@ const meta = {
     },
     size: {
       control: 'inline-radio',
-      options: ['xs', 'md', 'lg'],
+      options: ['none', 'xs', 'md', 'lg'],
     },
   },
   args: {
