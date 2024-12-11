@@ -10,6 +10,7 @@ export const TEXT_COLORS = {
 };
 
 export const TEXT_SIZES = {
+  '3xs': 'text-3xs',
   '2xs': 'text-2xs',
   xs: 'text-xs',
   base: 'text-base',
