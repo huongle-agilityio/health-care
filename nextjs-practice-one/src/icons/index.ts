@@ -7,3 +7,4 @@ export * from './OutlineStartIcon';
 export * from './StartIcon';
 export * from './ArrowLeftIcon';
 export * from './ArrowRightIcon';
+export * from './CloseIcon';
