@@ -8,7 +8,7 @@ import './globals.css';
 import { BRAND } from '@/constants';
 
 // Components
-import { Header } from '@/layouts';
+import { Header } from '@/sections';
 
 // Providers
 import { Providers } from './providers';
