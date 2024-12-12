@@ -4,3 +4,4 @@ export * from './router';
 export * from './tokens';
 export * from './images';
 export * from './env-vars';
+export * from './booking';
