@@ -1,7 +1,7 @@
 'use client';
 
 // Components
-import { Header } from '@/layouts';
+import { Header } from '@/sections';
 import { Button } from '@/components';
 
 // Types
