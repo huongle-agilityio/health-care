@@ -4,6 +4,9 @@ import { Montserrat } from 'next/font/google';
 // CSS
 import './globals.css';
 
+// Constants
+import { BRAND } from '@/constants';
+
 // Components
 import { Header } from '@/layouts';
 
@@ -17,8 +20,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: 'CareMate',
-  description: 'Healthcare Application',
+  title: BRAND.NAME,
+  description: BRAND.APP_NAME,
   icons: [
     {
       rel: 'icon',
