@@ -7,4 +7,6 @@ export * from './OutlineStartIcon';
 export * from './StartIcon';
 export * from './ArrowLeftIcon';
 export * from './ArrowRightIcon';
+export * from './PhoneIcon';
+export * from './PhoneCircleIcon';
 export * from './CloseIcon';
