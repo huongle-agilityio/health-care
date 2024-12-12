@@ -13,3 +13,5 @@ export * from './ReviewIcon';
 export * from './BlogIcon';
 export * from './HomeIcon';
 export * from './SettingIcon';
+export * from './StethoscopeIcon';
+export * from './HourglassIcon';

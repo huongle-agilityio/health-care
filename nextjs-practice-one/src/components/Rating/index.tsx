@@ -21,5 +21,7 @@ export const Rating = ({ value, max = 5, className }: RatingProps) => {
     ),
   );
 
-  return <div className={cn('flex items-center', className)}>{stars}</div>;
+  return (
+    <div className={cn('flex items-center gap-2', className)}>{stars}</div>
+  );
 };
