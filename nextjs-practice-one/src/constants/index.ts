@@ -3,3 +3,4 @@ export * from './meta';
 export * from './router';
 export * from './images';
 export * from './env-vars';
+export * from './booking';

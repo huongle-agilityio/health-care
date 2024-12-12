@@ -3,4 +3,4 @@ export * from './Text';
 export * from './Input';
 export * from './LinkWithIcon';
 export * from './Skeleton';
-export * from './Text';
+export * from './Image';
