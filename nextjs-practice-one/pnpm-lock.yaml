@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@hookform/resolvers':
+        specifier: ^3.9.0
+        version: 3.9.1(react-hook-form@7.53.2(react@18.3.1))
       '@internationalized/date':
         specifier: ^3.6.0
         version: 3.6.0
@@ -1039,6 +1042,11 @@ packages:
 
   '@formatjs/intl-localematcher@0.5.8':
     resolution: {integrity: sha512-I+WDNWWJFZie+jkfkiK5Mp4hEDyRSEvmyfYadflOno/mmKJKcB17fEpEH0oJu/OWhhCJ8kJBDz2YMd/6cDl7Mg==}
+
+  '@hookform/resolvers@3.9.1':
+    resolution: {integrity: sha512-ud2HqmGBM0P0IABqoskKWI6PEf6ZDDBZkFqe2Vnl+mTHCEHzr3ISjjZyCwTjC/qpL25JC9aIDkloQejvMeq0ug==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
 
   '@humanwhocodes/config-array@0.13.0':
     resolution: {integrity: sha512-DZLEEqFWQFiyK6h5YIeynKx7JlvCYWL0cImfSRXZ9l4Sg2efkFGTuFf6vzXjK1cq6IYkU+Eg/JizXw+TD2vRNw==}
@@ -8525,6 +8533,10 @@ snapshots:
     dependencies:
       tslib: 2.6.2
 
+  '@hookform/resolvers@3.9.1(react-hook-form@7.53.2(react@18.3.1))':
+    dependencies:
+      react-hook-form: 7.53.2(react@18.3.1)
+
   '@humanwhocodes/config-array@0.13.0':
     dependencies:
       '@humanwhocodes/object-schema': 2.0.3
@@ -15333,9 +15345,11 @@ snapshots:
 
   nextjs-official@file:(@babel/core@7.24.5)(@nextui-org/theme@2.2.11(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))))(@types/react@18.3.3)(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))):
     dependencies:
+      '@hookform/resolvers': 3.9.1(react-hook-form@7.53.2(react@18.3.1))
       '@internationalized/date': 3.6.0
       '@nextui-org/react': 2.4.8(@types/react@18.3.3)(framer-motion@11.13.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5)))
       '@nextui-org/system': 2.2.6(@nextui-org/theme@2.2.11(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))))(framer-motion@11.13.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-aria/i18n': 3.12.4(react@18.3.1)
       clsx: 2.1.1
       framer-motion: 11.13.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next: 15.0.0(@babel/core@7.24.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

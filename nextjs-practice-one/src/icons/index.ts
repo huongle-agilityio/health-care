@@ -15,3 +15,5 @@ export * from './HomeIcon';
 export * from './SettingIcon';
 export * from './StethoscopeIcon';
 export * from './HourglassIcon';
+export * from './EyeIcon';
+export * from './EyeCloseIcon';

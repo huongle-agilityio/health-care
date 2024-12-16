@@ -2,7 +2,11 @@
 
 import { extendVariants, Button as ButtonNextUI } from '@nextui-org/react';
 
-export const Button = extendVariants(ButtonNextUI, {
+// Utils
+import { cn } from '@/utils';
+import { ComponentProps } from 'react';
+
+export const ButtonBase = extendVariants(ButtonNextUI, {
   variants: {
     variant: {
       bordered: 'border-2',
@@ -32,3 +36,13 @@ export const Button = extendVariants(ButtonNextUI, {
     size: 'md',
   },
 });
+
+export const Button = ({
+  className,
+  ...props
+}: ComponentProps<typeof ButtonBase>) => (
+  <ButtonBase
+    className={cn('data-[pressed=true]:scale-[1]', className)}
+    {...props}
+  />
+);
