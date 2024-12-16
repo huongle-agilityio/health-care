@@ -22,7 +22,12 @@ import { cn } from '@/utils';
 const MenuAuth = withLogoutModal(HeaderAuth);
 
 export const Header = () => (
-  <header className="sticky top-0 h-21 xl:h-[128px] border-b">
+  <header
+    className={cn(
+      'sticky top-0 h-21 xl:h-[128px]',
+      'border-b bg-background-100',
+    )}
+  >
     <nav
       className={cn(
         'relative',

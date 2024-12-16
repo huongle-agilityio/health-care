@@ -1,3 +1,6 @@
+export const BASE_API = process.env.NEXT_PUBLIC_API_URL;
+
 export const API_ENDPOINT = {
-  CATEGORY_LIST: 'categories',
+  SIGN_IN: 'api/auth/local',
+  SIGN_UP: 'api/auth/local/register',
 };

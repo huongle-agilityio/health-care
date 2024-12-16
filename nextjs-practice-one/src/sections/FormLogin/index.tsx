@@ -2,17 +2,33 @@
 
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+
+// Apis
+import { signIn } from '@/actions';
+
+// Constants
+import {
+  ERROR_MESSAGES,
+  REGEX_EMAIL,
+  REGEX_PASSWORD,
+  ROUTERS,
+  SESSION_STORAGE_KEYS,
+} from '@/constants';
 
 // Components
 import { Button, InputController, Text } from '@/components';
 
-// Constants
-import { ERROR_MESSAGES, REGEX_EMAIL, REGEX_PASSWORD } from '@/constants';
-
 // Icons
 import { EyeCloseIcon, EyeIcon } from '@/icons';
+
+// Stores
+import { useToastStore, useUserStore } from '@/stores';
+
+// Utils
+import { getErrorMessage } from '@/utils';
 
 export const FormSchema = z.object({
   email: z
@@ -30,7 +46,13 @@ export const FormSchema = z.object({
 });
 
 export const FormLogin = () => {
+  const router = useRouter();
+
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+
+  // Stores
+  const { setUser } = useUserStore();
+  const { showToast } = useToastStore();
 
   const initialState = {
     email: '',
@@ -48,8 +70,21 @@ export const FormLogin = () => {
     defaultValues: initialState,
   });
 
-  const handleSubmit = () => {
-    // TODO: implement feature login
+  const handleSubmit = async (data: z.infer<typeof FormSchema>) => {
+    const payload = { identifier: data.email, ...data };
+
+    try {
+      const data = await signIn(payload);
+
+      sessionStorage.setItem(SESSION_STORAGE_KEYS.TOKEN, data.jwt);
+
+      setUser(data.user);
+      router.push(ROUTERS.HOME);
+    } catch (error) {
+      showToast({
+        description: getErrorMessage(error),
+      });
+    }
   };
 
   const handleReset = () => {
