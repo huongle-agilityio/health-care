@@ -1,7 +1,7 @@
 'use client';
 
-import { ComponentType, ReactNode, Suspense } from 'react';
-import { PopoverProps } from '@nextui-org/react';
+import { ComponentType } from 'react';
+import { PopoverProps, Skeleton } from '@nextui-org/react';
 import dynamic from 'next/dynamic';
 
 // Types
@@ -11,31 +11,29 @@ const Popover = dynamic(
   () => import('../components/Popover').then((mod) => mod.Popover),
   {
     ssr: false,
+    loading: () => (
+      <Skeleton className="rounded-full w-16 h-16">
+        <div className="h-24 rounded-lg bg-secondary" />
+      </Skeleton>
+    ),
   },
 );
 
 type Props<P> = P & {
   menuOptions: OptionMenu[];
   placement?: PopoverProps['placement'];
-  loadingFallback?: ReactNode;
 };
 
 export const withOptionsPopover = <P extends object>(
   WrappedComponent: ComponentType<P>,
 ) => {
   const RenderWithOptionsPopover = (props: Props<P>) => {
-    const {
-      loadingFallback,
-      menuOptions = [],
-      placement = 'bottom-end',
-      ...rest
-    } = props;
+    const { menuOptions = [], placement = 'bottom-end', ...rest } = props;
+
     return (
-      <Suspense fallback={loadingFallback ?? null}>
-        <Popover menuOptions={menuOptions} placement={placement}>
-          <WrappedComponent {...(rest as P)} />
-        </Popover>
-      </Suspense>
+      <Popover menuOptions={menuOptions} placement={placement}>
+        <WrappedComponent {...(rest as P)} />
+      </Popover>
     );
   };
   return RenderWithOptionsPopover;

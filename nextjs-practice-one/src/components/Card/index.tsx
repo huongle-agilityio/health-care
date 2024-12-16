@@ -25,7 +25,7 @@ const CardBase = extendVariants(CardNextUI, {
           'py-10 px-6 md:py-17',
           'bg-background-200 border-secondary-100 border-2',
           'flex-row',
-          'md:max-w-[430px] md:flex-col md:py-17 md:px-20 md:items-center',
+          'md:w-[430px] md:flex-col md:h-[508px] md:py-17 md:px-20 md:items-center',
         ),
       },
     },

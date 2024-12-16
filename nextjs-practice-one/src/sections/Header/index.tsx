@@ -25,12 +25,13 @@ export const Header = () => (
   <header className="sticky top-0 h-21 xl:h-[128px] border-b">
     <nav
       className={cn(
+        'relative',
         'container mx-auto h-full',
-        'flex items-center gap-[56px] justify-between xl:justify-start',
+        'flex items-center gap-[56px] xl:justify-start',
       )}
     >
       <NavBarMobile />
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-4 items-center m-auto lg:m-0">
         <Link href={ROUTERS.HOME}>
           <LogoIcon />
         </Link>
@@ -38,7 +39,6 @@ export const Header = () => (
           CareMate
         </Text>
       </div>
-      <div />
 
       <div className={cn('hidden xl:flex', 'w-full justify-between')}>
         <div className="flex gap-17 items-center">

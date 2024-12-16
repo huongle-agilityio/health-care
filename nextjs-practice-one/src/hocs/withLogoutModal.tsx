@@ -1,6 +1,6 @@
 'use client';
 
-import { ComponentType, ReactNode, Suspense } from 'react';
+import { ComponentType } from 'react';
 import { useDisclosure } from '@nextui-org/react';
 import dynamic from 'next/dynamic';
 
@@ -11,16 +11,12 @@ const ConfirmModal = dynamic(
   },
 );
 
-type Props<P> = P & {
-  loadingFallback?: ReactNode;
-};
-
 export const withLogoutModal = <P extends object>(
   WrappedComponent: ComponentType<P>,
 ) => {
-  const RenderWithOptionsModal = (props: Props<P>) => {
+  const RenderWithOptionsModal = (props: P) => {
     const { isOpen, onOpenChange } = useDisclosure();
-    const { loadingFallback, ...rest } = props;
+    const { ...rest } = props;
 
     const handleConfirmLogout = () => {
       // TODO: Handle feature logout
@@ -28,14 +24,14 @@ export const withLogoutModal = <P extends object>(
     };
 
     return (
-      <Suspense fallback={loadingFallback ?? null}>
+      <>
         <WrappedComponent onClick={onOpenChange} {...(rest as P)} />
         <ConfirmModal
           isOpen={isOpen}
           onOpenChange={onOpenChange}
           onSubmit={handleConfirmLogout}
         />
-      </Suspense>
+      </>
     );
   };
 
