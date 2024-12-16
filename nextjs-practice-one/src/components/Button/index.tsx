@@ -13,7 +13,8 @@ export const ButtonBase = extendVariants(ButtonNextUI, {
     },
     color: {
       default: 'bg-primary-100 disabled:bg-background-400 text-primary-500',
-      primary: 'bg-background-300 disabled:bg-secondary-300 text-primary-500',
+      primary: 'bg-background-300 disabled:opacity-50 text-primary-500',
+      danger: 'bg-red-50 disabled:opacity-50 text-red-100',
       bordered:
         'bg-transparent border-primary border-secondary-100 text-primary-300',
     },
