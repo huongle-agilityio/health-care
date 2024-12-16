@@ -59,7 +59,7 @@ export const NavBarMobile = () => {
     : NAVIGATION_ITEMS;
 
   return (
-    <>
+    <div className="absolute top-6 left-12">
       <OutlineBurgerIcon
         size="16"
         className="xl:hidden cursor-pointer"
@@ -104,6 +104,6 @@ export const NavBarMobile = () => {
           </ModalContent>
         </NavBarMobileBase>
       </div>
-    </>
+    </div>
   );
 };
