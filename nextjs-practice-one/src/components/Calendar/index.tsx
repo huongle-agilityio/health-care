@@ -51,7 +51,7 @@ export const CalendarBase = extendVariants(CalendarNextUI, {
 });
 
 export interface CalendarProps extends CalendarNextUIProps {
-  value: DateValue;
+  value?: DateValue;
   error?: string;
   size?: 'md' | 'lg';
 }
