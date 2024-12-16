@@ -1,8 +1,18 @@
+'use client';
+
+import { useEffect } from 'react';
+
+// Constants
+import { TIMING } from '@/constants';
+
 // Components
 import { Text } from '..';
 
 // Icons
 import { CloseIcon } from '@/icons';
+
+// Stores
+import { useToastStore } from '@/stores';
 
 // Utils
 import { cn } from '@/utils';
@@ -28,6 +38,7 @@ const TOAST_ICON_COLORS = {
 interface ToastProps {
   title?: string;
   description: string;
+  className?: string;
   placement?: 'left' | 'right' | 'none';
   variant?: 'success' | 'error' | 'holder';
   onClose?: () => void;
@@ -39,31 +50,47 @@ export const Toast = ({
   variant = 'holder',
   placement = 'right',
   onClose,
-}: ToastProps) => (
-  <div
-    className={cn(
-      'max-w-[400px]',
-      'p-10 rounded-xl shadow-lg transition-transform duration-300 transform',
-      'border-1 text-primary-400',
-      TOAST_COLORS[variant],
-      TOAST_PLACEMENTS[placement],
-    )}
-  >
-    <div className="flex justify-between min-w-[320px]">
-      <div className="flex flex-col gap-2">
-        <Text size="xl" color={variant}>
-          {title}
-        </Text>
-        <Text size="xs" color={variant}>
-          {description}
-        </Text>
-      </div>
-      <div data-testid="toast-close" onClick={onClose}>
-        <CloseIcon
-          size="14"
-          className={cn('cursor-pointer', TOAST_ICON_COLORS[variant])}
-        />
+  className,
+  ...props
+}: ToastProps) => {
+  const { closeToast } = useToastStore();
+
+  // Close toast after duration
+  useEffect(() => {
+    const timer = setTimeout(() => closeToast(), TIMING.TOAST_DURATION);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [closeToast]);
+
+  return (
+    <div
+      className={cn(
+        'max-w-[400px]',
+        'p-10 rounded-xl shadow-lg transition-transform duration-300 transform',
+        'border-1 text-primary-400',
+        TOAST_COLORS[variant],
+        TOAST_PLACEMENTS[placement],
+        className,
+      )}
+      {...props}
+    >
+      <div className="flex justify-between min-w-[320px]">
+        <div className="flex flex-col gap-2">
+          <Text size="xl" color={variant}>
+            {title}
+          </Text>
+          <Text size="xs" color={variant}>
+            {description}
+          </Text>
+        </div>
+        <div data-testid="toast-close" onClick={onClose}>
+          <CloseIcon
+            size="14"
+            className={cn('cursor-pointer', TOAST_ICON_COLORS[variant])}
+          />
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};

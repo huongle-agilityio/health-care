@@ -6,5 +6,6 @@ export * from './env-vars';
 export * from './brand';
 export * from './booking';
 export * from './navigation';
+export * from './timing';
 export * from './regex';
 export * from './messages';
