@@ -7,19 +7,18 @@ import { Button } from '@/components';
 // Types
 import { PageErrorProps } from '@/types';
 
-export default function GlobalError({
-  // error,
-  reset,
-}: PageErrorProps) {
+const GlobalError = ({ reset }: PageErrorProps) => {
   return (
     <html lang="en">
       <body>
         <Header />
         <h2>Something went wrong!</h2>
-        <Button variant="ghost" onClick={() => reset()}>
+        <Button color="danger" size="xs" onClick={() => reset()}>
           Try again
         </Button>
       </body>
     </html>
   );
-}
+};
+
+export default GlobalError;

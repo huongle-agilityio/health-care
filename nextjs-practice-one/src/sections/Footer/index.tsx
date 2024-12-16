@@ -20,7 +20,7 @@ export const Footer = () => {
       className={cn(
         'w-full h-25',
         'py-16 md:px-21',
-        'border-t-1 border-secondary-200',
+        'border-t-1 border-secondary-200 bg-background-100',
       )}
     >
       <div
