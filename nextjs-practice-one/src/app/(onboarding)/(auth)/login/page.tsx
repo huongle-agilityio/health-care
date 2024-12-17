@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { ROUTERS } from '@/constants';
 
 // Components
-import { FormLogin } from '@/sections';
 import { Text } from '@/components';
+import { FormLogin } from '@/sections';
 
 const Page = () => (
   <>
