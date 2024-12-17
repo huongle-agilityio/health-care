@@ -14,7 +14,7 @@ export const ListDoctorsAvailable = async ({ page }: { page?: number }) => {
   } = meta;
 
   return (
-    <div className="container flex flex-col gap-[84px] items-center">
+    <div className="flex flex-col gap-[84px] items-center">
       <div className="flex flex-wrap gap-x-8 gap-y-20 justify-center">
         {doctors.map(
           ({
