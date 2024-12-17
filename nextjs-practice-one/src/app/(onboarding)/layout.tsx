@@ -1,3 +1,4 @@
+// Layouts
 import { OnboardingLayout } from '@/layouts';
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
