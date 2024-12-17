@@ -7,6 +7,7 @@ import {
   CardFooter,
   extendVariants,
 } from '@nextui-org/react';
+import Link from 'next/link';
 
 // Components
 import { Text, Button, Image, Rating } from '..';
@@ -78,13 +79,13 @@ interface CardProps {
   experience: number;
   rating: number;
   imageSrc: string;
+  href: string;
   className?: {
     wrap?: string;
     header?: string;
     body?: string;
     footer?: string;
   };
-  onPress: () => void;
 }
 
 export const Card = ({
@@ -93,7 +94,7 @@ export const Card = ({
   imageSrc,
   experience,
   rating,
-  onPress,
+  href,
 }: CardProps) => (
   <CardBase>
     <CardHeaderBase>
@@ -137,21 +138,24 @@ export const Card = ({
         </div>
       </div>
 
-      <Button
-        size="xs"
-        color="bordered"
-        variant="bordered"
-        className="md:hidden"
-        onPress={onPress}
-      >
-        Book
-      </Button>
+      <Link href={href}>
+        <Button
+          size="xs"
+          color="bordered"
+          variant="bordered"
+          className="md:hidden"
+        >
+          Book
+        </Button>
+      </Link>
     </CardBodyBase>
 
     <CardFooterBase>
-      <Button color="bordered" variant="bordered" onPress={onPress}>
-        Book Appointment
-      </Button>
+      <Link href={href}>
+        <Button color="bordered" variant="bordered">
+          Book Appointment
+        </Button>
+      </Link>
     </CardFooterBase>
   </CardBase>
 );

@@ -1,10 +1,11 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import {
   extendVariants,
   Pagination as PaginationNextUI,
 } from '@nextui-org/react';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
 // Components
 import { Button } from '../Button';
@@ -44,28 +45,34 @@ const PaginationBase = extendVariants(PaginationNextUI, {
 interface PaginationProps {
   page: number;
   total: number;
-  onChange: () => void;
 }
 
-export const Pagination = ({ page = 1, total, onChange }: PaginationProps) => {
-  const [currentPage, setCurrentPage] = useState<number>(page);
+export const Pagination = ({ page = 1, total }: PaginationProps) => {
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  const searchParams = useSearchParams();
+
+  const params = useMemo(
+    () => new URLSearchParams(searchParams.toString()),
+    [searchParams],
+  );
 
   const handlePrevPage = useCallback(() => {
-    setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
-    onChange();
-  }, [onChange]);
+    params.set('page', (page - 1).toString());
+    replace(`${pathname}?${params.toString()}`);
+  }, [page, params, pathname, replace]);
 
   const handleNextPage = useCallback(() => {
-    setCurrentPage((prev) => (prev < total ? prev + 1 : prev));
-    onChange();
-  }, [onChange, total]);
+    params.set('page', (page + 1).toString());
+    replace(`${pathname}?${params.toString()}`);
+  }, [page, params, pathname, replace]);
 
   const handleSetPage = useCallback(
     (value: number) => {
-      setCurrentPage(value);
-      onChange();
+      params.set('page', value.toString());
+      replace(`${pathname}?${params.toString()}`);
     },
-    [onChange],
+    [pathname, params, replace],
   );
 
   return (
@@ -79,11 +86,7 @@ export const Pagination = ({ page = 1, total, onChange }: PaginationProps) => {
       >
         <ArrowLeftIcon className="group-hover:fill-primary-100" /> Previous
       </Button>
-      <PaginationBase
-        page={currentPage}
-        total={total}
-        onChange={handleSetPage}
-      />
+      <PaginationBase page={page} total={total} onChange={handleSetPage} />
       <Button
         size="none"
         variant="bordered"

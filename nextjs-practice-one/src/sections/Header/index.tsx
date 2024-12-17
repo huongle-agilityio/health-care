@@ -28,7 +28,7 @@ export const Header = () => {
   return (
     <header
       className={cn(
-        'sticky top-0 h-21 xl:h-[128px] z-10',
+        'sticky top-0 h-21 xl:h-[128px] z-20',
         'border-b bg-background-100',
       )}
     >
