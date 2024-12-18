@@ -9,12 +9,12 @@ import { Button, SelectController } from '@/components';
 // Mocks
 import { EXPERIENCES, FEES, RATING } from '@/constants/mocks';
 
-interface FormData {
-  specialty: string;
-  rating: string;
-  experience: string;
-  fee: string;
-}
+// interface FormData {
+//   specialty: string;
+//   rating: string;
+//   experience: string;
+//   fee: string;
+// }
 
 export const FormFilterDoctors = () => {
   const initialState = useMemo(
@@ -32,8 +32,8 @@ export const FormFilterDoctors = () => {
     defaultValues: initialState,
   });
 
-  const handleSubmit = useCallback((data: FormData) => {
-    console.log('data', data);
+  const handleSubmit = useCallback(() => {
+    // TODO: handle submit
   }, []);
 
   const handleReset = useCallback(() => {
