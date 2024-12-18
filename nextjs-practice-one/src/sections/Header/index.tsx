@@ -24,7 +24,7 @@ const MenuAuth = withLogoutModal(HeaderAuth);
 export const Header = () => (
   <header
     className={cn(
-      'sticky top-0 h-21 xl:h-[128px]',
+      'sticky top-0 h-21 xl:h-[128px] z-10',
       'border-b bg-background-100',
     )}
   >
@@ -36,14 +36,15 @@ export const Header = () => (
       )}
     >
       <NavBarMobile />
-      <div className="flex gap-4 items-center m-auto lg:m-0">
-        <Link href={ROUTERS.HOME}>
-          <LogoIcon />
-        </Link>
+      <Link
+        href={ROUTERS.HOME}
+        className="flex gap-4 items-center m-auto lg:m-0"
+      >
+        <LogoIcon />
         <Text size="2xl" color="primary">
           CareMate
         </Text>
-      </div>
+      </Link>
 
       <div className={cn('hidden xl:flex', 'w-full justify-between')}>
         <div className="flex gap-17 items-center">
