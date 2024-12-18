@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import {
   Card as CardNextUI,
   CardHeader,
@@ -67,69 +68,68 @@ interface BookingCardProps {
   time: string;
 }
 
-export const BookingCard = ({
-  date,
-  name,
-  imageSrc,
-  time,
-}: BookingCardProps) => {
-  const statusBooking = getBookingStatus(date);
-  const chipColors = {
-    'bg-amber-400': statusBooking === BOOKING_STATUS.TODAY,
-    'bg-lime-600': statusBooking === BOOKING_STATUS.UPCOMING,
-    'bg-red-400': statusBooking === BOOKING_STATUS.EXPIRED,
-  };
+export const BookingCard = memo(
+  ({ date, name, imageSrc, time }: BookingCardProps) => {
+    const statusBooking = getBookingStatus(date);
+    const chipColors = {
+      'bg-amber-400': statusBooking === BOOKING_STATUS.TODAY,
+      'bg-lime-600': statusBooking === BOOKING_STATUS.UPCOMING,
+      'bg-red-400': statusBooking === BOOKING_STATUS.EXPIRED,
+    };
 
-  return (
-    <CardBase>
-      <CardHeaderBase>
-        <Image
-          src={imageSrc}
-          alt={`Dr ${name}'s image`}
-          classNameWrapper={cn('rounded-full', 'w-[75px] h-[75px]')}
-        />
-      </CardHeaderBase>
-      <CardBodyBase>
-        <div className="flex flex-col md:items-center md:justify-center">
-          <div className="block md:hidden">
-            <Chip
-              className={cn('bg-amber-400 text-primary-500 py-4', chipColors)}
-            >
-              {statusBooking}
-            </Chip>
+    return (
+      <CardBase>
+        <CardHeaderBase>
+          <Image
+            src={imageSrc}
+            alt={`Dr ${name}'s image`}
+            classNameWrapper={cn('rounded-full', 'w-[75px] h-[75px]')}
+          />
+        </CardHeaderBase>
+        <CardBodyBase>
+          <div className="flex flex-col md:items-center md:justify-center">
+            <div className="block md:hidden">
+              <Chip
+                className={cn('bg-amber-400 text-primary-500 py-4', chipColors)}
+              >
+                {statusBooking}
+              </Chip>
+            </div>
+            <Text size="2xl" color="tertiary" className="md:text-center">
+              Dr {name}
+            </Text>
           </div>
-          <Text size="2xl" color="tertiary" className="md:text-center">
-            Dr {name}
-          </Text>
-        </div>
 
-        <div className="flex flex-col gap-4">
-          <Text size="2xs" color="holder">
-            Date:{' '}
-            <Text variants="span" color="tertiary">
-              {date}
-            </Text>
-          </Text>
-
-          <Text size="2xs" color="holder">
-            Time:{' '}
-            <Text variants="span" color="tertiary">
-              {time}
-            </Text>
-          </Text>
-
-          <div className="hidden md:flex gap-4">
+          <div className="flex flex-col gap-4">
             <Text size="2xs" color="holder">
-              Status:
+              Date:{' '}
+              <Text variants="span" color="tertiary">
+                {date}
+              </Text>
             </Text>
-            <Chip
-              className={cn('bg-amber-400 text-primary-500 py-4', chipColors)}
-            >
-              {statusBooking}
-            </Chip>
+
+            <Text size="2xs" color="holder">
+              Time:{' '}
+              <Text variants="span" color="tertiary">
+                {time}
+              </Text>
+            </Text>
+
+            <div className="hidden md:flex gap-4">
+              <Text size="2xs" color="holder">
+                Status:
+              </Text>
+              <Chip
+                className={cn('bg-amber-400 text-primary-500 py-4', chipColors)}
+              >
+                {statusBooking}
+              </Chip>
+            </div>
           </div>
-        </div>
-      </CardBodyBase>
-    </CardBase>
-  );
-};
+        </CardBodyBase>
+      </CardBase>
+    );
+  },
+);
+
+BookingCard.displayName = 'BookingCard';

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { memo, ReactNode } from 'react';
 
 // Utils
 import { cn } from '@/utils';
@@ -33,22 +33,26 @@ interface TextProps {
   children: ReactNode;
 }
 
-export const Text = ({
-  color = 'light',
-  size = 'base',
-  className,
-  variants = 'p',
-  children,
-  ...props
-}: TextProps) => {
-  const TagName = variants;
+export const Text = memo(
+  ({
+    color = 'light',
+    size = 'base',
+    className,
+    variants = 'p',
+    children,
+    ...props
+  }: TextProps) => {
+    const TagName = variants;
 
-  return (
-    <TagName
-      className={cn(TEXT_COLORS[color], TEXT_SIZES[size], className)}
-      {...props}
-    >
-      {children}
-    </TagName>
-  );
-};
+    return (
+      <TagName
+        className={cn(TEXT_COLORS[color], TEXT_SIZES[size], className)}
+        {...props}
+      >
+        {children}
+      </TagName>
+    );
+  },
+);
+
+Text.displayName = 'Text';

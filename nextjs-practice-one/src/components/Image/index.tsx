@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { memo, useState } from 'react';
 import ImageNext, { ImageProps } from 'next/image';
 
 // Constants
@@ -16,43 +16,47 @@ interface OptimizedImageProps extends ImageProps {
   alt: string;
 }
 
-export const Image = ({
-  fallbackSrc = IMAGES.FALLBACK_URL,
-  blurDataURL,
-  className,
-  classNameWrapper,
-  src,
-  alt,
-  ...props
-}: OptimizedImageProps) => {
-  const [imgSrc, setImgSrc] = useState<string | undefined>(src);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
+export const Image = memo(
+  ({
+    fallbackSrc = IMAGES.FALLBACK_URL,
+    blurDataURL,
+    className,
+    classNameWrapper,
+    src,
+    alt,
+    ...props
+  }: OptimizedImageProps) => {
+    const [imgSrc, setImgSrc] = useState<string | undefined>(src);
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
 
-  const handleError = useCallback(() => {
-    setImgSrc(fallbackSrc);
-  }, [fallbackSrc]);
+    const handleError = () => {
+      setImgSrc(fallbackSrc);
+    };
 
-  const handleLoad = useCallback(() => {
-    setIsImageLoaded(true);
-  }, []);
+    const handleLoad = () => {
+      setIsImageLoaded(true);
+    };
 
-  return (
-    <div className={cn('relative overflow-hidden', classNameWrapper)}>
-      <ImageNext
-        fill
-        src={imgSrc || fallbackSrc}
-        alt={alt}
-        onError={handleError}
-        onLoad={handleLoad}
-        placeholder="blur"
-        blurDataURL={blurDataURL || generateImageBase64(10, 10)}
-        className={cn(
-          'transition-opacity duration-300 ease-in-out',
-          isImageLoaded ? 'opacity-100' : 'opacity-70',
-          className,
-        )}
-        {...props}
-      />
-    </div>
-  );
-};
+    return (
+      <div className={cn('relative overflow-hidden', classNameWrapper)}>
+        <ImageNext
+          fill
+          src={imgSrc || fallbackSrc}
+          alt={alt}
+          onError={handleError}
+          onLoad={handleLoad}
+          placeholder="blur"
+          blurDataURL={blurDataURL || generateImageBase64(10, 10)}
+          className={cn(
+            'transition-opacity duration-300 ease-in-out',
+            isImageLoaded ? 'opacity-100' : 'opacity-70',
+            className,
+          )}
+          {...props}
+        />
+      </div>
+    );
+  },
+);
+
+Image.displayName = 'Image';
