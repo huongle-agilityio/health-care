@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
 
 // Components
 import { Card } from '.';
@@ -17,7 +16,7 @@ const meta = {
     experience: 2,
     rating: 4,
     imageSrc: '/images/dentist.webp',
-    onPress: fn(),
+    href: '/test',
   },
 } satisfies Meta<typeof Card>;
 

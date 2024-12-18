@@ -1,9 +1,10 @@
+import { memo } from 'react';
 import { Card, Skeleton } from '@nextui-org/react';
 
 // Utils
 import { cn } from '@/utils';
 
-export const CardSkeleton = () => (
+export const CardSkeleton = memo(() => (
   <Card
     className={cn(
       'py-10 lg:py-17 px-12 lg:px-0',
@@ -36,4 +37,6 @@ export const CardSkeleton = () => (
       </Skeleton>
     </div>
   </Card>
-);
+));
+
+CardSkeleton.displayName = 'CardSkeleton';

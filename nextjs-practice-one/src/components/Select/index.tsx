@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import {
   SelectItem,
   ListboxItemSlots,
@@ -76,17 +77,16 @@ interface SelectProps extends Omit<SelectNextUIProps, 'children'> {
   classNameItem?: SlotsToClasses<ListboxItemSlots>;
 }
 
-export const Select = ({
-  value,
-  options,
-  classNameItem,
-  ...props
-}: SelectProps) => (
-  <SelectBase value={value} labelPlacement="outside" {...props}>
-    {options.map((option) => (
-      <SelectItemBase key={option.value} classNames={classNameItem}>
-        {option.label}
-      </SelectItemBase>
-    ))}
-  </SelectBase>
+export const Select = memo(
+  ({ value, options, classNameItem, ...props }: SelectProps) => (
+    <SelectBase value={value} labelPlacement="outside" {...props}>
+      {options.map((option) => (
+        <SelectItemBase key={option.value} classNames={classNameItem}>
+          {option.label}
+        </SelectItemBase>
+      ))}
+    </SelectBase>
+  ),
 );
+
+Select.displayName = 'Select';

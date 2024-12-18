@@ -1,10 +1,10 @@
 'use client';
 
+import { ComponentProps, memo } from 'react';
 import { extendVariants, Button as ButtonNextUI } from '@nextui-org/react';
 
 // Utils
 import { cn } from '@/utils';
-import { ComponentProps } from 'react';
 
 export const ButtonBase = extendVariants(ButtonNextUI, {
   variants: {
@@ -38,12 +38,13 @@ export const ButtonBase = extendVariants(ButtonNextUI, {
   },
 });
 
-export const Button = ({
-  className,
-  ...props
-}: ComponentProps<typeof ButtonBase>) => (
-  <ButtonBase
-    className={cn('data-[pressed=true]:scale-[1]', className)}
-    {...props}
-  />
+export const Button = memo(
+  ({ className, ...props }: ComponentProps<typeof ButtonBase>) => (
+    <ButtonBase
+      className={cn('data-[pressed=true]:scale-[1]', className)}
+      {...props}
+    />
+  ),
 );
+
+Button.displayName = 'Button';
