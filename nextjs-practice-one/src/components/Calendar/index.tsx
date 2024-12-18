@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import { getLocalTimeZone, isWeekend, today } from '@internationalized/date';
 import { useLocale } from '@react-aria/i18n';
 import {
@@ -56,7 +57,7 @@ export interface CalendarProps extends CalendarNextUIProps {
   size?: 'md' | 'lg';
 }
 
-export const Calendar = ({ value, error, ...props }: CalendarProps) => {
+export const Calendar = memo(({ value, error, ...props }: CalendarProps) => {
   const { locale } = useLocale();
   const now = today(getLocalTimeZone());
 
@@ -81,4 +82,6 @@ export const Calendar = ({ value, error, ...props }: CalendarProps) => {
       )}
     </div>
   );
-};
+});
+
+Calendar.displayName = 'Calendar';

@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import {
   Card as CardNextUI,
   CardHeader,
@@ -88,74 +89,71 @@ interface CardProps {
   };
 }
 
-export const Card = ({
-  specialty,
-  name,
-  imageSrc,
-  experience,
-  rating,
-  href,
-}: CardProps) => (
-  <CardBase>
-    <CardHeaderBase>
-      <Image
-        src={imageSrc}
-        alt={`Dr ${name}'s image`}
-        classNameWrapper={cn(
-          'rounded-full',
-          'w-[75px] h-[75px]',
-          'md:w-[150px] md:h-[150px]',
-        )}
-      />
-    </CardHeaderBase>
-    <CardBodyBase>
-      <div>
-        <Text size="2xl" color="tertiary" className="md:text-center">
-          Dr {name}
-        </Text>
-
-        <div className="pt-5 flex gap-[15px]">
-          <div className="flex gap-3">
-            <StethoscopeIcon />
-            <Text size="xs" color="holder">
-              {specialty}
-            </Text>
-          </div>
-
-          <div className="flex gap-3">
-            <HourglassIcon />
-            <Text size="xs" color="holder">
-              {experience} Years
-            </Text>
-          </div>
-        </div>
-
-        <div className="flex gap-6 pt-4 md:pt-[30px]">
-          <Text size="xs" color="holder">
-            Ratings:
+export const Card = memo(
+  ({ specialty, name, imageSrc, experience, rating, href }: CardProps) => (
+    <CardBase>
+      <CardHeaderBase>
+        <Image
+          src={imageSrc}
+          alt={`Dr ${name}'s image`}
+          classNameWrapper={cn(
+            'rounded-full',
+            'w-[75px] h-[75px]',
+            'md:w-[150px] md:h-[150px]',
+          )}
+        />
+      </CardHeaderBase>
+      <CardBodyBase>
+        <div>
+          <Text size="2xl" color="tertiary" className="md:text-center">
+            Dr {name}
           </Text>
-          <Rating value={rating} />
+
+          <div className="pt-5 flex gap-[15px]">
+            <div className="flex gap-3">
+              <StethoscopeIcon />
+              <Text size="xs" color="holder">
+                {specialty}
+              </Text>
+            </div>
+
+            <div className="flex gap-3">
+              <HourglassIcon />
+              <Text size="xs" color="holder">
+                {experience} Years
+              </Text>
+            </div>
+          </div>
+
+          <div className="flex gap-6 pt-4 md:pt-[30px]">
+            <Text size="xs" color="holder">
+              Ratings:
+            </Text>
+            <Rating value={rating} />
+          </div>
         </div>
-      </div>
 
-      <Link href={href}>
-        <Button
-          size="xs"
-          color="bordered"
-          variant="bordered"
-          className="md:hidden"
-        >
-          Book
-        </Button>
-      </Link>
-    </CardBodyBase>
+        <Link href={href}>
+          <Button
+            size="xs"
+            color="bordered"
+            variant="bordered"
+            className="md:hidden"
+          >
+            Book
+          </Button>
+        </Link>
+      </CardBodyBase>
 
-    <CardFooterBase>
-      <Link href={href}>
-        <Button color="bordered" variant="bordered">
-          Book Appointment
-        </Button>
-      </Link>
-    </CardFooterBase>
-  </CardBase>
+      <CardFooterBase>
+        <Link href={href}>
+          <Button color="bordered" variant="bordered">
+            Book Appointment
+          </Button>
+        </Link>
+      </CardFooterBase>
+    </CardBase>
+  ),
 );
+
+Card.displayName = 'Card';

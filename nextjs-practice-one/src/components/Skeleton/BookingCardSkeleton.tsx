@@ -1,9 +1,10 @@
+import { memo } from 'react';
 import { Card, Skeleton } from '@nextui-org/react';
 
 // Utils
 import { cn } from '@/utils';
 
-export const BookingCardSkeleton = () => (
+export const BookingCardSkeleton = memo(() => (
   <Card
     className={cn(
       'w-full md:w-[230px] h-[168px] md:h-[275px]',
@@ -24,4 +25,6 @@ export const BookingCardSkeleton = () => (
       </Skeleton>
     </div>
   </Card>
-);
+));
+
+BookingCardSkeleton.displayName = 'BookingCardSkeleton';

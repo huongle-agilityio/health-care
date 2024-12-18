@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -54,10 +54,13 @@ export const FormLogin = () => {
   const { setUser } = useUserStore();
   const { showToast } = useToastStore();
 
-  const initialState = {
-    email: '',
-    password: '',
-  };
+  const initialState = useMemo(
+    () => ({
+      email: '',
+      password: '',
+    }),
+    [],
+  );
 
   const {
     control,
@@ -87,9 +90,9 @@ export const FormLogin = () => {
     }
   };
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     reset(initialState);
-  };
+  }, [initialState, reset]);
 
   return (
     <>
