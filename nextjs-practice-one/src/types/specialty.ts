@@ -6,4 +6,4 @@ export interface Specialty {
   documentId?: string;
 }
 
-export type SpecialtyResponse = ApiPaginationResponse<Specialty[]>;
+export type SpecialtyResponse = ApiPaginationResponse<Specialty>;

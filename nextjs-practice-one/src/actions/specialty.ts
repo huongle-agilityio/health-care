@@ -7,8 +7,25 @@ import { API_ENDPOINT } from '@/constants';
 // Types
 import { SpecialtyResponse } from '@/types';
 
-export const getSpecialties = async () => {
-  const data = await httpClient.get<SpecialtyResponse>(API_ENDPOINT.SPECIALTY);
+// Utils
+import { getErrorMessage } from '@/utils';
 
-  return data;
+export const getSpecialties = async () => {
+  try {
+    const data = await httpClient.get<SpecialtyResponse>(
+      API_ENDPOINT.SPECIALTY,
+    );
+
+    return {
+      data: data.data,
+      meta: data.meta,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      data: [],
+      meta: { pagination: { page: 0, pageCount: 0 } },
+      error: getErrorMessage(error),
+    };
+  }
 };
