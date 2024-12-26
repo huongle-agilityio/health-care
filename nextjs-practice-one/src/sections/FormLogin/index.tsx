@@ -30,7 +30,7 @@ import { useToastStore, useUserStore } from '@/stores';
 // Utils
 import { getErrorMessage } from '@/utils';
 
-const FormSchema = z.object({
+const formSchema = z.object({
   email: z
     .string()
     .min(1, { message: ERROR_MESSAGES.REQUIRED })
@@ -67,13 +67,13 @@ export const FormLogin = () => {
     clearErrors,
     reset,
     handleSubmit: submitForm,
-  } = useForm<z.infer<typeof FormSchema>>({
+  } = useForm<z.infer<typeof formSchema>>({
     mode: 'onChange',
-    resolver: zodResolver(FormSchema),
+    resolver: zodResolver(formSchema),
     defaultValues: initialState,
   });
 
-  const handleSubmit = async (data: z.infer<typeof FormSchema>) => {
+  const handleSubmit = async (data: z.infer<typeof formSchema>) => {
     const payload = { identifier: data.email, ...data };
 
     try {
