@@ -19,8 +19,8 @@ const Page = async ({
 
   return (
     <>
-      <div className="bg-primary-100">
-        <div className="container flex h-[919px]">
+      <div className="bg-primary-100 h-[919px]">
+        <div className="container flex">
           <div className="w-[585px] pt-20 md:pt-[194px] md:pb-[403px]">
             <div className="flex flex-col gap-8">
               <Text
@@ -44,13 +44,13 @@ const Page = async ({
             src="/images/doctor.webp"
             classNameWrapper={cn(
               'hidden xl:block',
-              'min-w-[800px] h-full absolute right-0',
+              'min-w-[800px] h-[919px] absolute right-0',
             )}
           />
         </div>
       </div>
       <div className="container relative mb-19">
-        <div className="container absolute top-[-270px] 2xl:top-[-195px]">
+        <div className="w-full max-w-[1360px] absolute top-[-270px] 2xl:top-[-195px]">
           <FilterDoctors
             specialty={specialty}
             rating={rating}
