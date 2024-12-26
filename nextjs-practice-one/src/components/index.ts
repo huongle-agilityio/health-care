@@ -13,3 +13,4 @@ export * from './Card';
 export * from './InputController';
 export * from './SelectController';
 export * from './CalendarController';
+export * from './Skeleton';
