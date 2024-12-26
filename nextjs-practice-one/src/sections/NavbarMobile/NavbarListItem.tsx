@@ -1,4 +1,3 @@
-import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
 // Utils
@@ -8,14 +7,17 @@ import { cn } from '@/utils';
 import { OptionMenu } from '@/types';
 
 interface NavbarMobileItemProps {
+  pathname: string;
   options: OptionMenu[];
   onClose: () => void;
 }
 
-export const NavbarListItem = ({ options, onClose }: NavbarMobileItemProps) => {
-  const pathname = usePathname();
-
-  return options.map(({ title, url, icon: Icon, action }, index) => (
+export const NavbarListItem = ({
+  pathname,
+  options,
+  onClose,
+}: NavbarMobileItemProps) =>
+  options.map(({ title, url, icon: Icon, action }, index) => (
     <div
       key={`${title}-${index}`}
       className={cn(
@@ -38,4 +40,3 @@ export const NavbarListItem = ({ options, onClose }: NavbarMobileItemProps) => {
       )}
     </div>
   ));
-};

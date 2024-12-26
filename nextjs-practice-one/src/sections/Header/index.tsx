@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 // Constants
 import { NAVIGATION_ITEMS, ROUTERS } from '@/constants';
@@ -21,43 +22,54 @@ import { cn } from '@/utils';
 
 const MenuAuth = withLogoutModal(HeaderAuth);
 
-export const Header = () => (
-  <header
-    className={cn(
-      'sticky top-0 h-21 xl:h-[128px] z-10',
-      'border-b bg-background-100',
-    )}
-  >
-    <nav
+export const Header = () => {
+  const pathname = usePathname();
+
+  return (
+    <header
       className={cn(
-        'relative',
-        'container mx-auto h-full',
-        'flex items-center gap-[56px] xl:justify-start',
+        'sticky top-0 h-21 xl:h-[128px] z-10',
+        'border-b bg-background-100',
       )}
     >
-      <NavBarMobile />
-      <Link
-        href={ROUTERS.HOME}
-        className="flex gap-4 items-center m-auto lg:m-0"
+      <nav
+        className={cn(
+          'relative',
+          'container mx-auto h-full',
+          'flex items-center gap-[56px] xl:justify-start',
+        )}
       >
-        <LogoIcon />
-        <Text size="2xl" color="primary">
-          CareMate
-        </Text>
-      </Link>
+        <NavBarMobile />
+        <Link
+          href={ROUTERS.HOME}
+          className="flex gap-4 items-center m-auto lg:m-0"
+        >
+          <LogoIcon />
+          <Text size="2xl" color="primary">
+            CareMate
+          </Text>
+        </Link>
 
-      <div className={cn('hidden xl:flex', 'w-full justify-between')}>
-        <div className="flex gap-17 items-center">
-          {NAVIGATION_ITEMS.map(({ url = '', title }, index) => (
-            <Link key={`nav-${index}`} href={url}>
-              <Text color="holder" className="hover:text-primary-100">
-                {title}
-              </Text>
-            </Link>
-          ))}
+        <div className={cn('hidden xl:flex', 'w-full justify-between')}>
+          <div className="flex gap-17 items-center">
+            {NAVIGATION_ITEMS.map(({ url = '', title }, index) => {
+              const isActive = url === pathname;
+
+              return (
+                <Link key={`nav-${index}`} href={url}>
+                  <Text
+                    color={isActive ? 'primary' : 'holder'}
+                    className="hover:text-primary-100"
+                  >
+                    {title}
+                  </Text>
+                </Link>
+              );
+            })}
+          </div>
+          <MenuAuth />
         </div>
-        <MenuAuth />
-      </div>
-    </nav>
-  </header>
-);
+      </nav>
+    </header>
+  );
+};

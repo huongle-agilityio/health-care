@@ -8,6 +8,7 @@ import {
   useDisclosure,
 } from '@nextui-org/react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { NAVIGATION_ITEMS, ROUTERS } from '@/constants';
 
@@ -46,6 +47,7 @@ const NavBarMobileBase = extendVariants(ModalNextUI, {
 const LogoutButton = withLogoutModal(Button);
 
 export const NavBarMobile = () => {
+  const pathname = usePathname();
   const { isAuthenticated } = useUserStore();
   const { isOpen, onOpenChange } = useDisclosure();
 
@@ -77,7 +79,11 @@ export const NavBarMobile = () => {
             {(onClose) => (
               <ModalBody className="pt-25 px-12 gap-12">
                 <div className="flex flex-col gap-12">
-                  <NavbarListItem options={options} onClose={onClose} />
+                  <NavbarListItem
+                    pathname={pathname}
+                    options={options}
+                    onClose={onClose}
+                  />
 
                   {isAuthenticated ? (
                     <LogoutButton size="xs">Logout</LogoutButton>
