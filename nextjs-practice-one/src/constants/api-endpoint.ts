@@ -4,6 +4,9 @@ export const API_ENDPOINT = {
   SIGN_IN: 'api/auth/local',
   SIGN_UP: 'api/auth/local/register',
 
-  DOCTOR: 'api/doctors',
+  // Specialty
   SPECIALTY: 'api/specialties',
+
+  // Doctor
+  DOCTOR: 'api/doctors',
 };

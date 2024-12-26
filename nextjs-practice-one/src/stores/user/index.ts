@@ -1,3 +1,5 @@
+'use client';
+
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
@@ -12,15 +14,23 @@ export const useUserStore = create<UserStore>()(
     persist(
       (set) => ({
         user: null,
+        isAuthenticated: false,
+
+        setAuthenticated: (isAuthenticated) => {
+          set({ isAuthenticated });
+        },
+
         setUser: (user) => {
           set(() => ({
             user,
           }));
         },
+
         logout: () => {
           sessionStorage.clear();
           set(() => ({
             user: null,
+            isAuthenticated: false,
           }));
         },
       }),

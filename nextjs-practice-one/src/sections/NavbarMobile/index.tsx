@@ -22,6 +22,9 @@ import { CloseIcon, OutlineBurgerIcon, SettingIcon } from '@/icons';
 // HOCs
 import { withLogoutModal } from '@/hocs';
 
+// Stores
+import { useUserStore } from '@/stores';
+
 // Utils
 import { cn } from '@/utils';
 
@@ -45,10 +48,8 @@ const LogoutButton = withLogoutModal(Button);
 
 export const NavBarMobile = () => {
   const pathname = usePathname();
+  const { isAuthenticated } = useUserStore();
   const { isOpen, onOpenChange } = useDisclosure();
-
-  // TODO: Will update feature authentication
-  const isAuthenticated = true;
 
   const options = isAuthenticated
     ? [
