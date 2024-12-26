@@ -1,4 +1,3 @@
-import { fn } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/react';
 
 // Components
@@ -14,7 +13,6 @@ const meta = {
   args: {
     page: 2,
     total: 10,
-    onChange: fn(),
   },
 } satisfies Meta<typeof Pagination>;
 

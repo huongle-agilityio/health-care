@@ -1,10 +1,11 @@
 'use client';
 
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import {
   extendVariants,
   Pagination as PaginationNextUI,
 } from '@nextui-org/react';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
 // Components
 import { Button } from '../Button';
@@ -46,59 +47,57 @@ const PaginationBase = memo(
 interface PaginationProps {
   page: number;
   total: number;
-  onChange: () => void;
 }
 
-export const Pagination = memo(
-  ({ page = 1, total, onChange }: PaginationProps) => {
-    const [currentPage, setCurrentPage] = useState<number>(page);
+export const Pagination = memo(({ page = 1, total }: PaginationProps) => {
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  const searchParams = useSearchParams();
 
-    const handlePrevPage = useCallback(() => {
-      setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
-      onChange();
-    }, [onChange]);
+  const params = useMemo(
+    () => new URLSearchParams(searchParams.toString()),
+    [searchParams],
+  );
 
-    const handleNextPage = useCallback(() => {
-      setCurrentPage((prev) => (prev < total ? prev + 1 : prev));
-      onChange();
-    }, [onChange, total]);
+  const handleSetPage = useCallback(
+    (value: number) => {
+      params.set('page', value.toString());
+      replace(`${pathname}?${params.toString()}`);
+    },
+    [pathname, params, replace],
+  );
 
-    const handleSetPage = useCallback(
-      (value: number) => {
-        setCurrentPage(value);
-        onChange();
-      },
-      [onChange],
-    );
+  const handlePrevPage = useCallback(() => {
+    handleSetPage(page - 1);
+  }, [handleSetPage, page]);
 
-    return (
-      <div className="flex items-center">
-        <Button
-          size="none"
-          color="bordered"
-          variant="bordered"
-          className="group text-primary-400 hover:text-primary-100 border-0"
-          onPress={handlePrevPage}
-        >
-          <ArrowLeftIcon className="group-hover:fill-primary-100" /> Previous
-        </Button>
-        <PaginationBase
-          page={currentPage}
-          total={total}
-          onChange={handleSetPage}
-        />
-        <Button
-          size="none"
-          variant="bordered"
-          color="bordered"
-          className="group text-primary-400 hover:text-primary-100 border-0"
-          onPress={handleNextPage}
-        >
-          Next <ArrowRightIcon className="group-hover:fill-primary-100" />
-        </Button>
-      </div>
-    );
-  },
-);
+  const handleNextPage = useCallback(() => {
+    handleSetPage(page + 1);
+  }, [handleSetPage, page]);
+
+  return (
+    <div className="flex items-center">
+      <Button
+        size="none"
+        color="bordered"
+        variant="bordered"
+        className="group text-primary-400 hover:text-primary-100 border-0"
+        onPress={handlePrevPage}
+      >
+        <ArrowLeftIcon className="group-hover:fill-primary-100" /> Previous
+      </Button>
+      <PaginationBase page={page} total={total} onChange={handleSetPage} />
+      <Button
+        size="none"
+        variant="bordered"
+        color="bordered"
+        className="group text-primary-400 hover:text-primary-100 border-0"
+        onPress={handleNextPage}
+      >
+        Next <ArrowRightIcon className="group-hover:fill-primary-100" />
+      </Button>
+    </div>
+  );
+});
 
 Pagination.displayName = 'Pagination';
