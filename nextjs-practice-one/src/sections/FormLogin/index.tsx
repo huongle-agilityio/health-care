@@ -30,7 +30,7 @@ import { useToastStore, useUserStore } from '@/stores';
 // Utils
 import { getErrorMessage } from '@/utils';
 
-export const FormSchema = z.object({
+const FormSchema = z.object({
   email: z
     .string()
     .min(1, { message: ERROR_MESSAGES.REQUIRED })
@@ -51,7 +51,7 @@ export const FormLogin = () => {
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
   // Stores
-  const { setUser } = useUserStore();
+  const { setUser, setAuthenticated } = useUserStore();
   const { showToast } = useToastStore();
 
   const initialState = useMemo(
@@ -82,6 +82,7 @@ export const FormLogin = () => {
       sessionStorage.setItem(SESSION_STORAGE_KEYS.TOKEN, data.jwt);
 
       setUser(data.user);
+      setAuthenticated(true);
       router.push(ROUTERS.HOME);
     } catch (error) {
       showToast({
