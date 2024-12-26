@@ -39,7 +39,7 @@ export const DoctorInfo = memo(
         <div className="flex gap-3">
           <StethoscopeIcon />
           <Text size="xs" color="holder">
-            {specialty?.name}
+            {specialty?.name || ''}
           </Text>
         </div>
 

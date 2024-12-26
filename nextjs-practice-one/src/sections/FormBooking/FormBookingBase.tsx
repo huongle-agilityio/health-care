@@ -14,6 +14,7 @@ import { getTimeDoctorSlot } from '@/actions';
 import { DoctorInfo } from './DoctorInfo';
 import {
   Button,
+  TimeSlotsSkeleton,
   CalendarController,
   InputController,
   SelectController,
@@ -30,7 +31,7 @@ import { useToastStore } from '@/stores';
 import { Doctor, DoctorTimeSlots } from '@/types';
 
 // Utils
-import { cn, getStatusTimeSlots } from '@/utils';
+import { getStatusTimeSlots } from '@/utils';
 
 const GENDER = [
   {
@@ -43,7 +44,7 @@ const GENDER = [
   },
 ];
 
-const FormSchema = z.object({
+const formSchema = z.object({
   time: z.string().min(1, { message: ERROR_MESSAGES.REQUIRED }),
   name: z.string().min(1, { message: ERROR_MESSAGES.REQUIRED }),
   date: z.string().min(1, { message: ERROR_MESSAGES.REQUIRED }),
@@ -73,7 +74,7 @@ export const FormBookingBase = ({ doctorId, doctor }: FormBookingBaseProps) => {
   const [timeSlots, setTimeSlots] = useState<DoctorTimeSlots[]>([]);
 
   const { showToast } = useToastStore();
-  const today = useMemo(() => dayjs().format('YYYY-MM-DD'), []);
+  const today = dayjs().format('YYYY-MM-DD');
 
   const initialState = useMemo(
     () => ({
@@ -93,9 +94,9 @@ export const FormBookingBase = ({ doctorId, doctor }: FormBookingBaseProps) => {
     clearErrors,
     watch,
     handleSubmit: submitForm,
-  } = useForm<z.infer<typeof FormSchema>>({
+  } = useForm<z.infer<typeof formSchema>>({
     mode: 'onChange',
-    resolver: zodResolver(FormSchema),
+    resolver: zodResolver(formSchema),
     defaultValues: initialState,
   });
 
@@ -138,22 +139,12 @@ export const FormBookingBase = ({ doctorId, doctor }: FormBookingBaseProps) => {
           />
           <div>
             {isLoading ? (
-              <div className="flex flex-col gap-6">
-                <Skeleton className={cn('rounded-xl', 'w-[110px] h-[20px]')}>
-                  <div className="bg-default-300" />
-                </Skeleton>
-                <Skeleton className={cn('rounded-xl', 'w-[110px] h-[20px]')}>
-                  <div className="bg-default-300" />
-                </Skeleton>
-                <Skeleton className={cn('rounded-xl', 'w-[110px] h-[20px]')}>
-                  <div className="bg-default-300" />
-                </Skeleton>
-              </div>
+              <TimeSlotsSkeleton />
             ) : (
               <CheckboxController
                 control={control}
                 name="time"
-                options={getStatusTimeSlots(timeSlots) || []}
+                options={getStatusTimeSlots(timeSlots)}
                 clearErrors={clearErrors}
               />
             )}
