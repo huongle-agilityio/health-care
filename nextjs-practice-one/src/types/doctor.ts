@@ -1,5 +1,6 @@
 import { Specialty } from './specialty';
 import { ApiPaginationResponse } from './api';
+import { TimeSlot } from './timeSlot';
 
 export interface DoctorFilterParams {
   page?: string;
@@ -13,8 +14,8 @@ export interface DoctorFilterParams {
 export interface DoctorTimeSlots {
   id: number;
   documentId?: string;
-  isAvailable: boolean;
   date: string;
+  timeSlotId: TimeSlot;
 }
 
 export interface Doctor {
@@ -33,3 +34,4 @@ export interface Doctor {
 }
 
 export type DoctorResponse = ApiPaginationResponse<Doctor>;
+export type DoctorTimeSlotsResponse = ApiPaginationResponse<DoctorTimeSlots>;

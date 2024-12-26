@@ -37,4 +37,7 @@ export const QUERY_URL = {
       page,
       pageSize,
     )}`,
+  DOCTOR_BY_ID: (id: string) => `/${id}?populate[specialty][fields][0]=name`,
+  DOCTOR_TIME_SLOT: (doctorId: string, date: string) =>
+    `?filters[date][$eq]=${date}&populate[timeSlotId][fields][0]=time&filters[doctorId][documentId][$eq]=${doctorId}`,
 };
