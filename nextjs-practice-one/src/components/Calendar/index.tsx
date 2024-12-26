@@ -1,7 +1,12 @@
 'use client';
 
 import { memo } from 'react';
-import { getLocalTimeZone, isWeekend, today } from '@internationalized/date';
+import {
+  getLocalTimeZone,
+  isWeekend,
+  parseDate,
+  today,
+} from '@internationalized/date';
 import { useLocale } from '@react-aria/i18n';
 import {
   Calendar as CalendarNextUI,
@@ -70,13 +75,14 @@ export const Calendar = memo(({ value, error, ...props }: CalendarProps) => {
   return (
     <div className="flex-col">
       <CalendarBase
-        value={value}
+        disableAnimation
+        value={value ? parseDate(value.toString()) : now}
         isDateUnavailable={isDateUnavailable}
         defaultValue={today(getLocalTimeZone())}
         {...props}
       />
       {error && (
-        <Text size="3xs" color="error">
+        <Text size="xs" color="error">
           {error}
         </Text>
       )}

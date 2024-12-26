@@ -35,6 +35,7 @@ const SelectBase = extendVariants(SelectNextUI, {
         trigger: cn(
           'h-21 px-12 py-10 rounded-xl',
           'group-data-[invalid=true]:data-[hover=true]:bg-red-50',
+          'group-data-[invalid=true]:bg-red-200',
           {
             'group-data-[invalid=true]': 'bg-red-200 border-red-500 border-1',
           },
@@ -43,7 +44,7 @@ const SelectBase = extendVariants(SelectNextUI, {
           'w-9 h-9 mr-6',
           'group-data-[invalid=true]:text-red-500',
         ),
-        errorMessage: cn('mt-4 ml-4', 'text-3xs text-danger-100'),
+        errorMessage: cn('mt-4 ml-4', 'text-xs text-danger-100'),
       },
     },
   },

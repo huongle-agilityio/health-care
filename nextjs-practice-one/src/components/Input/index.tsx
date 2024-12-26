@@ -23,7 +23,7 @@ export const Input = memo(
             'group-data-[invalid=true]:text-red-500 group-data-[invalid=true]:placeholder:text-red-500',
             'group-data-[has-value=true]:text-primary-300 placeholder:text-primary-400',
           ),
-          errorMessage: cn('text-3xs text-danger-100'),
+          errorMessage: cn('text-xs text-danger-100'),
           label: cn(
             'text-xs',
             'group-data-[invalid=true]:text-primary-400',
