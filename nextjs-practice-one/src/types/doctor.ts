@@ -1,6 +1,15 @@
 import { Specialty } from './specialty';
 import { ApiPaginationResponse } from './api';
 
+export interface DoctorFilterParams {
+  page?: string;
+  pageSize?: string;
+  rating?: string;
+  experience?: string;
+  fee?: string;
+  specialty?: string;
+}
+
 export interface DoctorTimeSlots {
   id: number;
   documentId?: string;

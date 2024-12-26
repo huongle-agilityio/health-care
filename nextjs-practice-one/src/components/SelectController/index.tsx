@@ -56,13 +56,13 @@ export const SelectController = <T extends FieldValues, K extends Path<T>>({
       ref={ref}
       label={label}
       options={options}
-      value={value}
       onBlur={onBlur}
       isDisabled={isDisabled}
       isInvalid={!!error?.message}
       onSelectionChange={handleOnChange}
       errorMessage={error?.message}
       {...props}
+      value={value}
     />
   );
 };
