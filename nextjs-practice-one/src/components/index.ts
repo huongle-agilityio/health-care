@@ -9,7 +9,7 @@ export * from './Pagination';
 export * from './Popover';
 export * from './Rating';
 export * from './Toast';
+export * from './Card';
 export * from './InputController';
 export * from './SelectController';
 export * from './CalendarController';
-export * from './Card';

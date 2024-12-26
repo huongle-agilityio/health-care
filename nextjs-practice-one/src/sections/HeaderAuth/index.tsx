@@ -14,6 +14,9 @@ import { UserIcon } from '@/icons';
 // HOCs
 import { withOptionsPopover } from '@/hocs';
 
+// Stores
+import { useUserStore } from '@/stores';
+
 interface HeaderAuthProps {
   // function handle logout
   onClick?: () => void;
@@ -22,8 +25,7 @@ interface HeaderAuthProps {
 const UserProfile = withOptionsPopover(UserIcon);
 
 export const HeaderAuth = ({ onClick }: HeaderAuthProps) => {
-  // TODO: Will update feature authentication
-  const isAuthenticated = true;
+  const { isAuthenticated } = useUserStore();
 
   return (
     <div className="flex gap-8">

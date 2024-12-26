@@ -1,4 +1,5 @@
 'use client';
+
 import {
   extendVariants,
   ModalBody,
@@ -19,6 +20,9 @@ import { CloseIcon, OutlineBurgerIcon, SettingIcon } from '@/icons';
 
 // HOCs
 import { withLogoutModal } from '@/hocs';
+
+// Stores
+import { useUserStore } from '@/stores';
 
 // Utils
 import { cn } from '@/utils';
@@ -42,10 +46,8 @@ const NavBarMobileBase = extendVariants(ModalNextUI, {
 const LogoutButton = withLogoutModal(Button);
 
 export const NavBarMobile = () => {
+  const { isAuthenticated } = useUserStore();
   const { isOpen, onOpenChange } = useDisclosure();
-
-  // TODO: Will update feature authentication
-  const isAuthenticated = true;
 
   const options = isAuthenticated
     ? [
