@@ -3,11 +3,13 @@ import { ApiPaginationResponse } from './api';
 import { TimeSlot } from './timeSlot';
 
 export interface DoctorFilterParams {
-  page?: string;
-  pageSize?: string;
-  rating?: string;
+  page?: number;
+  pageSize?: number;
+  rating?: number;
   experience?: string;
-  fee?: string;
+  expStart?: number;
+  expEnd?: number;
+  fee?: number;
   specialty?: string;
 }
 
