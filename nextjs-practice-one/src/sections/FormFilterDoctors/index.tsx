@@ -45,10 +45,10 @@ export const FormFilterDoctors = ({
 
   const initialState = useMemo(
     () => ({
-      specialty: specialty || '',
-      rating: rating || '',
-      experience: experience || '',
-      fee: fee || '0',
+      specialty: specialty,
+      rating: rating,
+      experience: experience,
+      fee: fee,
     }),
     [experience, fee, rating, specialty],
   );

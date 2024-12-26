@@ -13,21 +13,22 @@ import { DoctorFilterParams, DoctorResponse } from '@/types';
 import { getErrorMessage, getExperienceRange } from '@/utils';
 
 export const getDoctors = async ({
-  specialty = '',
-  rating = '',
+  specialty,
+  rating,
   experience = '',
-  fee = '',
+  fee,
   page,
 }: DoctorFilterParams) => {
   try {
     const { expEnd, expStart } = getExperienceRange(experience);
+
     const data = await httpClient.get<DoctorResponse>(
       `${API_ENDPOINT.DOCTOR}${QUERY_URL.DOCTORS({
         specialty,
         rating,
         expEnd,
         expStart,
-        fee: fee === '0' ? '' : fee,
+        fee,
         page,
       })}`,
     );
