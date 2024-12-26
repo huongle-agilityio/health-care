@@ -7,8 +7,3 @@ export interface Specialty {
 }
 
 export type SpecialtyResponse = ApiPaginationResponse<Specialty>;
-export interface Specialty {
-  id: number;
-  name: string;
-  documentId?: string;
-}

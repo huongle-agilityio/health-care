@@ -22,12 +22,11 @@ const SelectBase = extendVariants(SelectNextUI, {
       default: {
         base: 'h-fit',
         label: cn(
-          'pb-8',
+          'pb-8 z-1',
           'text-xs',
           'group-data-[invalid=true]:text-primary-400',
           'group-data-[filled=true]:text-primary-400 after:text-primary-400',
         ),
-        innerWrapper: cn('mr-17'),
         value: cn(
           'text-xs',
           'group-data-[invalid=true]:text-red-500',
@@ -71,15 +70,16 @@ const SelectItemBase = extendVariants(SelectItem, {
   },
 });
 
-interface SelectProps extends Omit<SelectNextUIProps, 'children'> {
+interface SelectProps extends Omit<SelectNextUIProps, 'children' | 'value'> {
+  value?: string;
   options: Option[];
   'aria-label': string;
   classNameItem?: SlotsToClasses<ListboxItemSlots>;
 }
 
 export const Select = memo(
-  ({ value, options, classNameItem, ...props }: SelectProps) => (
-    <SelectBase value={value} labelPlacement="outside" {...props}>
+  ({ value = '', options, classNameItem, ...props }: SelectProps) => (
+    <SelectBase selectedKeys={[value]} labelPlacement="outside" {...props}>
       {options.map((option) => (
         <SelectItemBase key={option.value} classNames={classNameItem}>
           {option.label}
