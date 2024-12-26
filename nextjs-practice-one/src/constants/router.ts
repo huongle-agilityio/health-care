@@ -5,7 +5,8 @@ export const ROUTERS = {
 
   // Appointments
   APPOINTMENTS: '/appointments',
-  BOOKING_APPOINTMENTS: '/appointments/booking-appointments',
+  BOOKING_APPOINTMENTS: (doctorId: string) =>
+    `/appointments/${doctorId}/booking-appointments`,
 
   HEALTH_BLOG: '/health-blog',
   REVIEWS: '/reviews',
