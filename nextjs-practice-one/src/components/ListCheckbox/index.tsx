@@ -27,9 +27,9 @@ export const ListCheckbox = ({
 }) => (
   <div className="flex flex-col gap-4">
     <div className={cn('flex flex-col gap-6', className)}>
-      {options.map(({ value, label, isAvailable }) => (
+      {options.map(({ value, label, isDisabled }) => (
         <Checkbox
-          isDisabled={isAvailable}
+          isDisabled={isDisabled}
           size="lg"
           key={`option-${value}`}
           value={value}

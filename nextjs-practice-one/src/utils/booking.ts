@@ -37,7 +37,7 @@ export const formatTimeSlotOption = (
 export const getStatusTimeSlots = (data: DoctorTimeSlots[]) =>
   BOOKING_TIMES.map((bookingTime) => ({
     ...bookingTime,
-    isAvailable: formatTimeSlotOption(data).some(
+    isDisabled: formatTimeSlotOption(data).some(
       (item) => item.time === bookingTime.value,
     ),
   }));

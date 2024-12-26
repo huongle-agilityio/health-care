@@ -19,7 +19,7 @@ export interface Option {
 }
 
 export interface OptionCheckBox extends Option {
-  isAvailable: boolean;
+  isDisabled: boolean;
 }
 
 // Popover

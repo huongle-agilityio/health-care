@@ -102,7 +102,7 @@ export const FormBookingBase = ({ doctorId, doctor }: FormBookingBaseProps) => {
   const date = watch('date');
 
   const handleSubmit = () => {
-    // console.log('data', data);
+    // TODO: update submit form
   };
 
   useEffect(() => {
