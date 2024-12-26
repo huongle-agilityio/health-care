@@ -49,7 +49,7 @@ const Page = async ({
           />
         </div>
       </div>
-      <div className="container relative mb-19">
+      <div className="container relative">
         <div className="w-full max-w-[1360px] absolute top-[-270px] 2xl:top-[-195px]">
           <FilterDoctors
             specialty={specialty}
