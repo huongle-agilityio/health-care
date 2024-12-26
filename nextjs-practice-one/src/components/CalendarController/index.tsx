@@ -39,7 +39,7 @@ export const CalendarController = <T extends FieldValues, K extends Path<T>>({
    */
   const handleOnChange = useCallback(
     (text: DateValue) => {
-      onChange(dayjs(text.toString()).format('MM/DD/YYYY'));
+      onChange(dayjs(text.toString()).format('YYYY-MM-DD'));
       clearErrors();
     },
     [clearErrors, onChange],
