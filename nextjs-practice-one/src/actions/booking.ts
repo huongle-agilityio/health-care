@@ -2,7 +2,7 @@
 import { httpClient } from '@/services';
 
 // Constants
-import { API_ENDPOINT } from '@/constants';
+import { API_ENDPOINT, QUERY_FILTER_URL } from '@/constants';
 
 // Types
 import {
@@ -16,7 +16,9 @@ import { getErrorMessage } from '@/utils';
 
 export const getTimeSlot = async () => {
   try {
-    const data = await httpClient.get<TimeSlotResponse>(API_ENDPOINT.TIME_SLOT);
+    const data = await httpClient.get<TimeSlotResponse>(
+      `${API_ENDPOINT.TIME_SLOT}?${QUERY_FILTER_URL.SORT_BY_TIME}`,
+    );
 
     return {
       data: data.data,

@@ -1,4 +1,4 @@
-export const SESSION_STORAGE_KEYS = {
+export const COOKIES_KEYS = {
   TOKEN: 'token',
 };
 
