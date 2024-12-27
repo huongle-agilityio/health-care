@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { BOOKING_STATUS } from '@/constants';
 
 // Types
-import { DoctorTimeSlots, TimeSlot } from '@/types';
+import { BookingTimeSlots, TimeSlot } from '@/types';
 
 /**
  * Get status booking with date
@@ -28,15 +28,15 @@ export const getBookingStatus = (date: string) => {
 };
 
 export const formatTimeSlotOption = (
-  timeSlots: DoctorTimeSlots[],
+  timeSlots: BookingTimeSlots[],
 ): TimeSlot[] =>
   timeSlots.map((item) => ({
-    time: item.timeSlotId.time,
+    time: item.timeSlot.time,
   }));
 
 export const getStatusTimeSlots = (
   bookingTimes: TimeSlot[],
-  data: DoctorTimeSlots[],
+  data: BookingTimeSlots[],
 ) =>
   bookingTimes.map((bookingTime) => ({
     value: bookingTime.documentId || '',

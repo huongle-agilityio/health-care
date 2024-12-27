@@ -1,6 +1,3 @@
-import { Suspense } from 'react';
-import { Skeleton } from '@nextui-org/react';
-
 // Apis
 import { getDoctorById, getTimeSlot } from '@/actions';
 
@@ -14,12 +11,10 @@ export const FormBooking = async ({ doctorId }: { doctorId: string }) => {
   ]);
 
   return (
-    <Suspense fallback={<Skeleton />}>
-      <FormBookingBase
-        doctorId={doctorId}
-        doctor={doctor.data}
-        times={times.data}
-      />
-    </Suspense>
+    <FormBookingBase
+      doctorId={doctorId}
+      doctor={doctor.data}
+      times={times.data}
+    />
   );
 };

@@ -1,7 +1,7 @@
 import { ApiPaginationResponse } from './api';
 
 export interface BookingAppointmentPayload {
-  data: { date: string; timeSlotId: string; doctorId: string; userId: number };
+  data: { date: string; timeSlot: string; doctor: string; user: number };
 }
 
 export type BookingAppointmentPayloadResponse =
