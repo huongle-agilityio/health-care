@@ -1,14 +1,14 @@
 import { MetadataRoute } from 'next';
 
 // Constants
-import { DOMAIN } from '@/constants';
+import { BASE_URL } from '@/constants';
 
 export const robots = (): MetadataRoute.Robots => ({
   rules: {
     userAgent: '*',
     allow: '/',
   },
-  sitemap: `${DOMAIN}/sitemap.xml`,
+  sitemap: `${BASE_URL}/sitemap.xml`,
 });
 
 export default robots;

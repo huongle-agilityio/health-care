@@ -1,13 +1,9 @@
 'use client';
 
 import { memo } from 'react';
-import {
-  getLocalTimeZone,
-  isWeekend,
-  parseDate,
-  today,
-} from '@internationalized/date';
-import { useLocale } from '@react-aria/i18n';
+import { parseDate } from '@internationalized/date';
+import dayjs from 'dayjs';
+
 import {
   Calendar as CalendarNextUI,
   CalendarProps as CalendarNextUIProps,
@@ -63,22 +59,30 @@ export interface CalendarProps extends CalendarNextUIProps {
 }
 
 export const Calendar = memo(({ value, error, ...props }: CalendarProps) => {
-  const { locale } = useLocale();
-  const now = today(getLocalTimeZone());
+  const now = dayjs();
 
-  const isDateUnavailable = (date: DateValue) =>
-    // Disable weekends
-    isWeekend(date, locale) ||
-    // Disable the day before
-    date.compare(now) < 0;
+  const isDateUnavailable = (date: DateValue) => {
+    const targetDate = dayjs(date.toString());
+
+    return (
+      // Disable weekends
+      targetDate.day() === 0 ||
+      targetDate.day() === 6 ||
+      // Disable the day before
+      targetDate.isBefore(now, 'day')
+    );
+  };
 
   return (
     <div className="flex-col">
       <CalendarBase
         disableAnimation
-        value={value ? parseDate(value.toString()) : now}
+        value={
+          value
+            ? parseDate(value.toString())
+            : parseDate(dayjs().format('YYYY-MM-DD'))
+        }
         isDateUnavailable={isDateUnavailable}
-        defaultValue={today(getLocalTimeZone())}
         {...props}
       />
       {error && (
