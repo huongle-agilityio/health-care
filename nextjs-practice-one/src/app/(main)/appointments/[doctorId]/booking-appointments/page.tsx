@@ -1,9 +1,8 @@
 import { Suspense } from 'react';
-import { Spinner } from '@nextui-org/react';
 
 // Components
-import { Text } from '@/components';
 import { FormBooking } from '@/sections';
+import { Loading, Text } from '@/components';
 
 const Page = async ({ params }: { params: Promise<{ doctorId: string }> }) => {
   const { doctorId } = await params;
@@ -17,17 +16,9 @@ const Page = async ({ params }: { params: Promise<{ doctorId: string }> }) => {
       </div>
       <Suspense
         fallback={
-          <Spinner
-            label="Loading..."
-            color="current"
-            classNames={{
-              circle1: 'w-[40px] h-[40px] left-6',
-              circle2: 'w-[40px] h-[40px] left-6',
-              base: 'w-[80px] h-[80px]',
-              wrapper: 'w-[80px] h-[80px]',
-              label: 'text-primary-100',
-            }}
-          />
+          <div className="flex justify-center pt-20">
+            <Loading />
+          </div>
         }
       >
         <FormBooking doctorId={doctorId} />

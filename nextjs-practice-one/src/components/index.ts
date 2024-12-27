@@ -16,3 +16,4 @@ export * from './CalendarController';
 export * from './Skeleton';
 export * from './ListCheckbox';
 export * from './CheckboxController';
+export * from './Loading';
