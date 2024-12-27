@@ -18,6 +18,10 @@ export interface Option {
   label: string;
 }
 
+export interface OptionCheckBox extends Option {
+  isDisabled: boolean;
+}
+
 // Popover
 export interface OptionMenu {
   title: string;

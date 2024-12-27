@@ -17,3 +17,5 @@ export * from './StethoscopeIcon';
 export * from './HourglassIcon';
 export * from './EyeIcon';
 export * from './EyeCloseIcon';
+export * from './UpComingIcon';
+export * from './WarningIcon';
