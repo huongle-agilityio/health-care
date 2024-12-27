@@ -8,7 +8,7 @@ import { z } from 'zod';
 import dayjs from 'dayjs';
 
 // Apis
-import { getTimeDoctorSlot } from '@/actions';
+import { createBookingAppointment, getTimeDoctorSlot } from '@/actions';
 
 // Components
 import { DoctorInfo } from './DoctorInfo';
@@ -22,24 +22,30 @@ import {
 } from '@/components';
 
 // Constants
-import { ERROR_MESSAGES, REGEX_EMAIL, REGEX_PHONE_NUMBER } from '@/constants';
+import {
+  ERROR_MESSAGES,
+  REGEX_EMAIL,
+  REGEX_PHONE_NUMBER,
+  ROUTERS,
+} from '@/constants';
 
 // Stores
-import { useToastStore } from '@/stores';
+import { useToastStore, useUserStore } from '@/stores';
 
 // Types
-import { Doctor, DoctorTimeSlots } from '@/types';
+import { Doctor, DoctorTimeSlots, TimeSlot } from '@/types';
 
 // Utils
 import { getStatusTimeSlots } from '@/utils';
+import { useRouter } from 'next/navigation';
 
 const GENDER = [
   {
-    value: 'male',
+    value: 'Male',
     label: 'Male',
   },
   {
-    value: 'female',
+    value: 'Female',
     label: 'Female',
   },
 ];
@@ -67,12 +73,19 @@ const formSchema = z.object({
 interface FormBookingBaseProps {
   doctorId: string;
   doctor: Doctor;
+  times: TimeSlot[];
 }
 
-export const FormBookingBase = ({ doctorId, doctor }: FormBookingBaseProps) => {
+export const FormBookingBase = ({
+  doctorId,
+  doctor,
+  times,
+}: FormBookingBaseProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [timeSlots, setTimeSlots] = useState<DoctorTimeSlots[]>([]);
+  const router = useRouter();
 
+  const { user } = useUserStore();
   const { showToast } = useToastStore();
   const today = dayjs().format('YYYY-MM-DD');
 
@@ -102,8 +115,26 @@ export const FormBookingBase = ({ doctorId, doctor }: FormBookingBaseProps) => {
 
   const date = watch('date');
 
-  const handleSubmit = () => {
-    // TODO: update submit form
+  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+    const payload = {
+      data: {
+        date: values.date,
+        timeSlotId: values.time,
+        doctorId: doctorId,
+        userId: user?.id || 0,
+      },
+    };
+
+    const { data, error } = await createBookingAppointment(payload);
+
+    if (error) {
+      return showToast({ description: error });
+    }
+
+    if (data) {
+      showToast({ description: 'Booking successful', variant: 'success' });
+      router.push(ROUTERS.APPOINTMENTS);
+    }
   };
 
   useEffect(() => {
@@ -144,7 +175,7 @@ export const FormBookingBase = ({ doctorId, doctor }: FormBookingBaseProps) => {
               <CheckboxController
                 control={control}
                 name="time"
-                options={getStatusTimeSlots(timeSlots)}
+                options={getStatusTimeSlots(times, timeSlots)}
                 clearErrors={clearErrors}
               />
             )}

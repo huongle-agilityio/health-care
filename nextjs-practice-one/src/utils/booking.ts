@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 // Constants
-import { BOOKING_STATUS, BOOKING_TIMES } from '@/constants';
+import { BOOKING_STATUS } from '@/constants';
 
 // Types
 import { DoctorTimeSlots, TimeSlot } from '@/types';
@@ -34,10 +34,14 @@ export const formatTimeSlotOption = (
     time: item.timeSlotId.time,
   }));
 
-export const getStatusTimeSlots = (data: DoctorTimeSlots[]) =>
-  BOOKING_TIMES.map((bookingTime) => ({
-    ...bookingTime,
+export const getStatusTimeSlots = (
+  bookingTimes: TimeSlot[],
+  data: DoctorTimeSlots[],
+) =>
+  bookingTimes.map((bookingTime) => ({
+    value: bookingTime.documentId || '',
+    label: bookingTime.time,
     isDisabled: formatTimeSlotOption(data).some(
-      (item) => item.time === bookingTime.value,
+      (item) => item.time === bookingTime.time,
     ),
   }));

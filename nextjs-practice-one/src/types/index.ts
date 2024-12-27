@@ -5,4 +5,5 @@ export * from './user';
 export * from './doctor';
 export * from './api';
 export * from './specialty';
+export * from './booking';
 export * from './timeSlot';
