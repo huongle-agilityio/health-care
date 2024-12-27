@@ -1,4 +1,3 @@
-export * from './api';
 export * from './styles';
 export * from './images';
 export * from './booking';

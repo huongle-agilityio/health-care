@@ -31,7 +31,7 @@ export const InputController = <T extends FieldValues, K extends Path<T>>({
     fieldState: { error },
   } = useController({ name, control });
 
-  const { onChange, onBlur, value, ref } = field;
+  const { onChange, onBlur, value } = field;
 
   /**
    * Function onChange input and clear error if any
@@ -47,7 +47,6 @@ export const InputController = <T extends FieldValues, K extends Path<T>>({
 
   return (
     <Input
-      ref={ref}
       label={label}
       value={value}
       onBlur={onBlur}
