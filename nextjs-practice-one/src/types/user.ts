@@ -5,7 +5,7 @@ export interface User {
   name: string;
   username?: string;
   phone: string;
-  gender?: boolean;
+  gender?: string;
 }
 
 export interface UserPayload {

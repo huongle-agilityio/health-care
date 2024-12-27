@@ -13,11 +13,11 @@ export interface DoctorFilterParams {
   specialty?: string;
 }
 
-export interface DoctorTimeSlots {
+export interface BookingTimeSlots {
   id: number;
   documentId?: string;
   date: string;
-  timeSlotId: TimeSlot;
+  timeSlot: TimeSlot;
 }
 
 export interface Doctor {
@@ -32,8 +32,8 @@ export interface Doctor {
   updatedAt?: string;
   publishedAt?: string;
   specialty?: Specialty;
-  doctorTimeSlots?: DoctorTimeSlots[];
+  bookingTimeSlots?: BookingTimeSlots[];
 }
 
 export type DoctorResponse = ApiPaginationResponse<Doctor>;
-export type DoctorTimeSlotsResponse = ApiPaginationResponse<DoctorTimeSlots>;
+export type DoctorTimeSlotsResponse = ApiPaginationResponse<BookingTimeSlots>;
