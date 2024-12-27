@@ -37,7 +37,7 @@ export const SelectController = <T extends FieldValues, K extends Path<T>>({
     fieldState: { error },
   } = useController({ name, control });
 
-  const { onChange, onBlur, value, ref } = field;
+  const { onChange, onBlur, value } = field;
 
   /**
    * Function onChange select and clear error if any
@@ -53,7 +53,6 @@ export const SelectController = <T extends FieldValues, K extends Path<T>>({
 
   return (
     <Select
-      ref={ref}
       label={label}
       options={options}
       onBlur={onBlur}

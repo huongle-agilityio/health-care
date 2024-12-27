@@ -10,7 +10,7 @@ export const API_ENDPOINT = {
   // Doctor
   DOCTOR: 'api/doctors',
 
-  DOCTOR_TIME_SLOT: 'api/doctor-time-slots',
+  BOOKING_SLOT: 'api/doctor-time-slots',
 
   TIME_SLOT: 'api/time-slots',
 };

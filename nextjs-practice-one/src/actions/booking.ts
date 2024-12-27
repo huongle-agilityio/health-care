@@ -37,7 +37,7 @@ export const createBookingAppointment = async (
     const data = await httpClient.post<
       BookingAppointmentPayloadResponse,
       BookingAppointmentPayload
-    >(API_ENDPOINT.DOCTOR_TIME_SLOT, payload);
+    >(API_ENDPOINT.BOOKING_SLOT, payload);
 
     return {
       data,
