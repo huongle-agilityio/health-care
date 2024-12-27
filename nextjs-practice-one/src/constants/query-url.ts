@@ -37,5 +37,7 @@ export const QUERY_URL = {
     )}`,
   DOCTOR_BY_ID: (id: string) => `/${id}?populate[specialty][fields][0]=name`,
   BOOKING_TIME_SLOT: (doctorId: string, date: string) =>
-    `?filters[date][$eq]=${date}&populate[timeSlotId][fields][0]=time&filters[doctorId][documentId][$eq]=${doctorId}`,
+    `?filters[date][$eq]=${date}&populate[timeSlot][fields][0]=time&filters[doctor][documentId][$eq]=${doctorId}`,
+  APPOINTMENT_BY_USER_ID: (id: number) =>
+    `?filters[user][$eq]=${id}&populate[doctor][fields][0]=*&populate[timeSlot][fields][0]=time`,
 };

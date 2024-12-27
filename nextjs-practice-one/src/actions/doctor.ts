@@ -70,7 +70,7 @@ export const getDoctorById = async (id: string) => {
   }
 };
 
-export const getTimeDoctorSlot = async (doctorId: string, date: string) => {
+export const getBookingTimeSlot = async (doctorId: string, date: string) => {
   try {
     const data = await httpClient.get<DoctorTimeSlotsResponse>(
       `${API_ENDPOINT.BOOKING_SLOT}${QUERY_URL.BOOKING_TIME_SLOT(doctorId, date)}`,

@@ -29,3 +29,8 @@ export interface OptionMenu {
   action?: () => void;
   icon?: ComponentType<SvgFactoryProps>;
 }
+
+export interface ListInfo {
+  title: string;
+  value: string;
+}

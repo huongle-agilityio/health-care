@@ -8,7 +8,7 @@ import { z } from 'zod';
 import dayjs from 'dayjs';
 
 // Apis
-import { createBookingAppointment, getTimeDoctorSlot } from '@/actions';
+import { createBookingAppointment, getBookingTimeSlot } from '@/actions';
 
 // Components
 import { DoctorInfo } from './DoctorInfo';
@@ -33,7 +33,7 @@ import {
 import { useToastStore, useUserStore } from '@/stores';
 
 // Types
-import { Doctor, DoctorTimeSlots, TimeSlot } from '@/types';
+import { Doctor, BookingTimeSlots, TimeSlot } from '@/types';
 
 // Utils
 import { getStatusTimeSlots } from '@/utils';
@@ -82,7 +82,7 @@ export const FormBookingBase = ({
   times,
 }: FormBookingBaseProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [timeSlots, setTimeSlots] = useState<DoctorTimeSlots[]>([]);
+  const [timeSlots, setTimeSlots] = useState<BookingTimeSlots[]>([]);
   const router = useRouter();
 
   const { user } = useUserStore();
@@ -119,9 +119,9 @@ export const FormBookingBase = ({
     const payload = {
       data: {
         date: values.date,
-        timeSlotId: values.time,
-        doctorId: doctorId,
-        userId: user?.id || 0,
+        timeSlot: values.time,
+        doctor: doctorId,
+        user: user?.id || 0,
       },
     };
 
@@ -132,7 +132,11 @@ export const FormBookingBase = ({
     }
 
     if (data) {
-      showToast({ description: 'Booking successful', variant: 'success' });
+      showToast({
+        title: 'Success',
+        description: 'Booking successful',
+        variant: 'success',
+      });
       router.push(ROUTERS.APPOINTMENTS);
     }
   };
@@ -140,7 +144,7 @@ export const FormBookingBase = ({
   useEffect(() => {
     const fetchSpecialties = async () => {
       setIsLoading(true);
-      const { data, error } = await getTimeDoctorSlot(doctorId, date);
+      const { data, error } = await getBookingTimeSlot(doctorId, date);
       setIsLoading(false);
 
       if (error) {
