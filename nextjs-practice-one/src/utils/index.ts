@@ -3,3 +3,4 @@ export * from './images';
 export * from './booking';
 export * from './error';
 export * from './specialty';
+export * from './doctor';

@@ -59,43 +59,56 @@ export const Pagination = memo(({ page = 1, total }: PaginationProps) => {
     [searchParams],
   );
 
+  const isShowPrev = page > 1;
+  const isShowNext = page < total;
+
   const handleSetPage = useCallback(
     (value: number) => {
-      params.set('page', value.toString());
+      const newPage = Math.max(1, Math.min(value, total));
+      params.set('page', newPage.toString());
       replace(`${pathname}?${params.toString()}`);
     },
-    [pathname, params, replace],
+    [total, params, replace, pathname],
   );
 
   const handlePrevPage = useCallback(() => {
-    handleSetPage(page - 1);
+    if (page > 1) {
+      handleSetPage(page - 1);
+    }
   }, [handleSetPage, page]);
 
   const handleNextPage = useCallback(() => {
-    handleSetPage(page + 1);
-  }, [handleSetPage, page]);
+    if (page < total) {
+      handleSetPage(page + 1);
+    }
+  }, [handleSetPage, page, total]);
 
   return (
     <div className="flex items-center">
-      <Button
-        size="none"
-        color="bordered"
-        variant="bordered"
-        className="group text-primary-400 hover:text-primary-100 border-0"
-        onPress={handlePrevPage}
-      >
-        <ArrowLeftIcon className="group-hover:fill-primary-100" /> Previous
-      </Button>
+      {isShowPrev && (
+        <Button
+          size="none"
+          color="bordered"
+          variant="bordered"
+          className="group text-primary-400 hover:text-primary-100 border-0"
+          onPress={handlePrevPage}
+        >
+          <ArrowLeftIcon className="group-hover:fill-primary-100" /> Previous
+        </Button>
+      )}
       <PaginationBase page={page} total={total} onChange={handleSetPage} />
-      <Button
-        size="none"
-        variant="bordered"
-        color="bordered"
-        className="group text-primary-400 hover:text-primary-100 border-0"
-        onPress={handleNextPage}
-      >
-        Next <ArrowRightIcon className="group-hover:fill-primary-100" />
-      </Button>
+
+      {isShowNext && (
+        <Button
+          size="none"
+          variant="bordered"
+          color="bordered"
+          className="group text-primary-400 hover:text-primary-100 border-0"
+          onPress={handleNextPage}
+        >
+          Next <ArrowRightIcon className="group-hover:fill-primary-100" />
+        </Button>
+      )}
     </div>
   );
 });
