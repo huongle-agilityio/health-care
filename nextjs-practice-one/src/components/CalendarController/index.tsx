@@ -1,3 +1,5 @@
+'use client';
+
 import { ComponentProps, useCallback } from 'react';
 import { DateValue } from '@nextui-org/react';
 import {
