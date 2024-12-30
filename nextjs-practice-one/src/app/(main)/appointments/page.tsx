@@ -50,7 +50,7 @@ const Page = async ({
         </div>
       </div>
       <div className="container relative">
-        <div className="w-full max-w-[1360px] absolute top-[-270px] 2xl:top-[-195px]">
+        <div className="w-11/12 md:w-full max-w-[1360px] absolute top-[-270px] 2xl:top-[-195px]">
           <FilterDoctors
             specialty={specialty}
             rating={rating}

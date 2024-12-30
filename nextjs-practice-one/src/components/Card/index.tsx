@@ -133,7 +133,7 @@ export const Card = memo(
           </div>
         </div>
 
-        <Link href={href}>
+        <Link href={href} aria-label="Navigate to booking page">
           <Button
             size="xs"
             color="bordered"

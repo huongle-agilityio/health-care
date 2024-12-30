@@ -17,17 +17,15 @@ export const UpComing = () => (
       'h-[calc(100vh-(88px+60px+44px))] lg:h-[calc(100vh-(88px+128px+44px))]',
     )}
   >
-    <UpComingIcon className="w-[150px] h-[150px] fill-primary-100" />
-    <Text color="tertiary" size="4xl" className="text-center">
+    <UpComingIcon className="w-[100px] h-[100px] md:w-[150px] md:h-[150px] fill-primary-100" />
+    <Text color="tertiary" className="text-center text-2xl md:text-4xl">
       Coming Soon
     </Text>
     <Text size="xl" color="holder" className="text-center">
       This feature is coming soon!
     </Text>
-    <Link href={ROUTERS.HOME}>
-      <Button size="xs" color="primary" className="mt-10">
-        Back to home page
-      </Button>
+    <Link href={ROUTERS.HOME} className="mt-10">
+      <Button color="primary">Back to home page</Button>
     </Link>
   </div>
 );

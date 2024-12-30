@@ -31,11 +31,11 @@ export const Footer = () => {
         </Text>
 
         <div className="flex gap-12">
-          <a href={`tel:${BRAND.PHONE}`}>
+          <a href={`tel:${BRAND.PHONE}`} aria-label="call us">
             <PhoneIcon />
           </a>
 
-          <a href={`tel:${BRAND.PHONE}`}>
+          <a href={`tel:${BRAND.PHONE}`} aria-label="call us">
             <PhoneCircleIcon />
           </a>
         </div>

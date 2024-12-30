@@ -13,7 +13,7 @@ const Page = () => (
           Information
         </Text>
       </div>
-      <div className="p-25 rounded-xl shadow-xl flex flex-col gap-15">
+      <div className="p-12 md:p-25 rounded-xl shadow-xl flex flex-col gap-15">
         <div className="flex gap-8 items-center">
           <UserIcon className="w-18 h-18" />
           <Text color="tertiary" size="2xl">
@@ -21,7 +21,7 @@ const Page = () => (
           </Text>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-8 gap-y-8">
+        <div className="flex flex-col md:grid grid-cols-2 gap-x-8 gap-y-8">
           <ListUserInfo />
         </div>
       </div>

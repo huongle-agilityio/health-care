@@ -27,9 +27,14 @@ export const ListUserInfo = memo(() => {
       <Text color="tertiary" size="xl">
         {title}:
       </Text>
-      <Text color="holder" size="xl">
-        {value ? value : <Skeleton className="h-16 w-4/5 rounded-lg" />}
-      </Text>
+
+      {value ? (
+        <Text color="holder" size="xl">
+          {value}
+        </Text>
+      ) : (
+        <Skeleton className="h-16 w-4/5 rounded-lg" />
+      )}
     </div>
   ));
 });

@@ -31,6 +31,7 @@ export const HeaderAuth = ({ onClick }: HeaderAuthProps) => {
     <div className="flex gap-8">
       {isAuthenticated ? (
         <UserProfile
+          role="button"
           size="16"
           className="cursor-pointer"
           menuOptions={NAVIGATION_ITEMS_WITH_LOGOUT(onClick)}

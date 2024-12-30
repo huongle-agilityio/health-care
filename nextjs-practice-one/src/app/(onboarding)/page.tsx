@@ -18,11 +18,11 @@ const Page = () => (
             variants="h1"
             size="4xl"
             color="light"
-            className="text-[50px] md:text-[60px]"
+            className="text-[40px] md:text-[60px]"
           >
             Health in Your Hands.
           </Text>
-          <Text color="holder" size="xl" className="text-xl">
+          <Text size="xl" className="text-xl text-secondary-200">
             Take control of your healthcare with CareMate. Book appointments
             with ease, explore health blogs, and stay on top of your well-being,
             all in one place.
