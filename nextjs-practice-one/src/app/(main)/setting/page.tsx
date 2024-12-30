@@ -15,7 +15,11 @@ const Page = () => (
   <div className="container">
     <div>
       <div className="flex flex-col pt-[50px] 2xl:pt-[80px] pb-20 items-center">
-        <Text color="tertiary" size="4xl">
+        <Text
+          color="tertiary"
+          size="4xl"
+          className="text-[40px] md:text-[60px]"
+        >
           Information
         </Text>
       </div>
@@ -35,12 +39,16 @@ const Page = () => (
 
     <div>
       <div className="flex flex-col pt-[50px] 2xl:pt-[80px] pb-20 items-center">
-        <Text color="tertiary" size="4xl">
+        <Text
+          color="tertiary"
+          size="4xl"
+          className="text-[40px] md:text-[60px]"
+        >
           Schedules
         </Text>
       </div>
 
-      <div className="w-fit flex flex-row gap-20">
+      <div className="w-fit flex flex-col md:flex-row w-full flex-wrap gap-20">
         <ListBooking />
       </div>
     </div>

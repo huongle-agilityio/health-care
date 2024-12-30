@@ -27,14 +27,8 @@ export const ListBooking = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!userId) {
-        showToast({ description: 'User not found' });
-        setLoading(false);
-        return;
-      }
-
       setLoading(true);
-      const { data, error } = await getBookingAppointment(userId);
+      const { data, error } = await getBookingAppointment(userId || 0);
       setLoading(false);
 
       if (error) {

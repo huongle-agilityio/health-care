@@ -37,7 +37,11 @@ export const ListDoctorsAvailable = async ({
   return (
     <>
       <div className="flex flex-col pt-[330px] 2xl:pt-[120px] pb-20 items-center">
-        <Text color="tertiary" size="4xl" className="text-center">
+        <Text
+          color="tertiary"
+          size="4xl"
+          className="text-[40px] md:text-[60px] text-center"
+        >
           {total} doctors available
         </Text>
         <Text size="xl" color="holder" className="text-center">
