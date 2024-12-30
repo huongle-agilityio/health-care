@@ -25,6 +25,7 @@ export const DoctorInfo = memo(
         <Image
           src={avatar}
           alt={`Dr ${name}'s image`}
+          sizes="(max-width: 768px) 75px, 150px"
           classNameWrapper={cn(
             'rounded-full',
             'w-[75px] h-[75px]',
