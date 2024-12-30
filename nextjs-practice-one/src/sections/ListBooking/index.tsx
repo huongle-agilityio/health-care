@@ -43,7 +43,7 @@ export const ListBooking = () => {
     fetchData();
   }, [showToast, userId]);
 
-  return loading ? (
+  return loading || bookingAppointments.length === 0 ? (
     <ListBookingSkeleton />
   ) : (
     bookingAppointments.map(({ date, doctor, timeSlot }, index) => (

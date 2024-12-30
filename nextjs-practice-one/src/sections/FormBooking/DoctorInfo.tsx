@@ -32,7 +32,7 @@ export const DoctorInfo = memo(
             'md:w-[150px] md:h-[150px]',
           )}
         />
-        <Text size="2xl" color="tertiary" className="md:text-center">
+        <Text size="2xl" color="tertiary" className="text-center">
           Dr {name}
         </Text>
       </div>

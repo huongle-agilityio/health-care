@@ -34,14 +34,15 @@ export const Input = memo(
       size: {
         sm: {
           base: 'data-[has-label=true]:mt-[calc(theme(fontSize.small)_+_10px)]',
-          mainWrapper: 'h-[68px]',
+          mainWrapper: 'h-[68px] group-data-[invalid=true]:mb-8',
           inputWrapper: 'min-h-18',
           label: 'pb-4',
           errorMessage: 'mt-2 ml-2',
         },
         md: {
           base: 'data-[has-label=true]:mt-[calc(theme(fontSize.small)_+_18px)]',
-          mainWrapper: 'group-data-[invalid=true]:h-[88px]',
+          mainWrapper:
+            'group-data-[invalid=true]:h-[88px] group-data-[invalid=true]:mb-8',
           inputWrapper: 'min-h-21',
           label: 'pb-6',
           errorMessage: 'mt-4 ml-4',

@@ -40,7 +40,7 @@ const CardHeaderBase = extendVariants(CardHeader, {
   variants: {
     color: {
       default: cn(
-        'w-fit md:w-full pt-8 md:pt-2 px-4 items-start',
+        'w-fit md:w-full pt-8 md:pt-2 px-10 md:px-4 items-start',
         'justify-center',
       ),
     },
@@ -83,6 +83,7 @@ export const BookingCard = memo(
           <Image
             src={imageSrc}
             alt={`Dr ${name}'s image`}
+            sizes="75px"
             classNameWrapper={cn('rounded-full', 'w-[75px] h-[75px]')}
           />
         </CardHeaderBase>

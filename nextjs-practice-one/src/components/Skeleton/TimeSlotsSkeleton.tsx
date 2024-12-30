@@ -4,24 +4,14 @@ import { Skeleton } from '@nextui-org/react';
 import { cn } from '@/utils';
 
 export const TimeSlotsSkeleton = () => (
-  <div className="flex flex-col gap-6">
-    <Skeleton className={cn('rounded-xl', 'w-full 2xl:w-[110px] h-[20px]')}>
+  <div className="flex flex-col gap-6 w-full">
+    <Skeleton className={cn('rounded-xl', 'w-full xl:w-[110px] h-[20px]')}>
       <div className="bg-default-300" />
     </Skeleton>
-    <Skeleton
-      className={cn(
-        'rounded-xl',
-        'w-full md:w-[110px] h-[20px] md:hidden xl:block',
-      )}
-    >
+    <Skeleton className={cn('rounded-xl', 'w-full xl:w-[110px] h-[20px]')}>
       <div className="bg-default-300" />
     </Skeleton>
-    <Skeleton
-      className={cn(
-        'rounded-xl',
-        'w-full md:w-[110px] h-[20px] md:hidden xl:block',
-      )}
-    >
+    <Skeleton className={cn('rounded-xl', 'w-full xl:w-[110px] h-[20px]')}>
       <div className="bg-default-300" />
     </Skeleton>
   </div>

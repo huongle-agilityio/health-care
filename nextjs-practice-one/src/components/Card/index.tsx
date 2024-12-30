@@ -98,19 +98,19 @@ export const Card = memo(
           alt={`Dr ${name}'s image`}
           sizes="(max-width: 768px) 75px, 150px"
           classNameWrapper={cn(
-            'rounded-full',
+            'rounded-full mt-10 md:mt-0',
             'w-[75px] h-[75px]',
             'md:w-[150px] md:h-[150px]',
           )}
         />
       </CardHeaderBase>
       <CardBodyBase>
-        <div>
+        <div className="w-[180px] md:w-fit">
           <Text size="2xl" color="tertiary" className="md:text-center">
             Dr {name}
           </Text>
 
-          <div className="pt-5 flex gap-[15px]">
+          <div className="pt-5 flex flex-col md:flex-row gap-[15px]">
             <div className="flex gap-3">
               <StethoscopeIcon />
               <Text size="xs" color="holder">

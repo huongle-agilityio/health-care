@@ -35,7 +35,7 @@ import { useToastStore, useUserStore } from '@/stores';
 import { Doctor, BookingTimeSlots, TimeSlot } from '@/types';
 
 // Utils
-import { getStatusTimeSlots, isEmptyObject } from '@/utils';
+import { cn, getStatusTimeSlots, isEmptyObject } from '@/utils';
 
 const formSchema = z.object({
   time: z.string().min(1, { message: ERROR_MESSAGES.REQUIRED }),
@@ -158,13 +158,17 @@ export const FormBookingBase = ({
     >
       <div className="flex flex-col xl:flex-row gap-25 items-center justify-center">
         <DoctorInfo doctor={doctor} />
-        <div className="flex flex-col xl:flex-row gap-10 md:gap-22 items-center">
+        <div
+          className={cn(
+            'flex flex-col xl:flex-row gap-10 xl:gap-22 items-center',
+          )}
+        >
           <CalendarController
             name="date"
             control={control}
             clearErrors={clearErrors}
           />
-          <div>
+          <div className="h-[150px] xl:h-fit flex items-center xl:self-start px-8 xl:px-0 w-full">
             {isLoading ? (
               <TimeSlotsSkeleton />
             ) : (
