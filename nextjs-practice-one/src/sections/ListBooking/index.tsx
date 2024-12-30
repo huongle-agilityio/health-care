@@ -15,6 +15,8 @@ import { useToastStore, useUserStore } from '@/stores';
 // Types
 import { BookingSlot } from '@/types';
 
+// Constants
+
 export const ListBooking = () => {
   const [bookingAppointments, setBookingAppointments] = useState<BookingSlot[]>(
     [],

@@ -22,9 +22,6 @@ import { CloseIcon, OutlineBurgerIcon, SettingIcon } from '@/icons';
 // HOCs
 import { withLogoutModal } from '@/hocs';
 
-// Stores
-import { useUserStore } from '@/stores';
-
 // Utils
 import { cn } from '@/utils';
 
@@ -46,9 +43,12 @@ const NavBarMobileBase = extendVariants(ModalNextUI, {
 
 const LogoutButton = withLogoutModal(Button);
 
-export const NavBarMobile = () => {
+export const NavBarMobile = ({
+  isAuthenticated,
+}: {
+  isAuthenticated: boolean;
+}) => {
   const pathname = usePathname();
-  const { isAuthenticated } = useUserStore();
   const { isOpen, onOpenChange } = useDisclosure();
 
   const options = isAuthenticated

@@ -5,3 +5,4 @@ export * from './error';
 export * from './specialty';
 export * from './user';
 export * from './doctor';
+export * from './object';
