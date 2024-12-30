@@ -52,6 +52,7 @@ const Page = async ({
               'hidden xl:block',
               'min-w-[800px] h-[919px] absolute right-0',
             )}
+            priority
           />
         </div>
       </div>

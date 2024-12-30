@@ -53,6 +53,7 @@ const Page = () => (
           'hidden xl:block',
           'min-w-[800px] h-full fixed right-0',
         )}
+        priority
       />
     </div>
   </div>

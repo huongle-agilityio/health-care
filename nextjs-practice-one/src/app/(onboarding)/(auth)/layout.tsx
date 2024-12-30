@@ -10,6 +10,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
       alt="background-image"
       src="/images/onboarding-background.webp"
       classNameWrapper="w-full h-full fixed top-0 left-0 z-[-1]"
+      priority
     />
     <div className="py-20 md:pt-[148px] container mx-auto">
       <div
