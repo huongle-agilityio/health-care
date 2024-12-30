@@ -11,11 +11,14 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "storybook": "storybook dev -p 6006 --no-open",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "@internationalized/date": "^3.6.0",
+    "@milahu/patch-package": "^6.4.14",
+    "@nextui-org/pagination": "2.0.36",
     "@nextui-org/react": "^2.4.8",
     "@nextui-org/system": "^2.2.6",
     "clsx": "^2.1.1",

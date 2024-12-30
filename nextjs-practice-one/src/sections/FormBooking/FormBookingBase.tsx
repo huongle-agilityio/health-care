@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import dayjs from 'dayjs';
+import { z } from 'zod';
 
 // Apis
 import { createBookingAppointment, getBookingTimeSlot } from '@/actions';
@@ -35,7 +35,7 @@ import { useToastStore, useUserStore } from '@/stores';
 import { Doctor, BookingTimeSlots, TimeSlot } from '@/types';
 
 // Utils
-import { getStatusTimeSlots } from '@/utils';
+import { getStatusTimeSlots, isEmptyObject } from '@/utils';
 
 const formSchema = z.object({
   time: z.string().min(1, { message: ERROR_MESSAGES.REQUIRED }),
@@ -75,21 +75,18 @@ export const FormBookingBase = ({
   const { showToast } = useToastStore();
   const today = dayjs().format('YYYY-MM-DD');
 
-  const initialState = useMemo(
-    () => ({
-      email: '',
-      password: '',
-      name: '',
-      phone: '',
-      time: '',
-      date: today,
-    }),
-    [today],
-  );
+  const initialState = {
+    email: user?.email || '',
+    name: user?.name || '',
+    phone: user?.phone || '',
+    time: '',
+    date: today,
+  };
 
   const {
     control,
     clearErrors,
+    reset,
     watch,
     handleSubmit: submitForm,
   } = useForm<z.infer<typeof formSchema>>({
@@ -141,6 +138,18 @@ export const FormBookingBase = ({
 
     fetchSpecialties();
   }, [date, doctorId, showToast]);
+
+  useEffect(() => {
+    if (!isEmptyObject(user)) {
+      reset({
+        email: user?.email || '',
+        name: user?.name || '',
+        phone: user?.phone || '',
+        time: '',
+        date: today,
+      });
+    }
+  }, [reset, today, user]);
 
   return (
     <form
@@ -194,7 +203,7 @@ export const FormBookingBase = ({
           clearErrors={clearErrors}
         />
         <div className="flex flex-col mt-20 gap-15">
-          <Button type="submit" color="default">
+          <Button isLoading={isEmptyObject(user)} type="submit" color="default">
             Book Appointment
           </Button>
           <Button type="submit" color="primary">

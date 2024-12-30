@@ -21,7 +21,7 @@ export const useUserStore = create<UserStore>()(
 
         setAuthenticated: (isAuthenticated) => {
           set({
-            isAuthenticated: cookies.get(COOKIES_KEYS.TOKEN) || isAuthenticated,
+            isAuthenticated: isAuthenticated,
           });
         },
 
@@ -32,7 +32,7 @@ export const useUserStore = create<UserStore>()(
         },
 
         logout: () => {
-          cookies.remove('token', {
+          cookies.remove(COOKIES_KEYS.TOKEN, {
             path: ROUTERS.HOME,
           });
           set(() => ({
