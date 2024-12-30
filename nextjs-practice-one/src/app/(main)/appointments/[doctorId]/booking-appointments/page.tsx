@@ -1,6 +1,8 @@
+import { Suspense } from 'react';
+
 // Components
-import { Text } from '@/components';
 import { FormBooking } from '@/sections';
+import { Loading, Text } from '@/components';
 
 const Page = async ({ params }: { params: Promise<{ doctorId: string }> }) => {
   const { doctorId } = await params;
@@ -12,7 +14,15 @@ const Page = async ({ params }: { params: Promise<{ doctorId: string }> }) => {
           Booking Appointments
         </Text>
       </div>
-      <FormBooking doctorId={doctorId} />
+      <Suspense
+        fallback={
+          <div className="flex justify-center pt-20">
+            <Loading />
+          </div>
+        }
+      >
+        <FormBooking doctorId={doctorId} />
+      </Suspense>
     </div>
   );
 };

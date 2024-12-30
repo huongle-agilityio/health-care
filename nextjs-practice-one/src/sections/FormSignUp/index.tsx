@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import Cookies from 'universal-cookie';
 
 // Apis
 import { signUp } from '@/actions';
@@ -16,7 +17,8 @@ import {
   REGEX_PASSWORD,
   REGEX_PHONE_NUMBER,
   ROUTERS,
-  SESSION_STORAGE_KEYS,
+  COOKIES_KEYS,
+  TIMING,
 } from '@/constants';
 
 // Components
@@ -31,6 +33,7 @@ import { useToastStore, useUserStore } from '@/stores';
 // Utils
 import { getErrorMessage } from '@/utils';
 
+const cookies = new Cookies();
 const formSchema = z.object({
   name: z.string().min(1, { message: ERROR_MESSAGES.REQUIRED }),
   phone: z
@@ -60,7 +63,7 @@ export const FormSignUp = () => {
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
   // Stores
-  const { setUser, setAuthenticated } = useUserStore();
+  const { setUser } = useUserStore();
   const { showToast } = useToastStore();
 
   const initialState = useMemo(
@@ -89,10 +92,14 @@ export const FormSignUp = () => {
     try {
       const data = await signUp(payload);
 
-      sessionStorage.setItem(SESSION_STORAGE_KEYS.TOKEN, data.jwt);
+      cookies.set(COOKIES_KEYS.TOKEN, data.jwt, {
+        path: ROUTERS.HOME,
+        secure: true,
+        sameSite: 'strict',
+        maxAge: TIMING.COOKIES_TIMEOUT,
+      });
 
       setUser(data.user);
-      setAuthenticated(true);
       router.push(ROUTERS.HOME);
     } catch (error) {
       showToast({

@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import Cookies from 'universal-cookie';
 
 // Apis
 import { signIn } from '@/actions';
@@ -15,7 +16,8 @@ import {
   REGEX_EMAIL,
   REGEX_PASSWORD,
   ROUTERS,
-  SESSION_STORAGE_KEYS,
+  COOKIES_KEYS,
+  TIMING,
 } from '@/constants';
 
 // Components
@@ -51,8 +53,9 @@ export const FormLogin = () => {
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
   // Stores
-  const { setUser, setAuthenticated } = useUserStore();
+  const { setUser } = useUserStore();
   const { showToast } = useToastStore();
+  const cookies = new Cookies();
 
   const initialState = useMemo(
     () => ({
@@ -79,10 +82,14 @@ export const FormLogin = () => {
     try {
       const data = await signIn(payload);
 
-      sessionStorage.setItem(SESSION_STORAGE_KEYS.TOKEN, data.jwt);
+      cookies.set(COOKIES_KEYS.TOKEN, data.jwt, {
+        path: ROUTERS.HOME,
+        secure: true,
+        sameSite: 'strict',
+        maxAge: TIMING.COOKIES_TIMEOUT,
+      });
 
       setUser(data.user);
-      setAuthenticated(true);
       router.push(ROUTERS.HOME);
     } catch (error) {
       showToast({
