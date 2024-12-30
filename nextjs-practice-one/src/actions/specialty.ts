@@ -1,3 +1,5 @@
+'use server';
+
 // Services
 import { httpClient } from '@/services';
 

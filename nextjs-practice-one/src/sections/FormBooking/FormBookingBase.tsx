@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import Cookies from 'universal-cookie';
 import dayjs from 'dayjs';
 import { z } from 'zod';
 
@@ -24,7 +23,6 @@ import {
 
 // Constants
 import {
-  COOKIES_KEYS,
   ERROR_MESSAGES,
   REGEX_EMAIL,
   REGEX_PHONE_NUMBER,
@@ -38,7 +36,7 @@ import { useToastStore, useUserStore } from '@/stores';
 import { Doctor, BookingTimeSlots, TimeSlot } from '@/types';
 
 // Utils
-import { getStatusTimeSlots } from '@/utils';
+import { getStatusTimeSlots, isEmptyObject } from '@/utils';
 
 const GENDER = [
   {
@@ -90,9 +88,6 @@ export const FormBookingBase = ({
   const { showToast } = useToastStore();
   const today = dayjs().format('YYYY-MM-DD');
 
-  const cookies = new Cookies();
-  const token = cookies.get(COOKIES_KEYS.TOKEN);
-
   const initialState = {
     email: user?.email || '',
     name: user?.name || '',
@@ -105,6 +100,7 @@ export const FormBookingBase = ({
   const {
     control,
     clearErrors,
+    reset,
     watch,
     handleSubmit: submitForm,
   } = useForm<z.infer<typeof formSchema>>({
@@ -125,7 +121,7 @@ export const FormBookingBase = ({
       },
     };
 
-    const { data, error } = await createBookingAppointment(payload, token);
+    const { data, error } = await createBookingAppointment(payload);
 
     if (error) {
       return showToast({ description: error });
@@ -144,7 +140,7 @@ export const FormBookingBase = ({
   useEffect(() => {
     const fetchSpecialties = async () => {
       setIsLoading(true);
-      const { data, error } = await getBookingTimeSlot(doctorId, date, token);
+      const { data, error } = await getBookingTimeSlot(doctorId, date);
       setIsLoading(false);
 
       if (error) {
@@ -155,7 +151,20 @@ export const FormBookingBase = ({
     };
 
     fetchSpecialties();
-  }, [date, doctorId, showToast, token]);
+  }, [date, doctorId, showToast]);
+
+  useEffect(() => {
+    if (!isEmptyObject(user)) {
+      reset({
+        email: user?.email || '',
+        name: user?.name || '',
+        phone: user?.phone || '',
+        time: '',
+        date: today,
+        gender: user?.gender || '',
+      });
+    }
+  }, [reset, today, user]);
 
   return (
     <form
@@ -220,7 +229,7 @@ export const FormBookingBase = ({
         />
 
         <div className="flex flex-col mt-20 gap-15">
-          <Button type="submit" color="default">
+          <Button isLoading={isEmptyObject(user)} type="submit" color="default">
             Book Appointment
           </Button>
           <Button type="submit" color="primary">

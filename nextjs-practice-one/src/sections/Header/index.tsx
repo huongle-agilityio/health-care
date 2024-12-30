@@ -1,12 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect } from 'react';
-import Cookies from 'universal-cookie';
 import { usePathname } from 'next/navigation';
 
 // Constants
-import { COOKIES_KEYS, NAVIGATION_ITEMS, ROUTERS } from '@/constants';
+import { NAVIGATION_ITEMS, ROUTERS } from '@/constants';
 
 // Components
 import { Text } from '@/components';
@@ -19,23 +17,13 @@ import { LogoIcon } from '@/icons';
 // HOCs
 import { withLogoutModal } from '@/hocs';
 
-// Stores
-import { useUserStore } from '@/stores';
-
 // Utils
 import { cn } from '@/utils';
 
 const MenuAuth = withLogoutModal(HeaderAuth);
 
-export const Header = () => {
+export const Header = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
   const pathname = usePathname();
-  const { setAuthenticated } = useUserStore();
-  const cookies = new Cookies();
-  const token = cookies.get(COOKIES_KEYS.TOKEN);
-
-  useEffect(() => {
-    setAuthenticated(!!token);
-  }, [setAuthenticated, token]);
 
   return (
     <header
@@ -51,7 +39,7 @@ export const Header = () => {
           'flex items-center gap-[56px] xl:justify-start',
         )}
       >
-        <NavBarMobile />
+        <NavBarMobile isAuthenticated={isAuthenticated} />
         <Link
           href={ROUTERS.HOME}
           className="flex gap-4 items-center m-auto lg:m-0"
@@ -79,7 +67,7 @@ export const Header = () => {
               );
             })}
           </div>
-          <MenuAuth />
+          <MenuAuth isAuthenticated={isAuthenticated} />
         </div>
       </nav>
     </header>

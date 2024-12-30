@@ -1,8 +1,17 @@
+'use server';
+
+import { cookies } from 'next/headers';
+
 // Services
 import { httpClient } from '@/services';
 
 // Constants
-import { API_ENDPOINT, QUERY_FILTER_URL, QUERY_URL } from '@/constants';
+import {
+  API_ENDPOINT,
+  COOKIES_KEYS,
+  QUERY_FILTER_URL,
+  QUERY_URL,
+} from '@/constants';
 
 // Types
 import {
@@ -33,8 +42,9 @@ export const getTimeSlot = async () => {
   }
 };
 
-export const getBookingAppointment = async (userId: number, token: string) => {
+export const getBookingAppointment = async (userId: number) => {
   try {
+    const token = (await cookies()).get(COOKIES_KEYS.TOKEN)?.value;
     const data = await httpClient.get<BookingSlotResponse>(
       `${API_ENDPOINT.BOOKING_SLOT}${QUERY_URL.APPOINTMENT_BY_USER_ID(userId)}`,
       token,
@@ -54,9 +64,9 @@ export const getBookingAppointment = async (userId: number, token: string) => {
 
 export const createBookingAppointment = async (
   payload: BookingAppointmentPayload,
-  token: string,
 ) => {
   try {
+    const token = (await cookies()).get(COOKIES_KEYS.TOKEN)?.value;
     const data = await httpClient.post<
       BookingAppointmentPayloadResponse,
       BookingAppointmentPayload

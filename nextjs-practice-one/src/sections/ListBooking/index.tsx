@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Cookies from 'universal-cookie';
 
 // Apis
 import { getBookingAppointment } from '@/actions';
@@ -17,15 +16,12 @@ import { useToastStore, useUserStore } from '@/stores';
 import { BookingSlot } from '@/types';
 
 // Constants
-import { COOKIES_KEYS } from '@/constants';
 
 export const ListBooking = () => {
   const [bookingAppointments, setBookingAppointments] = useState<BookingSlot[]>(
     [],
   );
   const [loading, setLoading] = useState<boolean>(true);
-  const cookies = new Cookies();
-  const token = cookies.get(COOKIES_KEYS.TOKEN);
 
   // Stores
   const userId = useUserStore((state) => state.user?.id);
@@ -40,7 +36,7 @@ export const ListBooking = () => {
       }
 
       setLoading(true);
-      const { data, error } = await getBookingAppointment(userId, token);
+      const { data, error } = await getBookingAppointment(userId);
       setLoading(false);
 
       if (error) {
@@ -51,7 +47,7 @@ export const ListBooking = () => {
     };
 
     fetchData();
-  }, [showToast, token, userId]);
+  }, [showToast, userId]);
 
   return loading ? (
     <ListBookingSkeleton />

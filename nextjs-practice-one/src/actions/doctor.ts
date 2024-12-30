@@ -1,7 +1,9 @@
 'use server';
 
+import { cookies } from 'next/headers';
+
 // Constants
-import { API_ENDPOINT, QUERY_URL } from '@/constants';
+import { API_ENDPOINT, COOKIES_KEYS, QUERY_URL } from '@/constants';
 
 // Services
 import { httpClient } from '@/services';
@@ -70,12 +72,9 @@ export const getDoctorById = async (id: string) => {
   }
 };
 
-export const getBookingTimeSlot = async (
-  doctorId: string,
-  date: string,
-  token: string,
-) => {
+export const getBookingTimeSlot = async (doctorId: string, date: string) => {
   try {
+    const token = (await cookies()).get(COOKIES_KEYS.TOKEN)?.value;
     const data = await httpClient.get<DoctorTimeSlotsResponse>(
       `${API_ENDPOINT.BOOKING_SLOT}${QUERY_URL.BOOKING_TIME_SLOT(doctorId, date)}`,
       token,

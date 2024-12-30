@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
+import { cookies } from 'next/headers';
 
 // CSS
 import './globals.css';
 
 // Constants
-import { BRAND } from '@/constants';
+import { BRAND, COOKIES_KEYS } from '@/constants';
 
 // Components
 import { Header } from '@/sections';
@@ -30,16 +31,18 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isAuthenticated = (await cookies()).get(COOKIES_KEYS.TOKEN);
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={montserrat.className}>
         <Providers>
-          <Header />
+          <Header isAuthenticated={!!isAuthenticated} />
           {children}
         </Providers>
       </body>
