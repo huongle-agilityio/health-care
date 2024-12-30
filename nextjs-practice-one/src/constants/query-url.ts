@@ -3,7 +3,7 @@ import { CURRENT_PAGE, PAGE_SIZE } from './pagination';
 // Types
 import { DoctorFilterParams } from '@/types';
 
-const QUERY_FILTER_URL = {
+export const QUERY_FILTER_URL = {
   PAGINATION: (page: number, pageSize: number) =>
     (page &&
       pageSize &&
@@ -19,6 +19,7 @@ const QUERY_FILTER_URL = {
   BY_FEE: (fee: number) => (fee && `&filters[fee][$eq]=${fee}`) || '',
   BY_SPECIALTY: (specialty: string) =>
     specialty && `&filters[specialty][name][$eq]=${specialty}`,
+  SORT_BY_TIME: 'sort[time]=asc',
 };
 
 export const QUERY_URL = {
