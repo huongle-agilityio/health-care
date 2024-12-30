@@ -19,7 +19,6 @@ export const ListUserInfo = memo(() => {
     name: user?.name || '',
     phone: user?.phone || '',
     email: user?.email || '',
-    gender: user?.gender || '',
   });
 
   return userInfo.map(({ title, value }, index) => (

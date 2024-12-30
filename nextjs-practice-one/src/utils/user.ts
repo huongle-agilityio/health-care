@@ -8,12 +8,10 @@ export const formatUserInfo = ({
   name,
   phone,
   email,
-  gender,
 }: {
   name: string;
   phone: string;
   email: string;
-  gender: string;
 }): ListInfo[] => [
   {
     title: 'Name',
@@ -26,9 +24,5 @@ export const formatUserInfo = ({
   {
     title: 'Email',
     value: email,
-  },
-  {
-    title: 'Gender',
-    value: gender,
   },
 ];

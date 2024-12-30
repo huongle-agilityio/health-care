@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import dayjs from 'dayjs';
 
@@ -16,7 +17,6 @@ import {
   TimeSlotsSkeleton,
   CalendarController,
   InputController,
-  SelectController,
   CheckboxController,
 } from '@/components';
 
@@ -36,24 +36,11 @@ import { Doctor, BookingTimeSlots, TimeSlot } from '@/types';
 
 // Utils
 import { getStatusTimeSlots } from '@/utils';
-import { useRouter } from 'next/navigation';
-
-const GENDER = [
-  {
-    value: 'Male',
-    label: 'Male',
-  },
-  {
-    value: 'Female',
-    label: 'Female',
-  },
-];
 
 const formSchema = z.object({
   time: z.string().min(1, { message: ERROR_MESSAGES.REQUIRED }),
   name: z.string().min(1, { message: ERROR_MESSAGES.REQUIRED }),
   date: z.string().min(1, { message: ERROR_MESSAGES.REQUIRED }),
-  gender: z.string().min(1, { message: ERROR_MESSAGES.REQUIRED }),
   phone: z
     .string()
     .min(1, { message: ERROR_MESSAGES.REQUIRED })
@@ -96,7 +83,6 @@ export const FormBookingBase = ({
       phone: '',
       time: '',
       date: today,
-      gender: '',
     }),
     [today],
   );
@@ -207,17 +193,6 @@ export const FormBookingBase = ({
           name="email"
           clearErrors={clearErrors}
         />
-        <SelectController
-          name="gender"
-          label="Gender"
-          aria-label="Choice your gender"
-          options={GENDER}
-          placeholder="Choice your gender"
-          control={control}
-          clearErrors={clearErrors}
-          className="pt-6"
-        />
-
         <div className="flex flex-col mt-20 gap-15">
           <Button type="submit" color="default">
             Book Appointment
