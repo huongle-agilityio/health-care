@@ -1,9 +1,15 @@
+import { Metadata } from 'next';
+
 // Components
 import { Text } from '@/components';
 import { ListUserInfo, ListBooking } from '@/sections';
 
 // Icons
 import { UserIcon } from '@/icons';
+
+export const metadata: Metadata = {
+  title: 'Setting',
+};
 
 const Page = () => (
   <div className="container">

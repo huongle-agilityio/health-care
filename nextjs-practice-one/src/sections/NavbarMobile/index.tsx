@@ -95,12 +95,13 @@ export const NavBarMobile = () => {
                           variant="bordered"
                           color="bordered"
                           onClick={onClose}
+                          className="w-full"
                         >
                           Login
                         </Button>
                       </Link>
                       <Link href={ROUTERS.REGISTER}>
-                        <Button size="xs" onClick={onClose}>
+                        <Button size="xs" onClick={onClose} className="w-full">
                           Register
                         </Button>
                       </Link>

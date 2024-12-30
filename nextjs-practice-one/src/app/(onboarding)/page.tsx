@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
 
 // Constants
 import { ROUTERS } from '@/constants';
@@ -8,6 +9,10 @@ import { Button, Image, Text } from '@/components';
 
 // Utils
 import { cn } from '@/utils';
+
+export const metadata: Metadata = {
+  title: 'CareMate',
+};
 
 const Page = () => (
   <div className="bg-primary-100 fixed left-0 w-full h-full">

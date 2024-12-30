@@ -1,8 +1,13 @@
 import { Suspense } from 'react';
+import { Metadata } from 'next';
 
 // Components
 import { FormBooking } from '@/sections';
 import { Loading, Text } from '@/components';
+
+export const metadata: Metadata = {
+  title: 'Booking Appointments',
+};
 
 const Page = async ({ params }: { params: Promise<{ doctorId: string }> }) => {
   const { doctorId } = await params;

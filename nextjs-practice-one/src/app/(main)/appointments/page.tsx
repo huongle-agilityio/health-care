@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 // Components
 import { Image, Text } from '@/components';
 import { FilterDoctors } from '@/sections/FilterDoctors';
@@ -8,6 +10,10 @@ import { DoctorFilterParams } from '@/types';
 
 // Utils
 import { cn } from '@/utils';
+
+export const metadata: Metadata = {
+  title: 'Appointments',
+};
 
 const Page = async ({
   searchParams,

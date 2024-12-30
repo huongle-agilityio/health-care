@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
 
 // Constants
 import { ROUTERS } from '@/constants';
@@ -6,6 +7,10 @@ import { ROUTERS } from '@/constants';
 // Components
 import { Text } from '@/components';
 import { FormSignUp } from '@/sections';
+
+export const metadata: Metadata = {
+  title: 'Register',
+};
 
 const Page = () => (
   <>
