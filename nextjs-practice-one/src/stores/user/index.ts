@@ -8,7 +8,7 @@ import { devtools, persist } from 'zustand/middleware';
 import { UserStore } from './types';
 
 // Constants
-import { COOKIES_KEYS, LOCAL_STORAGE_KEYS, ROUTERS } from '@/constants';
+import { LOCAL_STORAGE_KEYS, ROUTERS, COOKIES_KEYS } from '@/constants';
 
 const cookies = new Cookies();
 
