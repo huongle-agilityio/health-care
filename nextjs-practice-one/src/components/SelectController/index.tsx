@@ -1,3 +1,5 @@
+'use client';
+
 import { ComponentProps, useCallback } from 'react';
 import { SharedSelection } from '@nextui-org/system';
 import {

@@ -1,3 +1,4 @@
+'use client';
 import { ComponentProps, useCallback } from 'react';
 import {
   Control,
