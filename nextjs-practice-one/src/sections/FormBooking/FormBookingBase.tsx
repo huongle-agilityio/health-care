@@ -1,10 +1,12 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import Cookies from 'universal-cookie';
 import dayjs from 'dayjs';
+import { z } from 'zod';
 
 // Apis
 import { createBookingAppointment, getBookingTimeSlot } from '@/actions';
@@ -22,6 +24,7 @@ import {
 
 // Constants
 import {
+  COOKIES_KEYS,
   ERROR_MESSAGES,
   REGEX_EMAIL,
   REGEX_PHONE_NUMBER,
@@ -36,7 +39,6 @@ import { Doctor, BookingTimeSlots, TimeSlot } from '@/types';
 
 // Utils
 import { getStatusTimeSlots } from '@/utils';
-import { useRouter } from 'next/navigation';
 
 const GENDER = [
   {
@@ -88,18 +90,17 @@ export const FormBookingBase = ({
   const { showToast } = useToastStore();
   const today = dayjs().format('YYYY-MM-DD');
 
-  const initialState = useMemo(
-    () => ({
-      email: '',
-      password: '',
-      name: '',
-      phone: '',
-      time: '',
-      date: today,
-      gender: '',
-    }),
-    [today],
-  );
+  const cookies = new Cookies();
+  const token = cookies.get(COOKIES_KEYS.TOKEN);
+
+  const initialState = {
+    email: user?.email || '',
+    name: user?.name || '',
+    phone: user?.phone || '',
+    time: '',
+    date: today,
+    gender: user?.gender || '',
+  };
 
   const {
     control,
@@ -124,7 +125,7 @@ export const FormBookingBase = ({
       },
     };
 
-    const { data, error } = await createBookingAppointment(payload);
+    const { data, error } = await createBookingAppointment(payload, token);
 
     if (error) {
       return showToast({ description: error });
@@ -143,7 +144,7 @@ export const FormBookingBase = ({
   useEffect(() => {
     const fetchSpecialties = async () => {
       setIsLoading(true);
-      const { data, error } = await getBookingTimeSlot(doctorId, date);
+      const { data, error } = await getBookingTimeSlot(doctorId, date, token);
       setIsLoading(false);
 
       if (error) {
@@ -154,7 +155,7 @@ export const FormBookingBase = ({
     };
 
     fetchSpecialties();
-  }, [date, doctorId, showToast]);
+  }, [date, doctorId, showToast, token]);
 
   return (
     <form

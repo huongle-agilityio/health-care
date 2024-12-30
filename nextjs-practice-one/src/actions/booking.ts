@@ -33,10 +33,11 @@ export const getTimeSlot = async () => {
   }
 };
 
-export const getBookingAppointment = async (userId: number) => {
+export const getBookingAppointment = async (userId: number, token: string) => {
   try {
     const data = await httpClient.get<BookingSlotResponse>(
       `${API_ENDPOINT.BOOKING_SLOT}${QUERY_URL.APPOINTMENT_BY_USER_ID(userId)}`,
+      token,
     );
 
     return {
@@ -53,12 +54,13 @@ export const getBookingAppointment = async (userId: number) => {
 
 export const createBookingAppointment = async (
   payload: BookingAppointmentPayload,
+  token: string,
 ) => {
   try {
     const data = await httpClient.post<
       BookingAppointmentPayloadResponse,
       BookingAppointmentPayload
-    >(API_ENDPOINT.BOOKING_SLOT, payload);
+    >(API_ENDPOINT.BOOKING_SLOT, payload, token);
 
     return {
       data,

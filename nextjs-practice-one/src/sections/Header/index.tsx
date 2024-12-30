@@ -30,11 +30,12 @@ const MenuAuth = withLogoutModal(HeaderAuth);
 export const Header = () => {
   const pathname = usePathname();
   const { setAuthenticated } = useUserStore();
+  const cookies = new Cookies();
+  const token = cookies.get(COOKIES_KEYS.TOKEN);
 
   useEffect(() => {
-    const cookies = new Cookies();
-    setAuthenticated(cookies.get(COOKIES_KEYS.TOKEN));
-  }, [setAuthenticated]);
+    setAuthenticated(!!token);
+  }, [setAuthenticated, token]);
 
   return (
     <header
