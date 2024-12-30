@@ -1,7 +1,6 @@
 'use client';
 
-import { Suspense, useEffect, useMemo, useState } from 'react';
-import { Skeleton } from '@nextui-org/react';
+import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -160,13 +159,11 @@ export const FormBookingBase = ({
   return (
     <form
       onSubmit={submitForm(handleSubmit)}
-      className="p-25 rounded-xl shadow-xl"
+      className="p-10 xl:p-25 rounded-xl shadow-xl"
     >
-      <div className="flex gap-25 items-center justify-center">
-        <Suspense fallback={<Skeleton />}>
-          <DoctorInfo doctor={doctor} />
-        </Suspense>
-        <div className="flex gap-22">
+      <div className="flex flex-col xl:flex-row gap-25 items-center justify-center">
+        <DoctorInfo doctor={doctor} />
+        <div className="flex flex-col xl:flex-row gap-10 md:gap-22 items-center">
           <CalendarController
             name="date"
             control={control}
@@ -181,6 +178,7 @@ export const FormBookingBase = ({
                 name="time"
                 options={getStatusTimeSlots(times, timeSlots)}
                 clearErrors={clearErrors}
+                className="flex flex-row xl:flex-col flex-wrap mb-10 xl:mb-0"
               />
             )}
           </div>

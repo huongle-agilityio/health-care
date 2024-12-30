@@ -48,7 +48,7 @@ export const Image = memo(
           placeholder="blur"
           blurDataURL={blurDataURL || generateImageBase64(10, 10)}
           className={cn(
-            'transition-opacity duration-300 ease-in-out',
+            'transition-opacity duration-300 ease-in-out object-cover',
             isImageLoaded ? 'opacity-100' : 'opacity-70',
             className,
           )}

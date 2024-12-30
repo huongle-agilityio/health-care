@@ -17,7 +17,7 @@ import {
 // Utils
 import { getErrorMessage, getExperienceRange } from '@/utils';
 
-export const getDoctors = async ({
+export const getDoctorsByParams = async ({
   specialty,
   rating,
   experience = '',
@@ -75,6 +75,22 @@ export const getBookingTimeSlot = async (doctorId: string, date: string) => {
     const data = await httpClient.get<DoctorTimeSlotsResponse>(
       `${API_ENDPOINT.BOOKING_SLOT}${QUERY_URL.BOOKING_TIME_SLOT(doctorId, date)}`,
     );
+
+    return {
+      data: data.data,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      data: [],
+      error: getErrorMessage(error),
+    };
+  }
+};
+
+export const getDoctors = async () => {
+  try {
+    const data = await httpClient.get<DoctorResponse>(API_ENDPOINT.DOCTOR);
 
     return {
       data: data.data,
