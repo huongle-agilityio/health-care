@@ -5,9 +5,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'original-novelty-5db9244e3f.strapiapp.com',
-        port: '',
-        pathname: '/**',
+        hostname: '**',
       },
     ],
   },
