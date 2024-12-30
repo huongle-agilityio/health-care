@@ -1,5 +1,5 @@
 // Actions
-import { getDoctors } from '@/actions';
+import { getDoctorsByParams } from '@/actions';
 
 // Constants
 import { ROUTERS } from '@/constants';
@@ -23,7 +23,7 @@ export const ListDoctorsAvailable = async ({
     data: doctors,
     meta,
     error,
-  } = await getDoctors({
+  } = await getDoctorsByParams({
     page,
     specialty,
     rating,
