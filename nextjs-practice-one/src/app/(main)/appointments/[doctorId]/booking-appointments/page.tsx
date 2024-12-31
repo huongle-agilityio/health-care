@@ -19,7 +19,6 @@ const Page = async ({ params }: { params: Promise<{ doctorId: string }> }) => {
           Booking Appointments
         </Text>
       </div>
-      <FormBookingSkeleton />
       <Suspense fallback={<FormBookingSkeleton />}>
         <FormBooking doctorId={doctorId} />
       </Suspense>
