@@ -156,7 +156,7 @@ export const FormBookingBase = ({
       onSubmit={submitForm(handleSubmit)}
       className="p-10 xl:p-25 rounded-xl shadow-xl"
     >
-      <div className="flex flex-col xl:flex-row gap-25 items-center justify-center">
+      <div className="flex flex-col xl:flex-row gap-10 xl:gap-25 items-center justify-center">
         <DoctorInfo doctor={doctor} />
         <div
           className={cn(

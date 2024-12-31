@@ -19,8 +19,8 @@ const NotFound = () => (
       'h-[calc(100vh-(88px+60px+44px))] lg:h-[calc(100vh-(88px+128px+44px))]',
     )}
   >
-    <WarningIcon className="w-[150px] h-[150px]" />
-    <Text color="tertiary" size="4xl" className="text-center">
+    <WarningIcon className="w-[100px] h-[100px] md:w-[150px] md:h-[150px]" />
+    <Text color="tertiary" className="text-center text-2xl md:text-4xl">
       404 Page Not Found
     </Text>
     <Text size="xl" color="holder" className="text-center">

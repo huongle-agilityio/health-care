@@ -9,6 +9,19 @@ const nextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'max-age=3600',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
