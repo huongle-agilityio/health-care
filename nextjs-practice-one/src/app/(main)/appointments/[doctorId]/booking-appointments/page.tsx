@@ -2,8 +2,8 @@ import { Suspense } from 'react';
 import { Metadata } from 'next';
 
 // Components
-import { FormBooking } from '@/sections';
-import { Loading, Text } from '@/components';
+import { Text } from '@/components';
+import { FormBooking, FormBookingSkeleton } from '@/sections';
 
 export const metadata: Metadata = {
   title: 'Booking Appointments',
@@ -19,13 +19,8 @@ const Page = async ({ params }: { params: Promise<{ doctorId: string }> }) => {
           Booking Appointments
         </Text>
       </div>
-      <Suspense
-        fallback={
-          <div className="flex justify-center pt-20">
-            <Loading />
-          </div>
-        }
-      >
+
+      <Suspense fallback={<FormBookingSkeleton />}>
         <FormBooking doctorId={doctorId} />
       </Suspense>
     </div>

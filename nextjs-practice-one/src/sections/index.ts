@@ -10,3 +10,4 @@ export * from './ListBooking';
 export * from './FilterDoctors';
 export * from './ListDoctorsAvailable';
 export * from './UpComing';
+export * from './FormBooking/FormBookingBaseSkeleton';
