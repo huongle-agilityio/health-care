@@ -28,12 +28,12 @@ export const FormBookingSkeleton = () => (
         className={'flex flex-col xl:flex-row gap-10 xl:gap-22 items-center'}
       >
         <Skeleton className="w-[310px] h-[324px]" />
-        <div className="h-[150px] xl:h-fit flex items-center xl:self-start px-8 xl:px-0 w-full">
+        <div className="h-[150px] xl:h-fit flex items-center xl:self-start px-8 xl:px-0 w-full xl:w-fit">
           <TimeSlotsSkeleton />
         </div>
       </div>
     </div>
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-10 mt-4">
       {Array.from({ length: 3 }, (_, index) => (
         <Skeleton key={`input-skeleton-${index}`} className="w-full h-[70px]" />
       ))}
