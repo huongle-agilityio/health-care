@@ -97,6 +97,7 @@ export const FormBookingBase = ({
 
   const date = watch('date');
 
+  // Function submit form
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     const payload = {
       data: {
@@ -123,6 +124,7 @@ export const FormBookingBase = ({
     }
   };
 
+  // Function fetch time slots
   useEffect(() => {
     const fetchSpecialties = async () => {
       setIsLoading(true);
@@ -139,6 +141,7 @@ export const FormBookingBase = ({
     fetchSpecialties();
   }, [date, doctorId, showToast]);
 
+  // Function set default values when user have values
   useEffect(() => {
     if (!isEmptyObject(user)) {
       reset({

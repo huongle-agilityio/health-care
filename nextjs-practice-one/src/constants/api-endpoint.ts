@@ -1,16 +1,16 @@
 export const BASE_API = process.env.NEXT_PUBLIC_API_URL;
 
 export const API_ENDPOINT = {
-  SIGN_IN: 'api/auth/local',
-  SIGN_UP: 'api/auth/local/register',
+  SIGN_IN: 'auth/local',
+  SIGN_UP: 'auth/local/register',
 
   // Specialty
-  SPECIALTY: 'api/specialties',
+  SPECIALTY: 'specialties',
 
   // Doctor
-  DOCTOR: 'api/doctors',
+  DOCTOR: 'doctors',
 
-  BOOKING_SLOT: 'api/booking-time-slots',
+  BOOKING_SLOT: 'booking-time-slots',
 
-  TIME_SLOT: 'api/time-slots',
+  TIME_SLOT: 'time-slots',
 };

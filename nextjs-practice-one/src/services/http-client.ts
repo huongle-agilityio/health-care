@@ -41,7 +41,7 @@ class HttpService {
     }
 
     try {
-      const response = await fetch(`${this.apiUrl}${endpoint}`, options);
+      const response = await fetch(`${this.apiUrl}api/${endpoint}`, options);
 
       if (!response.ok) {
         const error = await response.json();

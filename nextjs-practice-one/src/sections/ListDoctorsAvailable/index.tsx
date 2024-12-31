@@ -1,11 +1,9 @@
 // Actions
 import { getDoctorsByParams } from '@/actions';
 
-// Constants
-import { ROUTERS } from '@/constants';
-
 // Components
-import { Card, Pagination, Text } from '@/components';
+import { Text } from '@/components';
+import { ListDoctors } from './ListDoctors';
 
 // Types
 import { DoctorFilterParams } from '@/types';
@@ -58,32 +56,11 @@ export const ListDoctorsAvailable = async ({
             <Text color="tertiary">No results found.</Text>
           </div>
         ) : (
-          <>
-            <div className="flex flex-wrap gap-x-8 gap-y-20 justify-center">
-              {doctors.map(
-                ({
-                  id,
-                  documentId = '',
-                  experience,
-                  avatar,
-                  name,
-                  rating,
-                  specialty,
-                }) => (
-                  <Card
-                    key={`doctor-${id}`}
-                    experience={experience}
-                    imageSrc={avatar}
-                    name={name}
-                    href={ROUTERS.BOOKING_APPOINTMENTS(documentId)}
-                    rating={rating}
-                    specialty={specialty?.name || ''}
-                  />
-                ),
-              )}
-            </div>
-            <Pagination page={currentPage} total={pageCount} />
-          </>
+          <ListDoctors
+            doctors={doctors}
+            currentPage={currentPage}
+            pageCount={pageCount}
+          />
         )}
       </div>
     </>

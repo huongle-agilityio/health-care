@@ -87,6 +87,7 @@ export const FormFilterDoctors = ({
     replace(pathname);
   }, [initialState, pathname, replace, reset]);
 
+  // Fetch specialties
   useEffect(() => {
     const fetchSpecialties = async () => {
       setIsLoading(true);

@@ -76,6 +76,7 @@ export const FormLogin = () => {
     defaultValues: initialState,
   });
 
+  // Function submit form
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
     const payload = { identifier: data.email, ...data };
 
@@ -98,6 +99,7 @@ export const FormLogin = () => {
     }
   };
 
+  // Function reset form
   const handleReset = useCallback(() => {
     reset(initialState);
   }, [initialState, reset]);

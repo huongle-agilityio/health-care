@@ -1,12 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect } from 'react';
-import Cookies from 'universal-cookie';
 import { usePathname } from 'next/navigation';
 
 // Constants
-import { COOKIES_KEYS, NAVIGATION_ITEMS, ROUTERS } from '@/constants';
+import { NAVIGATION_ITEMS, ROUTERS } from '@/constants';
 
 // Components
 import { Text } from '@/components';
@@ -19,9 +17,6 @@ import { LogoIcon } from '@/icons';
 // HOCs
 import { withLogoutModal } from '@/hocs';
 
-// Stores
-import { useUserStore } from '@/stores';
-
 // Utils
 import { cn } from '@/utils';
 
@@ -29,12 +24,6 @@ const MenuAuth = withLogoutModal(HeaderAuth);
 
 export const Header = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
   const pathname = usePathname();
-  const { setAuthenticated } = useUserStore();
-
-  useEffect(() => {
-    const cookies = new Cookies();
-    setAuthenticated(cookies.get(COOKIES_KEYS.TOKEN));
-  }, [setAuthenticated]);
 
   return (
     <header

@@ -33,7 +33,6 @@ import { useToastStore, useUserStore } from '@/stores';
 // Utils
 import { getErrorMessage } from '@/utils';
 
-const cookies = new Cookies();
 const formSchema = z.object({
   name: z.string().min(1, { message: ERROR_MESSAGES.REQUIRED }),
   phone: z
@@ -65,6 +64,7 @@ export const FormSignUp = () => {
   // Stores
   const { setUser } = useUserStore();
   const { showToast } = useToastStore();
+  const cookies = new Cookies();
 
   const initialState = useMemo(
     () => ({
@@ -87,6 +87,7 @@ export const FormSignUp = () => {
     defaultValues: initialState,
   });
 
+  // Function submit form
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
     const payload = { username: data.email, ...data };
     try {
@@ -108,6 +109,7 @@ export const FormSignUp = () => {
     }
   };
 
+  // Function reset form
   const handleReset = useCallback(() => {
     reset(initialState);
   }, [initialState, reset]);

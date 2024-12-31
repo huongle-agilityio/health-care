@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { BOOKING_STATUS } from '@/constants';
 
 // Types
-import { BookingTimeSlots, TimeSlot } from '@/types';
+import { BookingTimeSlots, OptionCheckBox, TimeSlot } from '@/types';
 
 /**
  * Get status booking with date
@@ -27,6 +27,11 @@ export const getBookingStatus = (date: string) => {
   return BOOKING_STATUS.UPCOMING;
 };
 
+/**
+ * Function format time slots to array
+ * @param timeSlots
+ * @returns TimeSlot[]
+ */
 export const formatTimeSlotOption = (
   timeSlots: BookingTimeSlots[],
 ): TimeSlot[] =>
@@ -34,10 +39,16 @@ export const formatTimeSlotOption = (
     time: item.timeSlot.time,
   }));
 
+/**
+ * Function get time slots disabled or not
+ * @param bookingTimes
+ * @param data
+ * @returns OptionCheckBox[]
+ */
 export const getStatusTimeSlots = (
   bookingTimes: TimeSlot[],
   data: BookingTimeSlots[],
-) =>
+): OptionCheckBox[] =>
   bookingTimes.map((bookingTime) => ({
     value: bookingTime.documentId || '',
     label: bookingTime.time,
