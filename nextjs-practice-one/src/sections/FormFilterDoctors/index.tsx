@@ -37,11 +37,7 @@ export const FormFilterDoctors = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { showToast } = useToastStore();
-
-  const params = useMemo(
-    () => new URLSearchParams(searchParams.toString()),
-    [searchParams],
-  );
+  const params = new URLSearchParams(searchParams.toString());
 
   const initialState = useMemo(
     () => ({
@@ -66,18 +62,15 @@ export const FormFilterDoctors = ({
   /**
    * Function to handle form submit
    */
-  const handleSubmit = useCallback(
-    (data: DoctorFilterParams) => {
-      (Object.keys(data) as (keyof DoctorFilterParams)[]).forEach((key) => {
-        const value = data[key];
-        if (value !== undefined) {
-          params.set(key, value.toString());
-        }
-      });
-      replace(`${pathname}?${params.toString()}`);
-    },
-    [params, pathname, replace],
-  );
+  const handleSubmit = (data: DoctorFilterParams) => {
+    (Object.keys(data) as (keyof DoctorFilterParams)[]).forEach((key) => {
+      const value = data[key];
+      if (value !== undefined) {
+        params.set(key, value.toString());
+      }
+    });
+    replace(`${pathname}?${params.toString()}`);
+  };
 
   /**
    * Function to reset form and url

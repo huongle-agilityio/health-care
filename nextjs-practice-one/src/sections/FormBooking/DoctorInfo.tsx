@@ -12,14 +12,10 @@ import { cn } from '@/utils';
 // Types
 import { Doctor } from '@/types';
 
-interface DoctorInfoProps {
-  doctor: Doctor;
-}
+type DoctorInfoProps = Omit<Doctor, 'id' | 'fee'>;
 
 export const DoctorInfo = memo(
-  ({
-    doctor: { name, specialty, experience, rating, avatar },
-  }: DoctorInfoProps) => (
+  ({ name, specialty, experience, rating, avatar }: DoctorInfoProps) => (
     <div className="flex gap-15">
       <div className="flex flex-col items-center">
         <Image

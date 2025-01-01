@@ -69,6 +69,8 @@ export const FormBookingBase = ({
 }: FormBookingBaseProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [timeSlots, setTimeSlots] = useState<BookingTimeSlots[]>([]);
+  const { name, specialty, experience, rating, avatar } = doctor;
+
   const router = useRouter();
 
   const { user } = useUserStore();
@@ -160,7 +162,13 @@ export const FormBookingBase = ({
       className="p-10 xl:p-25 rounded-xl shadow-xl"
     >
       <div className="flex flex-col xl:flex-row gap-10 xl:gap-25 items-center justify-center">
-        <DoctorInfo doctor={doctor} />
+        <DoctorInfo
+          name={name}
+          specialty={specialty}
+          experience={experience}
+          rating={rating}
+          avatar={avatar}
+        />
         <div
           className={cn(
             'flex flex-col xl:flex-row gap-10 xl:gap-22 items-center',

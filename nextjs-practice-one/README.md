@@ -130,15 +130,15 @@ Make sure you install packages with correct version below:
 │   ├── app                         # Next.js App (App Router)
 │   ├── components                  # React components
 │   ├── constants                   # App constants
+│   ├── hocs                        # Hocs
 │   ├── hooks                       # Custom hooks
 │   ├── icons                       # Icons folder
 │   ├── layouts                     # React components for app layout
-│   ├── models                      # Model type definitions
+│   ├── sections                    # Sections of the app
 │   ├── services                    # Handle data with API: GET, POST, PUT, DELETE
 │   ├── stores                      # App stores
 │   ├── themes                      # Custom themes styles
 │   ├── types                       # Type definitions
-│   ├── ui                          # React components by feature
 │   ├── utils                       # Utilities folder
 ├── .eslintrc.json                  # ESLint configuration
 ├── .lintstagedrc                   # Lint-stage
