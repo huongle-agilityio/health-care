@@ -50,7 +50,7 @@ const Page = () => (
         alt="image-dentist"
         src="/images/dentist.webp"
         classNameWrapper={cn(
-          'hidden xl:block',
+          'hidden 2xl:block',
           'min-w-[800px] h-full fixed right-0',
         )}
         priority

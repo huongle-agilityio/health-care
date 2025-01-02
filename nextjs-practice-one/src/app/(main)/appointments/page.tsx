@@ -49,7 +49,7 @@ const Page = async ({
             alt="image-doctor"
             src="/images/doctor.webp"
             classNameWrapper={cn(
-              'hidden xl:block',
+              'hidden 2xl:block',
               'min-w-[800px] h-[919px] absolute right-0',
             )}
             priority

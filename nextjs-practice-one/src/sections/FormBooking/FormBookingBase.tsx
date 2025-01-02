@@ -147,9 +147,9 @@ export const FormBookingBase = ({
   useEffect(() => {
     if (!isEmptyObject(user)) {
       reset({
-        email: user?.email || '',
-        name: user?.name || '',
-        phone: user?.phone || '',
+        email: '',
+        name: '',
+        phone: '',
         time: '',
         date: today,
       });
