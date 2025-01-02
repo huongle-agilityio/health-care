@@ -145,7 +145,6 @@ Make sure you install packages with correct version below:
 ├── .prettierrc                     # Prettier configuration
 ├── jest.config.ts                  # Jest configuration
 ├── next.config.mjs                 # Next.js configuration
-├── next.config.mjs                 # Next.js configuration
 ├── postcss.config.mjs              # Post CSS configuration
 ├── tailwind.config.ts              # Tailwind CSS configuration
 └── tsconfig.json                   # TypeScript configuration

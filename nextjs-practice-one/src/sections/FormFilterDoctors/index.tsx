@@ -77,8 +77,7 @@ export const FormFilterDoctors = ({
    */
   const handleReset = useCallback(() => {
     reset(initialState);
-    replace(pathname);
-  }, [initialState, pathname, replace, reset]);
+  }, [initialState, reset]);
 
   // Fetch specialties
   useEffect(() => {
