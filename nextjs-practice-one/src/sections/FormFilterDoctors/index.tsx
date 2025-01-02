@@ -76,8 +76,9 @@ export const FormFilterDoctors = ({
    * Function to reset form and url
    */
   const handleReset = useCallback(() => {
-    reset(initialState);
-  }, [initialState, reset]);
+    reset();
+    replace(pathname);
+  }, [pathname, replace, reset]);
 
   // Fetch specialties
   useEffect(() => {
