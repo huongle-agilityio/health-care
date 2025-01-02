@@ -37,13 +37,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isAuthenticated = (await cookies()).get(COOKIES_KEYS.TOKEN);
+  const isAuthenticated = (await cookies()).has(COOKIES_KEYS.TOKEN);
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={montserrat.className}>
         <Providers>
-          <Header isAuthenticated={!!isAuthenticated} />
+          <Header isAuthenticated={isAuthenticated} />
           {children}
         </Providers>
       </body>
