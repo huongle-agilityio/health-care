@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 // Components
 import { Select } from '..';
@@ -8,19 +8,23 @@ import { SPECIALTIES } from '@/constants/mocks';
 
 describe('Select component', () => {
   test('Should render select with options', () => {
-    const { getByText } = render(
-      <Select value="1" options={SPECIALTIES} aria-label="Select specialty" />,
+    render(
+      <Select
+        value="dentist"
+        options={SPECIALTIES}
+        aria-label="Select specialty"
+      />,
     );
 
     SPECIALTIES.forEach((option) => {
-      expect(getByText(option.label)).toBeInTheDocument();
+      expect(screen.getAllByText(option.label)[0]).toBeInTheDocument();
     });
   });
 
   test('Should render select with error message when input select is inValid', () => {
-    const { getByText } = render(
+    render(
       <Select
-        value="1"
+        value="dentist"
         options={SPECIALTIES}
         isInvalid
         errorMessage="error"
@@ -28,14 +32,14 @@ describe('Select component', () => {
       />,
     );
 
-    expect(getByText('error')).toBeInTheDocument();
+    expect(screen.getByText('error')).toBeInTheDocument();
   });
 
   test('Should select an option when clicked', () => {
     const handleChange = jest.fn();
     const { getAllByText, getByRole } = render(
       <Select
-        value="1"
+        value="dentist"
         options={SPECIALTIES}
         onChange={handleChange}
         aria-label="Select specialty"
