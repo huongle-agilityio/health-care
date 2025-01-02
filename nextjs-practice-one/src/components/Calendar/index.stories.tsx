@@ -27,12 +27,12 @@ const meta = {
   },
   args: {
     size: 'md',
-    defaultValue: parseDate('2024-12-11'),
+    defaultValue: parseDate('2025-01-02'),
   },
 } satisfies Meta<typeof Calendar>;
 
 const Template = (args: CalendarProps) => {
-  const [value, setValue] = useState<DateValue>(parseDate('2024-12-11'));
+  const [value, setValue] = useState<DateValue>(parseDate('2025-01-02'));
 
   const handleChange = (newDate: DateValue) => {
     setValue(newDate);

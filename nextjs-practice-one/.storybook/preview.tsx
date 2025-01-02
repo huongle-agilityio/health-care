@@ -1,8 +1,12 @@
+import React from 'react';
 import type { Preview } from '@storybook/react';
 import { Montserrat } from 'next/font/google';
 
+// Providers
+import { Providers } from '../src/app/providers';
+
+// CSS
 import '../src/app/globals.css';
-import React from 'react';
 
 const montserrat = Montserrat({
   weight: ['400', '500'],
@@ -14,7 +18,9 @@ const preview: Preview = {
   decorators: [
     (Story) => (
       <div className={montserrat.className}>
-        <Story />
+        <Providers>
+          <Story />
+        </Providers>
       </div>
     ),
   ],
