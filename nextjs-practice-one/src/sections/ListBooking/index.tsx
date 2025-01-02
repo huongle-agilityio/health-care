@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { getBookingAppointment } from '@/actions';
 
 // Components
-import { BookingCard } from '@/components';
+import { BookingCard, Text } from '@/components';
 import { ListBookingSkeleton } from './ListBookingSkeleton';
 
 // Stores
@@ -43,8 +43,12 @@ export const ListBooking = () => {
     fetchData();
   }, [showToast, userId]);
 
-  return loading || bookingAppointments.length === 0 ? (
+  return loading ? (
     <ListBookingSkeleton />
+  ) : !bookingAppointments.length ? (
+    <div className="w-full flex justify-center px-10 py-25">
+      <Text color="tertiary">No results found.</Text>
+    </div>
   ) : (
     bookingAppointments.map(({ date, doctor, timeSlot }, index) => (
       <BookingCard
