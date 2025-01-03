@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import {
   Modal as ModalNextUI,
   ModalContent,
@@ -39,47 +40,51 @@ export interface ConfirmModalProps {
   onOpenChange: () => void;
 }
 
-export const ConfirmModal = ({
-  title = 'Confirm Logout',
-  subTitle = 'Are you sure you want to log out your account?',
-  textConfirmButton = 'Yes, Log out Now',
-  textCancelButton = 'Cancel',
-  isOpen,
-  onSubmit,
-  onOpenChange,
-}: ConfirmModalProps) => (
-  <ModalBase
-    isOpen={isOpen}
-    onOpenChange={onOpenChange}
-    closeButton={<CloseIcon size="16" />}
-  >
-    <ModalContent>
-      {(onClose) => (
-        <div className="px-8">
-          <ModalBody className="pb-17">
-            <Text color="tertiary" size="2xl" className="text-center">
-              {title}
-            </Text>
-            <Text size="xs" color="holder" className="pt-4">
-              {subTitle}
-            </Text>
-          </ModalBody>
-          <ModalFooter className="flex flex-col gap-8">
-            <Button
-              size="xs"
-              variant="bordered"
-              color="bordered"
-              onPress={onSubmit}
-            >
-              {textConfirmButton}
-            </Button>
+export const ConfirmModal = memo(
+  ({
+    title = 'Confirm Logout',
+    subTitle = 'Are you sure you want to log out your account?',
+    textConfirmButton = 'Yes, Log out Now',
+    textCancelButton = 'Cancel',
+    isOpen,
+    onSubmit,
+    onOpenChange,
+  }: ConfirmModalProps) => (
+    <ModalBase
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+      closeButton={<CloseIcon size="16" />}
+    >
+      <ModalContent>
+        {(onClose) => (
+          <div className="px-8">
+            <ModalBody className="pb-17">
+              <Text color="tertiary" size="2xl" className="text-center">
+                {title}
+              </Text>
+              <Text size="xs" color="holder" className="pt-4">
+                {subTitle}
+              </Text>
+            </ModalBody>
+            <ModalFooter className="flex flex-col gap-8">
+              <Button
+                size="xs"
+                variant="bordered"
+                color="bordered"
+                onPress={onSubmit}
+              >
+                {textConfirmButton}
+              </Button>
 
-            <Button size="xs" onPress={onClose}>
-              {textCancelButton}
-            </Button>
-          </ModalFooter>
-        </div>
-      )}
-    </ModalContent>
-  </ModalBase>
+              <Button size="xs" onPress={onClose}>
+                {textCancelButton}
+              </Button>
+            </ModalFooter>
+          </div>
+        )}
+      </ModalContent>
+    </ModalBase>
+  ),
 );
+
+ConfirmModal.displayName = 'ConfirmModal';

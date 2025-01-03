@@ -18,6 +18,7 @@ import {
   BookingAppointmentPayload,
   BookingAppointmentPayloadResponse,
   BookingSlotResponse,
+  DoctorTimeSlotsResponse,
   TimeSlotResponse,
 } from '@/types';
 
@@ -42,11 +43,34 @@ export const getTimeSlot = async () => {
   }
 };
 
-export const getBookingAppointment = async (userId: number) => {
+export const getBookingAppointmentById = async (userId: number) => {
   try {
     const token = (await cookies()).get(COOKIES_KEYS.TOKEN)?.value;
     const data = await httpClient.get<BookingSlotResponse>(
       `${API_ENDPOINT.BOOKING_SLOT}${QUERY_URL.APPOINTMENT_BY_USER_ID(userId)}`,
+      token,
+    );
+
+    return {
+      data: data.data,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      data: [],
+      error: getErrorMessage(error),
+    };
+  }
+};
+
+export const getBookingTimeSlotById = async (
+  doctorId: string,
+  date: string,
+) => {
+  try {
+    const token = (await cookies()).get(COOKIES_KEYS.TOKEN)?.value;
+    const data = await httpClient.get<DoctorTimeSlotsResponse>(
+      `${API_ENDPOINT.BOOKING_SLOT}${QUERY_URL.BOOKING_TIME_SLOT(doctorId, date)}`,
       token,
     );
 

@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import { z } from 'zod';
 
 // Apis
-import { createBookingAppointment, getBookingTimeSlot } from '@/actions';
+import { createBookingAppointment, getBookingTimeSlotById } from '@/actions';
 
 // Components
 import { DoctorInfo } from './DoctorInfo';
@@ -130,7 +130,7 @@ export const FormBookingBase = ({
   useEffect(() => {
     const fetchSpecialties = async () => {
       setIsLoading(true);
-      const { data, error } = await getBookingTimeSlot(doctorId, date);
+      const { data, error } = await getBookingTimeSlotById(doctorId, date);
       setIsLoading(false);
 
       if (error) {

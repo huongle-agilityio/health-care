@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 // Apis
-import { getBookingAppointment } from '@/actions';
+import { getBookingAppointmentById } from '@/actions';
 
 // Components
 import { BookingCard, Text } from '@/components';
@@ -30,7 +30,7 @@ export const ListBooking = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const { data, error } = await getBookingAppointment(userId || 0);
+      const { data, error } = await getBookingAppointmentById(userId || 0);
       setLoading(false);
 
       if (error) {

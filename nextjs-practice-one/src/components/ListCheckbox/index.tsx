@@ -10,6 +10,14 @@ import { OptionCheckBox } from '@/types';
 // Utils
 import { cn } from '@/utils';
 
+interface ListCheckboxProps {
+  error?: string;
+  className?: string;
+  selectedValue: string;
+  options: OptionCheckBox[];
+  onChange: (value: ChangeEvent<HTMLInputElement>) => void;
+}
+
 export const ListCheckbox = memo(
   ({
     options,
@@ -17,13 +25,7 @@ export const ListCheckbox = memo(
     error,
     onChange,
     className,
-  }: {
-    error?: string;
-    className?: string;
-    selectedValue: string;
-    options: OptionCheckBox[];
-    onChange: (value: ChangeEvent<HTMLInputElement>) => void;
-  }) => (
+  }: ListCheckboxProps) => (
     <div className="flex flex-col gap-4">
       <div className={cn('flex flex-col gap-6', className)}>
         {options.map(({ value, label, isDisabled }) => (
