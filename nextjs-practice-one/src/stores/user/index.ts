@@ -1,16 +1,13 @@
 'use client';
 
 import { create } from 'zustand';
-import Cookies from 'universal-cookie';
 import { devtools, persist } from 'zustand/middleware';
 
 // Types
 import { UserStore } from './types';
 
 // Constants
-import { LOCAL_STORAGE_KEYS, ROUTERS, COOKIES_KEYS } from '@/constants';
-
-const cookies = new Cookies();
+import { LOCAL_STORAGE_KEYS } from '@/constants';
 
 export const useUserStore = create<UserStore>()(
   devtools(
@@ -32,9 +29,6 @@ export const useUserStore = create<UserStore>()(
         },
 
         logout: () => {
-          cookies.remove(COOKIES_KEYS.TOKEN, {
-            path: ROUTERS.HOME,
-          });
           set(() => ({
             user: null,
             isAuthenticated: false,
