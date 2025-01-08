@@ -1,16 +1,30 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import NextAuth from 'next-auth';
+import { getToken } from 'next-auth/jwt';
+import { NextRequest, NextResponse } from 'next/server';
 
 // Constants
-import { ROUTERS, COOKIES_KEYS } from './constants';
+import {
+  AUTH_ROUTERS,
+  AUTH_SECRET,
+  PRIVATE_ROUTERS,
+  ROUTERS,
+} from './constants';
 
-export function middleware(request: NextRequest) {
-  const token = request.cookies.get(COOKIES_KEYS.TOKEN);
+// Config
+import { authConfig } from '@/config';
+
+export default NextAuth(authConfig).auth;
+
+export async function middleware(request: NextRequest) {
+  const token = await getToken({ req: request, secret: AUTH_SECRET });
+
+  if (token && AUTH_ROUTERS.includes(request.nextUrl.pathname)) {
+    return NextResponse.redirect(new URL(ROUTERS.HOME, request.url));
+  }
 
   if (
     !token &&
-    (request.nextUrl.pathname.endsWith('/booking-appointments') ||
-      request.nextUrl.pathname.endsWith(ROUTERS.SETTING))
+    PRIVATE_ROUTERS.some((route) => request.nextUrl.pathname.includes(route))
   ) {
     return NextResponse.redirect(new URL(ROUTERS.LOGIN, request.url));
   }

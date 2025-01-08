@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
-import { cookies } from 'next/headers';
 
 // CSS
 import './globals.css';
 
+// Config
+import { auth } from '@/config';
+
 // Constants
-import { BRAND, COOKIES_KEYS } from '@/constants';
+import { BRAND } from '@/constants';
 
 // Components
 import { Header } from '@/sections';
@@ -37,7 +39,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isAuthenticated = (await cookies()).has(COOKIES_KEYS.TOKEN);
+  const session = await auth();
+  const isAuthenticated = !!session?.user;
 
   return (
     <html lang="en" suppressHydrationWarning>

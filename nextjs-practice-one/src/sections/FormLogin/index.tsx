@@ -5,20 +5,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import Cookies from 'universal-cookie';
 
 // Apis
-import { signIn } from '@/actions';
+import { login } from '@/actions';
 
 // Constants
-import {
-  ERROR_MESSAGES,
-  REGEX_EMAIL,
-  REGEX_PASSWORD,
-  ROUTERS,
-  COOKIES_KEYS,
-  TIMING,
-} from '@/constants';
+import { ROUTERS } from '@/constants';
 
 // Components
 import { Button, InputController, Text } from '@/components';
@@ -27,25 +19,10 @@ import { Button, InputController, Text } from '@/components';
 import { EyeCloseIcon, EyeIcon } from '@/icons';
 
 // Stores
-import { useToastStore, useUserStore } from '@/stores';
+import { useToastStore } from '@/stores';
 
 // Utils
-import { getErrorMessage } from '@/utils';
-
-const formSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: ERROR_MESSAGES.REQUIRED })
-    .regex(REGEX_EMAIL, {
-      message: ERROR_MESSAGES.INVALID_EMAIL,
-    }),
-  password: z
-    .string()
-    .min(1, { message: ERROR_MESSAGES.REQUIRED })
-    .regex(REGEX_PASSWORD, {
-      message: ERROR_MESSAGES.INVALID_PASSWORD,
-    }),
-});
+import { loginSchema } from '@/schema';
 
 export const FormLogin = () => {
   const router = useRouter();
@@ -53,9 +30,7 @@ export const FormLogin = () => {
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
   // Stores
-  const { setUser } = useUserStore();
   const { showToast } = useToastStore();
-  const cookies = new Cookies();
 
   const initialState = useMemo(
     () => ({
@@ -70,33 +45,23 @@ export const FormLogin = () => {
     clearErrors,
     reset,
     handleSubmit: submitForm,
-  } = useForm<z.infer<typeof formSchema>>({
+  } = useForm<z.infer<typeof loginSchema>>({
     mode: 'onChange',
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(loginSchema),
     defaultValues: initialState,
   });
 
   // Function submit form
-  const handleSubmit = async (data: z.infer<typeof formSchema>) => {
-    const payload = { identifier: data.email, ...data };
+  const handleSubmit = async (data: z.infer<typeof loginSchema>) => {
+    const error = await login(data);
 
-    try {
-      const data = await signIn(payload);
-
-      cookies.set(COOKIES_KEYS.TOKEN, data.jwt, {
-        path: ROUTERS.HOME,
-        secure: true,
-        sameSite: 'strict',
-        maxAge: TIMING.COOKIES_TIMEOUT,
-      });
-
-      setUser(data.user);
-      router.push(ROUTERS.HOME);
-    } catch (error) {
-      showToast({
-        description: getErrorMessage(error),
+    if (error) {
+      return showToast({
+        description: error,
       });
     }
+
+    router.push(ROUTERS.HOME);
   };
 
   // Function reset form

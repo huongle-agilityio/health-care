@@ -34,7 +34,7 @@ export const ListDoctors = memo(
               experience={experience}
               imageSrc={avatar}
               name={name}
-              href={ROUTERS.BOOKING_APPOINTMENTS(documentId)}
+              href={ROUTERS.BOOKING_APPOINTMENTS_DETAIL(documentId)}
               rating={rating}
               specialty={specialty?.name || ''}
             />
