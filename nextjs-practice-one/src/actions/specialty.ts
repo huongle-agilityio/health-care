@@ -7,27 +7,10 @@ import { httpClient } from '@/services';
 import { API_ENDPOINT } from '@/constants';
 
 // Types
-import { SpecialtyResponse } from '@/types';
+import { Specialty, SpecialtyResponse } from '@/types';
+import { safeHttpRequest } from './safeHttpRequest';
 
-// Utils
-import { getErrorMessage } from '@/utils';
-
-export const getSpecialties = async () => {
-  try {
-    const data = await httpClient.get<SpecialtyResponse>(
-      API_ENDPOINT.SPECIALTY,
-    );
-
-    return {
-      data: data.data,
-      meta: data.meta,
-      error: null,
-    };
-  } catch (error) {
-    return {
-      data: [],
-      meta: { pagination: { page: 0, pageCount: 0 } },
-      error: getErrorMessage(error),
-    };
-  }
-};
+export const getSpecialties = async () =>
+  safeHttpRequest<Specialty[]>(
+    async () => await httpClient.get<SpecialtyResponse>(API_ENDPOINT.SPECIALTY),
+  );

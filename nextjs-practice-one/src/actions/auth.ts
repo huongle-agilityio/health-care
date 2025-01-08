@@ -40,14 +40,11 @@ export const login = async (payload: UserPayload) => {
   }
 };
 
-export const signUp = async (payload: UserPayload) => {
-  const data = await httpClient.post<UserResponse, UserPayload>(
+export const signUp = async (payload: UserPayload) =>
+  await httpClient.post<UserResponse, UserPayload>(
     API_ENDPOINT.SIGN_UP,
     payload,
   );
-
-  return data;
-};
 
 export const logout = async () => {
   await signOut({ redirectTo: ROUTERS.LOGIN });

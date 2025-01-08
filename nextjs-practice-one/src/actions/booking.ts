@@ -6,103 +6,45 @@ import { httpClient } from '@/services';
 // Constants
 import { API_ENDPOINT, QUERY_FILTER_URL, QUERY_URL } from '@/constants';
 
-// Config
-import { auth } from '@/config';
-
 // Types
 import {
   BookingAppointmentPayload,
   BookingAppointmentPayloadResponse,
+  BookingSlot,
   BookingSlotResponse,
+  BookingTimeSlots,
   DoctorTimeSlotsResponse,
+  TimeSlot,
   TimeSlotResponse,
 } from '@/types';
+import { safeHttpRequest } from './safeHttpRequest';
 
-// Utils
-import { getErrorMessage } from '@/utils';
+export const getTimeSlot = async () =>
+  safeHttpRequest<TimeSlot[]>(async () => {
+    const url = `${API_ENDPOINT.TIME_SLOT}?${QUERY_FILTER_URL.SORT_BY_TIME}`;
+    return await httpClient.get<TimeSlotResponse>(url);
+  });
 
-export const getTimeSlot = async () => {
-  try {
-    const data = await httpClient.get<TimeSlotResponse>(
-      `${API_ENDPOINT.TIME_SLOT}?${QUERY_FILTER_URL.SORT_BY_TIME}`,
-    );
+export const getBookingAppointmentById = async (userId: string) =>
+  safeHttpRequest<BookingSlot[]>(async (token) => {
+    const url = `${API_ENDPOINT.BOOKING_SLOT}${QUERY_URL.APPOINTMENT_BY_USER_ID(userId)}`;
+    return await httpClient.get<BookingSlotResponse>(url, token);
+  }, true);
 
-    return {
-      data: data.data,
-      error: null,
-    };
-  } catch (error) {
-    return {
-      data: [],
-      error: getErrorMessage(error),
-    };
-  }
-};
-
-export const getBookingAppointmentById = async (userId: string) => {
-  try {
-    const session = await auth();
-    const token = session?.user?.jwt;
-    const data = await httpClient.get<BookingSlotResponse>(
-      `${API_ENDPOINT.BOOKING_SLOT}${QUERY_URL.APPOINTMENT_BY_USER_ID(userId)}`,
-      token,
-    );
-
-    return {
-      data: data.data,
-      error: null,
-    };
-  } catch (error) {
-    return {
-      data: [],
-      error: getErrorMessage(error),
-    };
-  }
-};
-
-export const getBookingTimeSlotById = async (
-  doctorId: string,
-  date: string,
-) => {
-  try {
-    const session = await auth();
-    const token = session?.user?.jwt;
-    const data = await httpClient.get<DoctorTimeSlotsResponse>(
-      `${API_ENDPOINT.BOOKING_SLOT}${QUERY_URL.BOOKING_TIME_SLOT(doctorId, date)}`,
-      token,
-    );
-
-    return {
-      data: data.data,
-      error: null,
-    };
-  } catch (error) {
-    return {
-      data: [],
-      error: getErrorMessage(error),
-    };
-  }
-};
+export const getBookingTimeSlotById = async (doctorId: string, date: string) =>
+  safeHttpRequest<BookingTimeSlots[]>(async (token) => {
+    const url = `${API_ENDPOINT.BOOKING_SLOT}${QUERY_URL.BOOKING_TIME_SLOT(doctorId, date)}`;
+    return await httpClient.get<DoctorTimeSlotsResponse>(url, token);
+  }, true);
 
 export const createBookingAppointment = async (
   payload: BookingAppointmentPayload,
-) => {
-  try {
-    const session = await auth();
-    const token = session?.user?.jwt;
-    const data = await httpClient.post<
-      BookingAppointmentPayloadResponse,
-      BookingAppointmentPayload
-    >(API_ENDPOINT.BOOKING_SLOT, payload, token);
-
-    return {
-      data,
-      error: null,
-    };
-  } catch (error) {
-    return {
-      data: null,
-      error: getErrorMessage(error),
-    };
-  }
-};
+) =>
+  safeHttpRequest<BookingAppointmentPayload>(
+    async (token) =>
+      await httpClient.post<
+        BookingAppointmentPayloadResponse,
+        BookingAppointmentPayload
+      >(API_ENDPOINT.BOOKING_SLOT, payload, token),
+    true,
+  );

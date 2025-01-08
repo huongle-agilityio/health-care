@@ -1,5 +1,6 @@
 // Base Pagination
 export interface ApiPagination {
+  currentPage: number;
   page: number;
   pageSize: number;
   pageCount: number;
@@ -7,7 +8,7 @@ export interface ApiPagination {
 }
 
 export interface ApiPaginationResponse<T1> {
-  data: T1[];
+  data: T1;
   meta: {
     pagination: ApiPagination;
   };
