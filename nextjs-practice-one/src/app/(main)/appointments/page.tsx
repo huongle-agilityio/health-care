@@ -1,5 +1,8 @@
 import { Metadata } from 'next';
 
+// Constants
+import { IMAGE_DETAILS } from '@/constants';
+
 // Components
 import { Image, Text } from '@/components';
 import { FilterDoctors } from '@/sections/FilterDoctors';
@@ -46,8 +49,8 @@ const Page = async ({
           </div>
 
           <Image
-            alt="image-doctor"
-            src="/images/doctor.webp"
+            alt={IMAGE_DETAILS.DOCTOR.alt}
+            src={IMAGE_DETAILS.DOCTOR.src}
             classNameWrapper={cn(
               'hidden 2xl:block',
               'min-w-[800px] h-[919px] absolute right-0',

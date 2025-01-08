@@ -6,3 +6,4 @@ export * from './specialty';
 export * from './user';
 export * from './doctor';
 export * from './object';
+export * from './date';

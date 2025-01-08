@@ -9,10 +9,12 @@ import {
   Path,
   UseFormClearErrors,
 } from 'react-hook-form';
-import dayjs from 'dayjs';
 
 // Components
 import { Calendar } from '..';
+
+// Utils
+import { getDateWithFormat } from '@/utils';
 
 interface CalendarControllerProps<T extends FieldValues, K extends Path<T>>
   extends ComponentProps<typeof Calendar> {
@@ -41,7 +43,7 @@ export const CalendarController = <T extends FieldValues, K extends Path<T>>({
    */
   const handleOnChange = useCallback(
     (text: DateValue) => {
-      onChange(dayjs(text.toString()).format('YYYY-MM-DD'));
+      onChange(getDateWithFormat(text));
       clearErrors();
     },
     [clearErrors, onChange],

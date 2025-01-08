@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-
 // Constants
 import { BRAND } from '@/constants';
 
@@ -10,10 +8,10 @@ import { Text } from '@/components';
 import { PhoneCircleIcon, PhoneIcon } from '@/icons';
 
 // Utils
-import { cn } from '@/utils';
+import { cn, today } from '@/utils';
 
 export const Footer = () => {
-  const currentYear = dayjs().year();
+  const currentYear = today.year();
 
   return (
     <footer

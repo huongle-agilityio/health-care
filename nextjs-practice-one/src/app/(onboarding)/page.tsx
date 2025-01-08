@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 
 // Constants
-import { ROUTERS } from '@/constants';
+import { IMAGE_DETAILS, ROUTERS } from '@/constants';
 
 // Components
 import { Button, Image, Text } from '@/components';
@@ -47,8 +47,8 @@ const Page = () => (
       </div>
 
       <Image
-        alt="image-dentist"
-        src="/images/dentist.webp"
+        alt={IMAGE_DETAILS.DENTIST.alt}
+        src={IMAGE_DETAILS.DENTIST.src}
         classNameWrapper={cn(
           'hidden 2xl:block',
           'min-w-[800px] h-full fixed right-0',
