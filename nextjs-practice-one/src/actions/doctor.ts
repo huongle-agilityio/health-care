@@ -7,10 +7,16 @@ import { API_ENDPOINT, QUERY_URL } from '@/constants';
 import { httpClient } from '@/services';
 
 // Types
-import { Doctor, DoctorFilterParams, DoctorResponse } from '@/types';
+import {
+  ApiPaginationResponse,
+  Doctor,
+  DoctorFilterParams,
+  DoctorResponse,
+} from '@/types';
 
 // Utils
-import { getErrorMessage, getExperienceRange } from '@/utils';
+import { getExperienceRange } from '@/utils';
+import { safeHttpRequest } from './safeHttpRequest';
 
 export const getDoctorsByParams = async ({
   specialty,
@@ -18,65 +24,29 @@ export const getDoctorsByParams = async ({
   experience = '',
   fee,
   page,
-}: DoctorFilterParams) => {
-  try {
+}: DoctorFilterParams) =>
+  safeHttpRequest<Doctor[]>(async () => {
     const { expEnd, expStart } = getExperienceRange(experience);
+    const url = `${API_ENDPOINT.DOCTOR}${QUERY_URL.DOCTORS({
+      specialty,
+      rating,
+      expEnd,
+      expStart,
+      fee,
+      page,
+    })}`;
+    const response = await httpClient.get<DoctorResponse>(url);
 
-    const data = await httpClient.get<DoctorResponse>(
-      `${API_ENDPOINT.DOCTOR}${QUERY_URL.DOCTORS({
-        specialty,
-        rating,
-        expEnd,
-        expStart,
-        fee,
-        page,
-      })}`,
-    );
+    return response;
+  });
 
-    return {
-      data: data.data,
-      meta: data.meta,
-      error: null,
-    };
-  } catch (error) {
-    return {
-      data: [],
-      meta: { pagination: { page: 0, pageCount: 0, total: 0 } },
-      error: getErrorMessage(error),
-    };
-  }
-};
+export const getDoctorById = async (id: string) =>
+  safeHttpRequest<Doctor>(async () => {
+    const url = `${API_ENDPOINT.DOCTOR}${QUERY_URL.DOCTOR_BY_ID(id)}`;
+    return await httpClient.get<ApiPaginationResponse<Doctor>>(url);
+  });
 
-export const getDoctorById = async (id: string) => {
-  try {
-    const data = await httpClient.get<{ data: Doctor }>(
-      `${API_ENDPOINT.DOCTOR}${QUERY_URL.DOCTOR_BY_ID(id)}`,
-    );
-
-    return {
-      data: data.data,
-      error: null,
-    };
-  } catch (error) {
-    return {
-      data: {} as Doctor,
-      error: getErrorMessage(error),
-    };
-  }
-};
-
-export const getDoctors = async () => {
-  try {
-    const data = await httpClient.get<DoctorResponse>(API_ENDPOINT.DOCTOR);
-
-    return {
-      data: data.data,
-      error: null,
-    };
-  } catch (error) {
-    return {
-      data: [],
-      error: getErrorMessage(error),
-    };
-  }
-};
+export const getDoctors = async () =>
+  safeHttpRequest<Doctor[]>(
+    async () => await httpClient.get<DoctorResponse>(API_ENDPOINT.DOCTOR),
+  );

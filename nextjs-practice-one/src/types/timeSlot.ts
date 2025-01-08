@@ -15,5 +15,5 @@ export interface BookingSlot {
   timeSlot?: TimeSlot;
 }
 
-export type TimeSlotResponse = ApiPaginationResponse<TimeSlot>;
-export type BookingSlotResponse = ApiPaginationResponse<BookingSlot>;
+export type TimeSlotResponse = ApiPaginationResponse<TimeSlot[]>;
+export type BookingSlotResponse = ApiPaginationResponse<BookingSlot[]>;

@@ -35,5 +35,5 @@ export interface Doctor {
   bookingTimeSlots?: BookingTimeSlots[];
 }
 
-export type DoctorResponse = ApiPaginationResponse<Doctor>;
-export type DoctorTimeSlotsResponse = ApiPaginationResponse<BookingTimeSlots>;
+export type DoctorResponse = ApiPaginationResponse<Doctor[]>;
+export type DoctorTimeSlotsResponse = ApiPaginationResponse<BookingTimeSlots[]>;
