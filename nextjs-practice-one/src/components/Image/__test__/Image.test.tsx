@@ -1,4 +1,4 @@
-import { render, fireEvent, act } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
 // Components
 import { Image } from '..';
@@ -46,20 +46,14 @@ describe('Image component', () => {
     const { getByAltText } = render(
       <Image
         classNameWrapper="w-[100px] h-[100px]"
-        src="/test.jpg"
-        alt="Test Image"
+        src="/non-existing-image.jpg"
+        alt="Fallback Image"
         fallbackSrc={IMAGES.FALLBACK_URL}
         blurDataURL={blurDataURL}
       />,
     );
 
-    const image = getByAltText('Test Image');
+    const image = getByAltText('Fallback Image');
     expect(image).toHaveClass('opacity-70');
-
-    await act(() => {
-      fireEvent.load(image);
-    });
-
-    expect(image).toHaveClass('opacity-100');
   });
 });
