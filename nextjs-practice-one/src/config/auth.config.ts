@@ -4,11 +4,11 @@ import type { NextAuthConfig } from 'next-auth';
 import { ROUTERS, TIMING } from '../constants';
 
 // Types
-import { User } from '../types';
+import { UserSession } from '../types';
 
 declare module 'next-auth' {
   interface Session {
-    user: Omit<User, 'password'>;
+    user: UserSession;
   }
 }
 

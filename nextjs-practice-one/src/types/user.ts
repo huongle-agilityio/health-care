@@ -19,3 +19,5 @@ export interface UserResponse {
   jwt: string;
   user: User;
 }
+
+export type UserSession = Omit<User, 'password'> & { jwt?: string };

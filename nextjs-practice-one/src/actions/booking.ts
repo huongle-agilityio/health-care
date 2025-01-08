@@ -1,17 +1,13 @@
 'use server';
 
-import { cookies } from 'next/headers';
-
 // Services
 import { httpClient } from '@/services';
 
 // Constants
-import {
-  API_ENDPOINT,
-  COOKIES_KEYS,
-  QUERY_FILTER_URL,
-  QUERY_URL,
-} from '@/constants';
+import { API_ENDPOINT, QUERY_FILTER_URL, QUERY_URL } from '@/constants';
+
+// Config
+import { auth } from '@/config';
 
 // Types
 import {
@@ -43,9 +39,10 @@ export const getTimeSlot = async () => {
   }
 };
 
-export const getBookingAppointmentById = async (userId: number) => {
+export const getBookingAppointmentById = async (userId: string) => {
   try {
-    const token = (await cookies()).get(COOKIES_KEYS.TOKEN)?.value;
+    const session = await auth();
+    const token = session?.user?.jwt;
     const data = await httpClient.get<BookingSlotResponse>(
       `${API_ENDPOINT.BOOKING_SLOT}${QUERY_URL.APPOINTMENT_BY_USER_ID(userId)}`,
       token,
@@ -68,7 +65,8 @@ export const getBookingTimeSlotById = async (
   date: string,
 ) => {
   try {
-    const token = (await cookies()).get(COOKIES_KEYS.TOKEN)?.value;
+    const session = await auth();
+    const token = session?.user?.jwt;
     const data = await httpClient.get<DoctorTimeSlotsResponse>(
       `${API_ENDPOINT.BOOKING_SLOT}${QUERY_URL.BOOKING_TIME_SLOT(doctorId, date)}`,
       token,
@@ -90,7 +88,8 @@ export const createBookingAppointment = async (
   payload: BookingAppointmentPayload,
 ) => {
   try {
-    const token = (await cookies()).get(COOKIES_KEYS.TOKEN)?.value;
+    const session = await auth();
+    const token = session?.user?.jwt;
     const data = await httpClient.post<
       BookingAppointmentPayloadResponse,
       BookingAppointmentPayload
