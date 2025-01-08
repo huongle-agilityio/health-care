@@ -5,7 +5,8 @@ export const ROUTERS = {
 
   // Appointments
   APPOINTMENTS: '/appointments',
-  BOOKING_APPOINTMENTS: (doctorId: string) =>
+  BOOKING_APPOINTMENTS: '/booking-appointments',
+  BOOKING_APPOINTMENTS_DETAIL: (doctorId: string) =>
     `/appointments/${doctorId}/booking-appointments`,
 
   HEALTH_BLOG: '/health-blog',
@@ -14,3 +15,6 @@ export const ROUTERS = {
   // Setting
   SETTING: '/setting',
 };
+
+export const PRIVATE_ROUTERS = [ROUTERS.BOOKING_APPOINTMENTS, ROUTERS.SETTING];
+export const AUTH_ROUTERS = [ROUTERS.LOGIN, ROUTERS.REGISTER];

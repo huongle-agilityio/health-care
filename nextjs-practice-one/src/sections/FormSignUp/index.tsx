@@ -5,21 +5,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import Cookies from 'universal-cookie';
 
 // Apis
-import { signUp } from '@/actions';
+import { login, signUp } from '@/actions';
 
 // Constants
-import {
-  ERROR_MESSAGES,
-  REGEX_EMAIL,
-  REGEX_PASSWORD,
-  REGEX_PHONE_NUMBER,
-  ROUTERS,
-  COOKIES_KEYS,
-  TIMING,
-} from '@/constants';
+import { ROUTERS } from '@/constants';
 
 // Components
 import { Button, InputController } from '@/components';
@@ -27,34 +18,14 @@ import { Button, InputController } from '@/components';
 // Icons
 import { EyeCloseIcon, EyeIcon } from '@/icons';
 
+// Schema
+import { signUpSchema } from '@/schema';
+
 // Stores
-import { useToastStore, useUserStore } from '@/stores';
+import { useToastStore } from '@/stores';
 
 // Utils
 import { getErrorMessage } from '@/utils';
-
-const formSchema = z.object({
-  name: z.string().min(1, { message: ERROR_MESSAGES.REQUIRED }),
-  phone: z
-    .string()
-    .min(1, { message: ERROR_MESSAGES.REQUIRED })
-    .min(11, { message: ERROR_MESSAGES.MAX_PHONE_NUMBER })
-    .regex(REGEX_PHONE_NUMBER, {
-      message: ERROR_MESSAGES.INVALID_PHONE,
-    }),
-  email: z
-    .string()
-    .min(1, { message: ERROR_MESSAGES.REQUIRED })
-    .regex(REGEX_EMAIL, {
-      message: ERROR_MESSAGES.INVALID_EMAIL,
-    }),
-  password: z
-    .string()
-    .min(1, { message: ERROR_MESSAGES.REQUIRED })
-    .regex(REGEX_PASSWORD, {
-      message: ERROR_MESSAGES.INVALID_PASSWORD,
-    }),
-});
 
 export const FormSignUp = () => {
   const router = useRouter();
@@ -62,9 +33,7 @@ export const FormSignUp = () => {
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
   // Stores
-  const { setUser } = useUserStore();
   const { showToast } = useToastStore();
-  const cookies = new Cookies();
 
   const initialState = useMemo(
     () => ({
@@ -81,26 +50,28 @@ export const FormSignUp = () => {
     clearErrors,
     reset,
     handleSubmit: submitForm,
-  } = useForm<z.infer<typeof formSchema>>({
+  } = useForm<z.infer<typeof signUpSchema>>({
     mode: 'onChange',
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(signUpSchema),
     defaultValues: initialState,
   });
 
   // Function submit form
-  const handleSubmit = async (data: z.infer<typeof formSchema>) => {
+  const handleSubmit = async (data: z.infer<typeof signUpSchema>) => {
     const payload = { username: data.email, ...data };
     try {
-      const data = await signUp(payload);
-
-      cookies.set(COOKIES_KEYS.TOKEN, data.jwt, {
-        path: ROUTERS.HOME,
-        secure: true,
-        sameSite: 'strict',
-        maxAge: TIMING.COOKIES_TIMEOUT,
+      const response = await signUp(payload);
+      const error = await login({
+        email: response.user.email,
+        password: data.password,
       });
 
-      setUser(data.user);
+      if (error) {
+        return showToast({
+          description: error,
+        });
+      }
+
       router.push(ROUTERS.HOME);
     } catch (error) {
       showToast({

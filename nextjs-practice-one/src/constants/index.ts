@@ -11,3 +11,5 @@ export * from './messages';
 export * from './storage-keys';
 export * from './query-url';
 export * from './pagination';
+export * from './auth';
+export * from './error';

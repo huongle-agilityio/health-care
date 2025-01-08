@@ -1,0 +1,38 @@
+import type { NextAuthConfig } from 'next-auth';
+
+// Constants
+import { ROUTERS, TIMING } from '../constants';
+
+// Types
+import { User } from '../types';
+
+declare module 'next-auth' {
+  interface Session {
+    user: Omit<User, 'password'>;
+  }
+}
+
+export const authConfig = {
+  pages: {
+    signIn: ROUTERS.LOGIN,
+  },
+  callbacks: {
+    jwt: async ({ user, token }) => {
+      if (token) Object.assign(token, user);
+
+      return token;
+    },
+
+    session: ({ session, token }) => {
+      Object.assign(session.user, token);
+
+      return session;
+    },
+  },
+  session: {
+    strategy: 'jwt',
+    maxAge: TIMING.COOKIES_TIMEOUT,
+  },
+  trustHost: true,
+  providers: [],
+} satisfies NextAuthConfig;

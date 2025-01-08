@@ -12,7 +12,7 @@ export const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const bookingAppointmentsRoutes = doctors
     .map((doctor) => [
       {
-        url: `${BASE_URL}${ROUTERS.BOOKING_APPOINTMENTS(doctor?.documentId || '')}`,
+        url: `${BASE_URL}${ROUTERS.BOOKING_APPOINTMENTS_DETAIL(doctor?.documentId || '')}`,
         lastModified: new Date(),
       },
     ])
