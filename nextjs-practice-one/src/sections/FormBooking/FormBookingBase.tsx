@@ -21,43 +21,23 @@ import {
 } from '@/components';
 
 // Constants
-import {
-  ERROR_MESSAGES,
-  REGEX_EMAIL,
-  REGEX_PHONE_NUMBER,
-  ROUTERS,
-} from '@/constants';
+import { ROUTERS } from '@/constants';
 
 // Stores
-import { useToastStore, useUserStore } from '@/stores';
+import { useToastStore } from '@/stores';
+
+// Schema
+import { bookingSchema } from '@/schema';
 
 // Types
-import { Doctor, BookingTimeSlots, TimeSlot } from '@/types';
+import { Doctor, BookingTimeSlots, TimeSlot, UserSession } from '@/types';
 
 // Utils
-import { cn, getStatusTimeSlots, isEmptyObject } from '@/utils';
-
-const formSchema = z.object({
-  time: z.string().min(1, { message: ERROR_MESSAGES.REQUIRED }),
-  name: z.string().min(1, { message: ERROR_MESSAGES.REQUIRED }),
-  date: z.string().min(1, { message: ERROR_MESSAGES.REQUIRED }),
-  phone: z
-    .string()
-    .min(1, { message: ERROR_MESSAGES.REQUIRED })
-    .min(11, { message: ERROR_MESSAGES.MAX_PHONE_NUMBER })
-    .regex(REGEX_PHONE_NUMBER, {
-      message: ERROR_MESSAGES.INVALID_PHONE,
-    }),
-  email: z
-    .string()
-    .min(1, { message: ERROR_MESSAGES.REQUIRED })
-    .regex(REGEX_EMAIL, {
-      message: ERROR_MESSAGES.INVALID_EMAIL,
-    }),
-});
+import { cn, getStatusTimeSlots } from '@/utils';
 
 interface FormBookingBaseProps {
   doctorId: string;
+  userInfo?: UserSession;
   doctor: Doctor;
   times: TimeSlot[];
 }
@@ -65,6 +45,7 @@ interface FormBookingBaseProps {
 export const FormBookingBase = ({
   doctorId,
   doctor,
+  userInfo,
   times,
 }: FormBookingBaseProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -73,14 +54,19 @@ export const FormBookingBase = ({
 
   const router = useRouter();
 
-  const { user } = useUserStore();
   const { showToast } = useToastStore();
   const today = dayjs().format('YYYY-MM-DD');
+  const {
+    email = '',
+    name: userName = '',
+    phone = '',
+    id = '',
+  } = userInfo || {};
 
   const initialState = {
-    email: user?.email || '',
-    name: user?.name || '',
-    phone: user?.phone || '',
+    email,
+    name: userName,
+    phone,
     time: '',
     date: today,
   };
@@ -88,25 +74,24 @@ export const FormBookingBase = ({
   const {
     control,
     clearErrors,
-    reset,
     watch,
     handleSubmit: submitForm,
-  } = useForm<z.infer<typeof formSchema>>({
+  } = useForm<z.infer<typeof bookingSchema>>({
     mode: 'onChange',
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(bookingSchema),
     defaultValues: initialState,
   });
 
   const date = watch('date');
 
   // Function submit form
-  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+  const handleSubmit = async (values: z.infer<typeof bookingSchema>) => {
     const payload = {
       data: {
         date: values.date,
         timeSlot: values.time,
         doctor: doctorId,
-        user: user?.id || 0,
+        user: id,
       },
     };
 
@@ -142,19 +127,6 @@ export const FormBookingBase = ({
 
     fetchSpecialties();
   }, [date, doctorId, showToast]);
-
-  // Function set default values when user have values
-  useEffect(() => {
-    if (!isEmptyObject(user)) {
-      reset({
-        email: '',
-        name: '',
-        phone: '',
-        time: '',
-        date: today,
-      });
-    }
-  }, [reset, today, user]);
 
   return (
     <form
@@ -218,7 +190,7 @@ export const FormBookingBase = ({
           clearErrors={clearErrors}
         />
         <div className="flex flex-col mt-20 gap-15">
-          <Button isLoading={isEmptyObject(user)} type="submit" color="default">
+          <Button isLoading={isLoading} type="submit" color="default">
             Book Appointment
           </Button>
           <Button type="submit" color="primary">
