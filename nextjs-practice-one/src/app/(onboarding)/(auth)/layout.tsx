@@ -1,14 +1,17 @@
 // Components
 import { Image } from '@/components';
 
+// Constants
+import { IMAGE_DETAILS } from '@/constants';
+
 // Utils
 import { cn } from '@/utils';
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
   <div className="w-full h-full">
     <Image
-      alt="background-image"
-      src="/images/onboarding-background.webp"
+      alt={IMAGE_DETAILS.ONBOARDING_BACKGROUND.alt}
+      src={IMAGE_DETAILS.ONBOARDING_BACKGROUND.src}
       classNameWrapper="w-full h-full fixed top-0 left-0 z-[-1]"
       priority
     />

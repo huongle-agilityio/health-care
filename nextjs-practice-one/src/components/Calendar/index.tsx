@@ -2,7 +2,6 @@
 
 import { memo } from 'react';
 import { parseDate } from '@internationalized/date';
-import dayjs from 'dayjs';
 
 import {
   Calendar as CalendarNextUI,
@@ -15,7 +14,7 @@ import {
 import { Text } from '..';
 
 // Utils
-import { cn } from '@/utils';
+import { cn, isDateUnavailable, todayWithFormat } from '@/utils';
 
 export const CalendarBase = extendVariants(CalendarNextUI, {
   variants: {
@@ -59,29 +58,15 @@ export interface CalendarProps extends CalendarNextUIProps {
 }
 
 export const Calendar = memo(({ value, error, ...props }: CalendarProps) => {
-  const now = dayjs();
-
-  const isDateUnavailable = (date: DateValue) => {
-    const targetDate = dayjs(date.toString());
-
-    return (
-      // Disable weekends
-      targetDate.day() === 0 ||
-      targetDate.day() === 6 ||
-      // Disable the day before
-      targetDate.isBefore(now, 'day')
-    );
-  };
+  const date = value
+    ? parseDate(value.toString())
+    : parseDate(todayWithFormat());
 
   return (
     <div className="flex-col">
       <CalendarBase
         disableAnimation
-        value={
-          value
-            ? parseDate(value.toString())
-            : parseDate(dayjs().format('YYYY-MM-DD'))
-        }
+        value={date}
         isDateUnavailable={isDateUnavailable}
         {...props}
       />

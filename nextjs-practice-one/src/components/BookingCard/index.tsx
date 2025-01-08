@@ -9,14 +9,11 @@ import {
   Chip,
 } from '@nextui-org/react';
 
-// Constants
-import { BOOKING_STATUS } from '@/constants';
-
 // Components
 import { Text, Image } from '..';
 
 // Utils
-import { cn, getBookingStatus } from '@/utils';
+import { cn, getBookingStatus, getColorsWithStatusBooking } from '@/utils';
 
 const CardBase = extendVariants(CardNextUI, {
   variants: {
@@ -71,18 +68,14 @@ interface BookingCardProps {
 export const BookingCard = memo(
   ({ date, name, imageSrc, time }: BookingCardProps) => {
     const statusBooking = getBookingStatus(date);
-    const chipColors = {
-      'bg-amber-400': statusBooking === BOOKING_STATUS.TODAY,
-      'bg-lime-600': statusBooking === BOOKING_STATUS.UPCOMING,
-      'bg-red-400': statusBooking === BOOKING_STATUS.EXPIRED,
-    };
+    const chipColors = getColorsWithStatusBooking(statusBooking);
 
     return (
       <CardBase>
         <CardHeaderBase>
           <Image
             src={imageSrc}
-            alt={`Dr ${name}'s image`}
+            alt={`Dr ${name}'s avatar`}
             sizes="75px"
             classNameWrapper={cn('rounded-full', 'w-[75px] h-[75px]')}
           />

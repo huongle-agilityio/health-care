@@ -95,7 +95,7 @@ export const Card = memo(
       <CardHeaderBase>
         <Image
           src={imageSrc}
-          alt={`Dr ${name}'s image`}
+          alt={`Dr ${name}'s avatar`}
           sizes="(max-width: 768px) 75px, 150px"
           classNameWrapper={cn(
             'rounded-full mt-10 md:mt-0',

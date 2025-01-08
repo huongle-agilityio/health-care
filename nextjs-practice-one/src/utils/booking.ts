@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { today } from './date';
 
 // Constants
 import { BOOKING_STATUS } from '@/constants';
@@ -12,9 +13,8 @@ import { BookingTimeSlots, OptionCheckBox, TimeSlot } from '@/types';
  * @returns 'Expired' | 'ToDay' | 'Upcoming'
  */
 export const getBookingStatus = (date: string) => {
-  const now = dayjs();
-  const isToday = now.isSame(dayjs(date), 'd');
-  const isExpire = now.isAfter(dayjs(date)) && !isToday;
+  const isToday = today.isSame(dayjs(date), 'd');
+  const isExpire = today.isAfter(dayjs(date)) && !isToday;
 
   if (isExpire) {
     return BOOKING_STATUS.EXPIRED;
@@ -26,6 +26,22 @@ export const getBookingStatus = (date: string) => {
 
   return BOOKING_STATUS.UPCOMING;
 };
+
+/**
+ * Returns the corresponding color based on the booking status.
+ *
+ * @param status - The booking status, which can be 'TODAY', 'UPCOMING', or 'EXPIRED'.
+ * @returns A string representing the color of the booking status.
+ */
+export function getColorsWithStatusBooking(status: BOOKING_STATUS): string {
+  const chipColors = {
+    [BOOKING_STATUS.TODAY]: 'bg-amber-400',
+    [BOOKING_STATUS.UPCOMING]: 'bg-lime-600',
+    [BOOKING_STATUS.EXPIRED]: 'bg-red-400',
+  };
+
+  return chipColors[status] || '';
+}
 
 /**
  * Function format time slots to array

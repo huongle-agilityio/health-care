@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import dayjs from 'dayjs';
 import { z } from 'zod';
 
 // Apis
@@ -33,7 +32,7 @@ import { bookingSchema } from '@/schema';
 import { Doctor, BookingTimeSlots, TimeSlot, UserSession } from '@/types';
 
 // Utils
-import { cn, getStatusTimeSlots } from '@/utils';
+import { cn, getStatusTimeSlots, todayWithFormat } from '@/utils';
 
 interface FormBookingBaseProps {
   doctorId: string;
@@ -55,7 +54,6 @@ export const FormBookingBase = ({
   const router = useRouter();
 
   const { showToast } = useToastStore();
-  const today = dayjs().format('YYYY-MM-DD');
   const {
     email = '',
     name: userName = '',
@@ -68,7 +66,7 @@ export const FormBookingBase = ({
     name: userName,
     phone,
     time: '',
-    date: today,
+    date: todayWithFormat(),
   };
 
   const {

@@ -20,7 +20,7 @@ export const DoctorInfo = memo(
       <div className="flex flex-col items-center">
         <Image
           src={avatar}
-          alt={`Dr ${name}'s image`}
+          alt={`Dr ${name}'s avatar`}
           sizes="(max-width: 768px) 75px, 150px"
           classNameWrapper={cn(
             'rounded-full',
