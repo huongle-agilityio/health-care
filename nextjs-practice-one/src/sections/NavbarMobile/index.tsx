@@ -14,7 +14,7 @@ import { NAVIGATION_ITEMS, ROUTES } from '@/constants';
 
 // Components
 import { Button } from '@/components';
-import { NavbarListItem } from './NavbarListItem';
+import { NavbarList } from './NavbarList';
 
 // Icons
 import { CloseIcon, OutlineBurgerIcon, SettingIcon } from '@/icons';
@@ -79,7 +79,7 @@ export const NavBarMobile = ({
             {(onClose) => (
               <ModalBody className="pt-25 px-12 gap-12">
                 <div className="flex flex-col gap-12">
-                  <NavbarListItem
+                  <NavbarList
                     pathname={pathname}
                     options={options}
                     onClose={onClose}

@@ -1,5 +1,5 @@
 // Constants
-import { BRAND } from '@/constants';
+import { BRAND, STYLE_FOOTER_HEIGHT } from '@/constants';
 
 // Components
 import { Text } from '@/components';
@@ -16,7 +16,7 @@ export const Footer = () => {
   return (
     <footer
       className={cn(
-        'w-full h-25',
+        `w-full ${STYLE_FOOTER_HEIGHT}`,
         'py-16 md:px-21',
         'border-t-1 border-secondary-200 bg-background-100',
       )}

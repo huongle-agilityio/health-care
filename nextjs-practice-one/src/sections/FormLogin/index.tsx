@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -13,10 +13,12 @@ import { login } from '@/actions';
 import { ROUTES } from '@/constants';
 
 // Components
-import { Button, InputController, Text } from '@/components';
-
-// Icons
-import { EyeCloseIcon, EyeIcon } from '@/icons';
+import {
+  Button,
+  InputController,
+  PasswordInputController,
+  Text,
+} from '@/components';
 
 // Stores
 import { useToastStore } from '@/stores';
@@ -26,8 +28,6 @@ import { loginSchema } from '@/schema';
 
 export const FormLogin = () => {
   const router = useRouter();
-
-  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
   // Stores
   const { showToast } = useToastStore();
@@ -83,28 +83,14 @@ export const FormLogin = () => {
             name="email"
             clearErrors={clearErrors}
           />
-          <InputController
+          <PasswordInputController
             control={control}
-            placeholder="Enter your password"
-            label="Password"
             name="password"
-            endContent={
-              <div className="cursor-pointer">
-                {isShowPassword ? (
-                  <EyeIcon onClick={() => setIsShowPassword(false)} />
-                ) : (
-                  <EyeCloseIcon onClick={() => setIsShowPassword(true)} />
-                )}
-              </div>
-            }
-            type={isShowPassword ? 'text' : 'password'}
             clearErrors={clearErrors}
           />
         </div>
         <div className="flex flex-col gap-5">
-          <Button type="submit" className="focus:w-full">
-            Submit
-          </Button>
+          <Button type="submit">Submit</Button>
           <Button color="primary" onClick={handleReset}>
             Reset
           </Button>

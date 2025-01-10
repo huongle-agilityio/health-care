@@ -1,26 +1,24 @@
+import { ComponentType, memo } from 'react';
 import Link from 'next/link';
+
+// Icons
+import { SvgFactoryProps } from '@/icons';
 
 // Utils
 import { cn } from '@/utils';
 
-// Types
-import { OptionMenu } from '@/types';
-
-interface NavbarMobileItemProps {
+interface NavbarItemProps {
   pathname: string;
-  options: OptionMenu[];
+  title: string;
+  url?: string;
+  icon?: ComponentType<SvgFactoryProps>;
   onClose: () => void;
 }
 
-export const NavbarListItem = ({
-  pathname,
-  options,
-  onClose,
-}: NavbarMobileItemProps) =>
-  options.map(({ title, url, icon: Icon }, index) =>
+export const NavbarItem = memo(
+  ({ pathname, title, url, icon: Icon, onClose }: NavbarItemProps) =>
     url ? (
       <Link
-        key={`${title}-${index}`}
         href={url}
         className={cn(
           'py-5 px-6 cursor-pointer',
@@ -29,13 +27,12 @@ export const NavbarListItem = ({
         )}
         onClick={onClose}
       >
-        {Icon && <Icon />}
+        {Icon && <Icon className="stroke-primary-100" />}
 
         <div className="text-center">{title}</div>
       </Link>
     ) : (
       <div
-        key={`${title}-${index}`}
         className={cn(
           'py-5 px-6 cursor-pointer',
           'flex items-center gap-8 rounded-xl',
@@ -43,9 +40,11 @@ export const NavbarListItem = ({
         )}
         onClick={onClose}
       >
-        {Icon && <Icon className="fill-primary-100 stroke-primary-100" />}
+        {Icon && <Icon className="stroke-primary-100" />}
 
         <div className="text-center">{title}</div>
       </div>
     ),
-  );
+);
+
+NavbarItem.displayName = 'NavbarItem';
