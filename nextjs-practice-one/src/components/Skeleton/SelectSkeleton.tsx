@@ -15,13 +15,9 @@ export const SelectSkeleton = ({
   <div className="flex flex-col gap-[16px]">
     <Skeleton
       className={cn('rounded-xl', 'w-[197px] h-[20px]', classNameLabel)}
-    >
-      <div className="bg-default-300" />
-    </Skeleton>
+    />
     <Skeleton
       className={cn('rounded-xl', 'w-[197px] h-[60px]', classNameSelect)}
-    >
-      <div className="bg-default-300" />
-    </Skeleton>
+    />
   </div>
 );

@@ -1,13 +1,10 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 
 // Components
 import { ListCheckbox } from '..';
 
-const mockOptions = [
-  { value: 'option1', label: 'Option 1', isDisabled: false },
-  { value: 'option2', label: 'Option 2', isDisabled: true },
-];
+// Mocks
+import { ListCheckboxMock } from '@/constants/mocks';
 
 const mockOnChange = jest.fn();
 
@@ -15,30 +12,26 @@ describe('ListCheckbox Component', () => {
   test('renders options correctly', () => {
     render(
       <ListCheckbox
-        options={mockOptions}
+        options={ListCheckboxMock}
         selectedValue="option1"
         onChange={mockOnChange}
-        error=""
-        className="custom-class"
       />,
     );
 
-    expect(screen.getByText('Option 1')).toBeInTheDocument();
-    expect(screen.getByText('Option 2')).toBeInTheDocument();
+    expect(screen.getByText(ListCheckboxMock[0].label)).toBeInTheDocument();
+    expect(screen.getByText(ListCheckboxMock[1].label)).toBeInTheDocument();
   });
 
   test('handles onChange event', () => {
     render(
       <ListCheckbox
-        options={mockOptions}
+        options={ListCheckboxMock}
         selectedValue="option1"
         onChange={mockOnChange}
-        error=""
-        className="custom-class"
       />,
     );
 
-    const checkboxOption1 = screen.getByText('Option 1');
+    const checkboxOption1 = screen.getByText(ListCheckboxMock[0].label);
     fireEvent.click(checkboxOption1);
 
     expect(mockOnChange).toHaveBeenCalled();
@@ -47,15 +40,13 @@ describe('ListCheckbox Component', () => {
   test('disables the checkbox correctly', () => {
     render(
       <ListCheckbox
-        options={mockOptions}
+        options={ListCheckboxMock}
         selectedValue=""
         onChange={mockOnChange}
-        error=""
-        className="custom-class"
       />,
     );
 
-    const checkboxOption2 = screen.getByLabelText('Option 2');
+    const checkboxOption2 = screen.getByLabelText(ListCheckboxMock[1].label);
 
     expect(checkboxOption2).toBeDisabled();
   });
@@ -64,11 +55,10 @@ describe('ListCheckbox Component', () => {
     const errorMessage = 'This field is required';
     render(
       <ListCheckbox
-        options={mockOptions}
+        options={ListCheckboxMock}
         selectedValue=""
         onChange={mockOnChange}
         error={errorMessage}
-        className="custom-class"
       />,
     );
 

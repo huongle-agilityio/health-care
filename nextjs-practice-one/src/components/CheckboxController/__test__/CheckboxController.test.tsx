@@ -4,15 +4,8 @@ import { useForm } from 'react-hook-form';
 // Components
 import { CheckboxController } from '..';
 
-// Types
-import { OptionCheckBox } from '@/types';
-
-// Mock data for testing
-const options: OptionCheckBox[] = [
-  { label: 'Option 1', value: 'option1', isDisabled: false },
-  { label: 'Option 2', value: 'option2', isDisabled: true },
-  { label: 'Option 3', value: 'option3', isDisabled: true },
-];
+// Mocks
+import { ListCheckboxMock } from '@/constants/mocks';
 
 describe('CheckboxController Component', () => {
   const TestComponent = () => {
@@ -20,7 +13,7 @@ describe('CheckboxController Component', () => {
 
     return (
       <CheckboxController
-        options={options}
+        options={ListCheckboxMock}
         name="checkbox"
         control={control}
         clearErrors={clearErrors}
@@ -31,7 +24,7 @@ describe('CheckboxController Component', () => {
   test('Should checkbox options and handles change event', () => {
     render(<TestComponent />);
 
-    const option1 = screen.getByLabelText('Option 1');
+    const option1 = screen.getByLabelText(ListCheckboxMock[0].label);
 
     expect(option1).toBeInTheDocument();
 
@@ -43,7 +36,7 @@ describe('CheckboxController Component', () => {
   test('Should not select option when isDisabled is true', () => {
     render(<TestComponent />);
 
-    const option2 = screen.getByLabelText('Option 2');
+    const option2 = screen.getByLabelText(ListCheckboxMock[1].label);
 
     expect(option2).toBeDisabled();
     expect(option2).toBeInTheDocument();

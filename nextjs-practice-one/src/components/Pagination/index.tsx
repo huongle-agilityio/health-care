@@ -8,10 +8,7 @@ import {
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
 // Components
-import { Button } from '../Button';
-
-// Icons
-import { ArrowLeftIcon, ArrowRightIcon } from '@/icons';
+import { PaginationButton } from './PaginationButton';
 
 // Utils
 import { cn } from '@/utils';
@@ -59,8 +56,8 @@ export const Pagination = memo(({ page = 1, total }: PaginationProps) => {
     [searchParams],
   );
 
-  const isShowPrev = page > 1;
-  const isShowNext = page < total;
+  const shouldShowPrev = page > 1;
+  const shouldShowNext = page < total;
 
   const handleSetPage = useCallback(
     (value: number) => {
@@ -85,29 +82,12 @@ export const Pagination = memo(({ page = 1, total }: PaginationProps) => {
 
   return (
     <div className="flex items-center">
-      {isShowPrev && (
-        <Button
-          size="none"
-          color="bordered"
-          variant="bordered"
-          className="group text-primary-400 hover:text-primary-100 border-0"
-          onPress={handlePrevPage}
-        >
-          <ArrowLeftIcon className="group-hover:fill-primary-100" /> Previous
-        </Button>
-      )}
+      {shouldShowPrev && <PaginationButton onPress={handlePrevPage} />}
+
       <PaginationBase page={page} total={total} onChange={handleSetPage} />
 
-      {isShowNext && (
-        <Button
-          size="none"
-          variant="bordered"
-          color="bordered"
-          className="group text-primary-400 hover:text-primary-100 border-0"
-          onPress={handleNextPage}
-        >
-          Next <ArrowRightIcon className="group-hover:fill-primary-100" />
-        </Button>
+      {shouldShowNext && (
+        <PaginationButton onPress={handleNextPage} isNextButton />
       )}
     </div>
   );
