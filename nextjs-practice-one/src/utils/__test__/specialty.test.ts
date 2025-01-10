@@ -1,23 +1,20 @@
 // Types
 import { Specialty, Option } from '@/types';
 
+// Constants
+import { SPECIALTIES_MOCK } from '@/constants/mocks';
+
 // Utils
 import { formatSpecialtiesOption } from '..';
 
 describe('formatSpecialtiesOption', () => {
   it('Should format an array of specialties into an array of options', () => {
-    const specialties: Specialty[] = [
-      { id: 1, name: 'Cardiology' },
-      { id: 2, name: 'Neurology' },
-      { id: 3, name: 'Orthopedics' },
-    ];
-
     const expectedOptions: Option[] = [
       { value: 'Cardiology', label: 'Cardiology' },
       { value: 'Neurology', label: 'Neurology' },
       { value: 'Orthopedics', label: 'Orthopedics' },
     ];
-    const result = formatSpecialtiesOption(specialties);
+    const result = formatSpecialtiesOption(SPECIALTIES_MOCK);
 
     expect(result).toEqual(expectedOptions);
   });

@@ -1,17 +1,14 @@
 // Types
 import { ListInfo } from '@/types';
 
+// Constants
+import { USER_MOCK } from '@/constants/mocks';
+
 // Utils
 import { formatUserInfo } from '..';
 
 describe('formatUserInfo', () => {
   it('Should format user information into ListInfo array', () => {
-    const userInfo = {
-      name: 'John Doe',
-      phone: '123-456-7890',
-      email: 'john.doe@example.com',
-    };
-
     const expectedOutput: ListInfo[] = [
       {
         title: 'Name',
@@ -27,7 +24,7 @@ describe('formatUserInfo', () => {
       },
     ];
 
-    expect(formatUserInfo(userInfo)).toEqual(expectedOutput);
+    expect(formatUserInfo(USER_MOCK)).toEqual(expectedOutput);
   });
 
   it('Should return an empty array if no user information', () => {
@@ -57,9 +54,8 @@ describe('formatUserInfo', () => {
 
   it('Should return an array with value empty with which field do not have value', () => {
     const userInfo = {
-      name: 'Jane Doe',
+      ...USER_MOCK,
       phone: '',
-      email: 'jane.doe@example.com',
     };
 
     const expectedOutput: ListInfo[] = [

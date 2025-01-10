@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 // Actions
 import { getSpecialties } from '@/actions';
@@ -39,15 +39,12 @@ export const FormFilterDoctors = ({
   const { showToast } = useToastStore();
   const params = new URLSearchParams(searchParams.toString());
 
-  const initialState = useMemo(
-    () => ({
-      specialty: specialty,
-      rating: rating,
-      experience: experience,
-      fee: fee,
-    }),
-    [experience, fee, rating, specialty],
-  );
+  const initialState = {
+    specialty,
+    rating,
+    experience,
+    fee,
+  };
 
   const {
     control,

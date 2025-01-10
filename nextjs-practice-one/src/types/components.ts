@@ -1,7 +1,7 @@
 import { ComponentType } from 'react';
 
 // Icons
-import { SvgFactoryProps } from '@/icons/SvgFactory';
+import { SvgFactoryProps } from '@/icons';
 
 export type CustomClassType = {
   customClass?: string;

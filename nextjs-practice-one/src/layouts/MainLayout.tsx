@@ -3,12 +3,23 @@ import { ReactNode } from 'react';
 // Sections
 import { Footer } from '@/sections';
 
+// Constants
+import {
+  FOOTER_HEIGHT,
+  HEADER_HEIGHT_DESKTOP,
+  HEADER_HEIGHT_MOBILE,
+} from '@/constants';
+
+// Utils
+import { cn } from '@/utils';
+
 export const MainLayout = ({ children }: { children: ReactNode }) => (
   <main>
     <section
-      // 88px is the height of the footer
-      // 60px is the height of the header mobile and 128px for desktop
-      className="min-h-[calc(100vh-(88px+60px))] lg:min-h-[calc(100vh-(88px+128px))] pb-19"
+      className={cn(
+        'pb-19',
+        `min-h-[calc(100vh-(${FOOTER_HEIGHT}+${HEADER_HEIGHT_MOBILE}))] lg:min-h-[calc(100vh-(${FOOTER_HEIGHT}+${HEADER_HEIGHT_DESKTOP}))]`,
+      )}
     >
       {children}
     </section>

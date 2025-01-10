@@ -4,7 +4,12 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 // Constants
-import { NAVIGATION_ITEMS, ROUTES } from '@/constants';
+import {
+  NAVIGATION_ITEMS,
+  ROUTES,
+  STYLE_HEADER_HEIGHT_DESKTOP,
+  STYLE_HEADER_HEIGHT_MOBILE,
+} from '@/constants';
 
 // Components
 import { Text } from '@/components';
@@ -28,7 +33,8 @@ export const Header = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
   return (
     <header
       className={cn(
-        'sticky top-0 h-21 xl:h-[128px] z-20',
+        `${STYLE_HEADER_HEIGHT_DESKTOP} ${STYLE_HEADER_HEIGHT_MOBILE}`,
+        'sticky top-0 z-20',
         'border-b bg-background-100',
       )}
     >

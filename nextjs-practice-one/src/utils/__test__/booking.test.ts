@@ -3,6 +3,8 @@ import dayjs from 'dayjs';
 // Constants
 import { BOOKING_STATUS } from '@/constants';
 
+import { TIME_SLOTS_MOCK } from '@/constants/mocks';
+
 // Utils
 import {
   getBookingStatus,
@@ -57,30 +59,13 @@ describe('booking', () => {
 
   describe('formatTimeSlotOption', () => {
     it('Should format time slots correctly', () => {
-      const timeSlots = [
-        {
-          id: 0,
-          documentId: '1',
-          date: '2023-01-01',
-          timeSlot: {
-            id: 0,
-            documentId: '1',
-            time: '10:00',
-          },
-        },
-        {
-          id: 0,
-          documentId: '2',
-          date: '2023-01-01',
-          timeSlot: {
-            id: 0,
-            documentId: '2',
-            time: '11:00',
-          },
-        },
+      const expected = [
+        { time: '10:00' },
+        { time: '11:00' },
+        { time: '14:00' },
       ];
-      const expected = [{ time: '10:00' }, { time: '11:00' }];
-      expect(formatTimeSlotOption(timeSlots)).toEqual(expected);
+
+      expect(formatTimeSlotOption(TIME_SLOTS_MOCK)).toEqual(expected);
     });
   });
 
@@ -90,33 +75,14 @@ describe('booking', () => {
         { time: '10:00', documentId: '1' },
         { time: '11:00', documentId: '2' },
       ];
-      const data = [
-        {
-          id: 0,
-          documentId: '1',
-          date: '2023-01-01',
-          timeSlot: {
-            id: 0,
-            documentId: '1',
-            time: '10:00',
-          },
-        },
-        {
-          id: 0,
-          documentId: '2',
-          date: '2023-01-01',
-          timeSlot: {
-            id: 0,
-            documentId: '2',
-            time: '14:00',
-          },
-        },
-      ];
       const expected = [
         { value: '1', label: '10:00', isDisabled: true },
-        { value: '2', label: '11:00', isDisabled: false },
+        { value: '2', label: '11:00', isDisabled: true },
       ];
-      expect(getStatusTimeSlots(bookingTimes, data)).toEqual(expected);
+
+      expect(getStatusTimeSlots(bookingTimes, TIME_SLOTS_MOCK)).toEqual(
+        expected,
+      );
     });
   });
 });

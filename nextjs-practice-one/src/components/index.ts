@@ -17,3 +17,4 @@ export * from './Skeleton';
 export * from './Loading';
 export * from './ListCheckbox';
 export * from './CheckboxController';
+export * from './PasswordInputController';
