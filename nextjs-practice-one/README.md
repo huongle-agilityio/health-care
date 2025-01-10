@@ -1,7 +1,5 @@
 # Next.js 15 Practice
 
-This is a [Next.js](https://nextjs.org/) practice built with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app)
-
 ## Overview
 
 - [This document](https://docs.google.com/document/d/1Pxz4i7bTHWRCa8x4zCorF9HUxJ1WicLndIJNAgCOJRQ/edit?tab=t.0) provides information about practice-one Next.JS
@@ -127,18 +125,21 @@ Make sure you install packages with correct version below:
 ├── src
 │   ├── actions                     # Next.js actions
 │   ├── app                         # Next.js App (App Router)
-│   ├── components                  # React components
+│   ├── config                      # Contain app configuration
 │   ├── constants                   # App constants
+│   ├── contexts                    # App contexts
 │   ├── hocs                        # Hocs
-│   ├── hooks                       # Custom hooks
-│   ├── icons                       # Icons folder
-│   ├── layouts                     # React components for app layout
-│   ├── sections                    # Sections of the app
+│   ├── schema                      # Contain schema validation
 │   ├── services                    # Handle data with API: GET, POST, PUT, DELETE
-│   ├── stores                      # App stores
-│   ├── themes                      # Custom themes styles
 │   ├── types                       # Type definitions
+│   ├── ui                          # Folder contain ui of app
+│       ├── components              # React components
+│       ├── layouts                 # React components for app layout
+│       ├── sections                # Sections of the app
+│       ├── icons                   # Icons folder
+│       ├── themes                  # Custom themes styles
 │   ├── utils                       # Utilities folder
+│   ├── middlewares.ts              # Next.js middleware
 ├── .eslintrc.json                  # ESLint configuration
 ├── .lintstagedrc                   # Lint-stage
 ├── .prettierrc                     # Prettier configuration
