@@ -1,0 +1,12 @@
+diff --git a/dist/chunk-TEHPZN3P.mjs b/dist/chunk-TEHPZN3P.mjs
+index 571c159cd3ab55f3a99d40750476a7ed33f6c5b7..2a82ff1a469958f237c72b47083fea2c2ce12398 100644
+--- a/dist/chunk-TEHPZN3P.mjs
++++ b/dist/chunk-TEHPZN3P.mjs
+@@ -39,7 +39,6 @@ function usePaginationItem(props) {
+   const getItemProps = (props2 = {}) => {
+     return {
+       ref: domRef,
+-      role: "button",
+       tabIndex: isDisabled ? -1 : 0,
+       "aria-label": ariaLabel,
+       "aria-current": dataAttr(isActive),

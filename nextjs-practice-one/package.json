@@ -11,15 +11,12 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "storybook": "storybook dev -p 6006 --no-open",
-    "build-storybook": "storybook build",
-    "postinstall": "patch-package"
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "@internationalized/date": "^3.6.0",
-    "@nextui-org/pagination": "2.0.36",
     "@nextui-org/react": "^2.4.8",
-    "@nextui-org/select": "2.2.7",
     "@nextui-org/system": "^2.2.6",
     "clsx": "^2.1.1",
     "dayjs": "1.11.10",
@@ -35,7 +32,6 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "1.4.0",
-    "@milahu/patch-package": "^6.4.14",
     "@storybook/addon-essentials": "^8.1.2",
     "@storybook/addon-interactions": "^8.1.2",
     "@storybook/addon-links": "^8.1.2",
@@ -68,5 +64,11 @@
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@nextui-org/select": "patches/@nextui-org__select.patch",
+      "@nextui-org/pagination": "patches/@nextui-org__pagination.patch"
+    }
   }
 }
