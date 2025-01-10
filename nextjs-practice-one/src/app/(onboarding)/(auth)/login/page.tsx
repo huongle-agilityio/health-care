@@ -5,8 +5,8 @@ import { Metadata } from 'next';
 import { ROUTES } from '@/constants';
 
 // Components
-import { Text } from '@/components';
-import { FormLogin } from '@/sections';
+import { Text } from '@/ui/components';
+import { FormLogin } from '@/ui/sections';
 
 export const metadata: Metadata = {
   title: 'Login',

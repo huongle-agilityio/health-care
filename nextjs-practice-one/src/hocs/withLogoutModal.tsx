@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 import { logout } from '@/actions';
 
 const ConfirmModal = dynamic(
-  () => import('../sections/ConfirmModal').then((mod) => mod.ConfirmModal),
+  () => import('@/ui/sections/ConfirmModal').then((mod) => mod.ConfirmModal),
   {
     ssr: false,
   },

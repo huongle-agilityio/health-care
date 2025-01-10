@@ -1,4 +1,5 @@
-import { Loading as Spinner } from '@/components';
+// Components
+import { Loading as Spinner } from '@/ui/components';
 
 const Loading = () => (
   <div className="flex items-center justify-center h-screen">

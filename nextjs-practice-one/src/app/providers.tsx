@@ -8,7 +8,7 @@ import { NextUIProvider } from '@nextui-org/system';
 import { ToastProvider } from '@/contexts';
 
 // Sections
-import { ToastWrapper } from '@/sections';
+import { ToastWrapper } from '@/ui/sections';
 
 export interface ProvidersProps {
   children: ReactNode;

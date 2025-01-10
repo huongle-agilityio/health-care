@@ -4,8 +4,8 @@ import { Metadata } from 'next';
 import { IMAGE_DETAILS } from '@/constants';
 
 // Components
-import { Image, Text } from '@/components';
-import { FilterDoctors, ListDoctorsAvailable } from '@/sections';
+import { Image, Text } from '@/ui/components';
+import { FilterDoctors, ListDoctorsAvailable } from '@/ui/sections';
 
 // Types
 import { DoctorFilterParams } from '@/types';

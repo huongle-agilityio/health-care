@@ -2,14 +2,14 @@
 
 import Link from 'next/link';
 
-// Components
-import { Button, Text } from '@/components';
-
-// icons
-import { WarningIcon } from '@/icons';
-
 // Constants
 import { ROUTES } from '@/constants';
+
+// Components
+import { Button, Text } from '@/ui/components';
+
+// icons
+import { WarningIcon } from '@/ui/icons';
 
 const Error = () => (
   <html lang="en">

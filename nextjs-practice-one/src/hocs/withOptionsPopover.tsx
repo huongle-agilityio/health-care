@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 import { OptionMenu } from '@/types';
 
 const Popover = dynamic(
-  () => import('../components/Popover').then((mod) => mod.Popover),
+  () => import('@/ui/components/Popover').then((mod) => mod.Popover),
   {
     ssr: false,
     loading: () => (

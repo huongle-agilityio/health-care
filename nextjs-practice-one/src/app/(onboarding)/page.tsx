@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 import { IMAGE_DETAILS, ROUTES } from '@/constants';
 
 // Components
-import { Button, Image, Text } from '@/components';
+import { Button, Image, Text } from '@/ui/components';
 
 // Utils
 import { cn } from '@/utils';

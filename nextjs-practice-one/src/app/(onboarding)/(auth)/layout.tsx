@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 
-// Components
-import { Image } from '@/components';
-
 // Constants
 import { IMAGE_DETAILS } from '@/constants';
+
+// Components
+import { Image } from '@/ui/components';
 
 // Utils
 import { cn } from '@/utils';

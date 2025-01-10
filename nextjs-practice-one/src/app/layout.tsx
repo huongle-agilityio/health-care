@@ -11,7 +11,7 @@ import { auth } from '@/config';
 import { BRAND, FAVICON_URL } from '@/constants';
 
 // Components
-import { Header } from '@/sections';
+import { Header } from '@/ui/sections';
 
 // Providers
 import { Providers } from './providers';

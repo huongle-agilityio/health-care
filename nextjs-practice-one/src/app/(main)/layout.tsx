@@ -1,5 +1,5 @@
 // Layouts
-import { MainLayout } from '@/layouts';
+import { MainLayout } from '@/ui/layouts';
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
   <MainLayout>{children}</MainLayout>

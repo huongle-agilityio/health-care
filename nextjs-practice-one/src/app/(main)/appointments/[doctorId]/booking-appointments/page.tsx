@@ -2,8 +2,8 @@ import { Suspense } from 'react';
 import { Metadata } from 'next';
 
 // Components
-import { Text } from '@/components';
-import { FormBooking, FormBookingSkeleton } from '@/sections';
+import { Text } from '@/ui/components';
+import { FormBooking, FormBookingSkeleton } from '@/ui/sections';
 
 export const metadata: Metadata = {
   title: 'Booking Appointments',

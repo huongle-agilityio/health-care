@@ -9,7 +9,7 @@ import {
   fontSize,
   screens,
   spacing,
-} from './src/themes';
+} from './src/ui/themes';
 
 module.exports = {
   content: [

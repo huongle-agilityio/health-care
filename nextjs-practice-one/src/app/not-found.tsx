@@ -1,13 +1,13 @@
 import Link from 'next/link';
 
-// Components
-import { Button, Text } from '@/components';
-
-// Icons
-import { WarningIcon } from '@/icons';
-
 // Constants
 import { ROUTES } from '@/constants';
+
+// Components
+import { Button, Text } from '@/ui/components';
+
+// Icons
+import { WarningIcon } from '@/ui/icons';
 
 // Utils
 import { cn } from '@/utils';

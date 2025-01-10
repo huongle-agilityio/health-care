@@ -7,7 +7,7 @@ import {
   HomeIcon,
   BlogIcon,
   SettingIcon,
-} from '@/icons';
+} from '@/ui/icons';
 
 // Types
 import { OptionMenu } from '@/types';

@@ -2,11 +2,11 @@ import { Suspense } from 'react';
 import { Metadata } from 'next';
 
 // Components
-import { Text } from '@/components';
-import { ListUserInfo, ListBooking, ListBookingSkeleton } from '@/sections';
+import { Text } from '@/ui/components';
+import { ListUserInfo, ListBooking, ListBookingSkeleton } from '@/ui/sections';
 
 // Icons
-import { UserIcon } from '@/icons';
+import { UserIcon } from '@/ui/icons';
 
 // Config
 import { auth } from '@/config';

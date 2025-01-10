@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 // Components
-import { UpComing } from '@/sections';
+import { UpComing } from '@/ui/sections';
 
 export const metadata: Metadata = {
   title: 'Reviews',
