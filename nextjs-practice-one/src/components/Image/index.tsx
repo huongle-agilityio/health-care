@@ -10,20 +10,20 @@ import { IMAGES } from '@/constants';
 import { cn, generateImageBase64 } from '@/utils';
 
 interface OptimizedImageProps extends ImageProps {
-  fallbackSrc?: string;
-  classNameWrapper?: string;
   src: string;
   alt: string;
+  fallbackSrc?: string;
+  classNameWrapper?: string;
 }
 
 export const Image = memo(
   ({
+    src,
+    alt,
     fallbackSrc = IMAGES.FALLBACK_URL,
     blurDataURL,
     className,
     classNameWrapper,
-    src,
-    alt,
     ...props
   }: OptimizedImageProps) => {
     const [imgSrc, setImgSrc] = useState<string | undefined>(src);

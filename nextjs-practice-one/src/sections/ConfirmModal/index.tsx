@@ -31,11 +31,11 @@ const ModalBase = extendVariants(ModalNextUI, {
 });
 
 export interface ConfirmModalProps {
+  isOpen: boolean;
   title?: string;
   subTitle?: string;
   textCancelButton?: string;
   textConfirmButton?: string;
-  isOpen: boolean;
   onSubmit: () => void;
   onOpenChange: () => void;
 }

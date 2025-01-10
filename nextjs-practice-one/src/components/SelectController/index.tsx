@@ -18,9 +18,9 @@ import { Option } from '@/types';
 
 interface SelectControllerProps<T extends FieldValues, K extends Path<T>>
   extends ComponentProps<typeof Select> {
-  options: Option[];
   label: string;
   name: K;
+  options: Option[];
   control: Control<T>;
   clearErrors: UseFormClearErrors<T>;
 }

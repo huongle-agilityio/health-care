@@ -1,6 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+  useTransition,
+} from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -22,8 +28,8 @@ import {
 // Constants
 import { ROUTES } from '@/constants';
 
-// Stores
-import { useToastStore } from '@/stores';
+// Contexts
+import { ToastContext } from '@/contexts';
 
 // Schema
 import { bookingSchema } from '@/schema';
@@ -36,9 +42,9 @@ import { cn, getStatusTimeSlots, todayWithFormat } from '@/utils';
 
 interface FormBookingBaseProps {
   doctorId: string;
-  userInfo?: UserSession;
   doctor: Doctor;
   times: TimeSlot[];
+  userInfo?: UserSession;
 }
 
 export const FormBookingBase = ({
@@ -47,19 +53,14 @@ export const FormBookingBase = ({
   userInfo,
   times,
 }: FormBookingBaseProps) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isPending, startTransition] = useTransition();
   const [timeSlots, setTimeSlots] = useState<BookingTimeSlots[]>([]);
   const { name, specialty, experience, rating, avatar } = doctor;
 
   const router = useRouter();
 
-  const { showToast } = useToastStore();
-  const {
-    email = '',
-    name: userName = '',
-    phone = '',
-    id = '',
-  } = userInfo || {};
+  const { showToast } = useContext(ToastContext);
+  const { email, name: userName, phone, id = '' } = userInfo || {};
 
   const initialState = {
     email,
@@ -73,6 +74,7 @@ export const FormBookingBase = ({
     control,
     clearErrors,
     watch,
+    reset,
     handleSubmit: submitForm,
   } = useForm<z.infer<typeof bookingSchema>>({
     mode: 'onChange',
@@ -109,18 +111,29 @@ export const FormBookingBase = ({
     }
   };
 
+  // Function reset form
+  const handleReset = useCallback(() => {
+    reset({
+      email: '',
+      name: '',
+      phone: '',
+      time: '',
+      date: todayWithFormat(),
+    });
+  }, [reset]);
+
   // Function fetch time slots
   useEffect(() => {
     const fetchSpecialties = async () => {
-      setIsLoading(true);
       const { data, error } = await getBookingTimeSlotById(doctorId, date);
-      setIsLoading(false);
 
-      if (error) {
-        return showToast({ description: error });
-      }
+      startTransition(() => {
+        if (error) {
+          return showToast({ description: error });
+        }
 
-      setTimeSlots(data);
+        setTimeSlots(data);
+      });
     };
 
     fetchSpecialties();
@@ -150,7 +163,7 @@ export const FormBookingBase = ({
             clearErrors={clearErrors}
           />
           <div className="h-[150px] xl:h-fit flex items-center xl:self-start px-8 xl:px-0 w-full">
-            {isLoading ? (
+            {isPending ? (
               <TimeSlotsSkeleton />
             ) : (
               <CheckboxController
@@ -177,7 +190,8 @@ export const FormBookingBase = ({
           placeholder="Enter your phone number"
           label="Phone"
           name="phone"
-          type="number"
+          maxLength={10}
+          type="tel"
           clearErrors={clearErrors}
         />
         <InputController
@@ -188,10 +202,10 @@ export const FormBookingBase = ({
           clearErrors={clearErrors}
         />
         <div className="flex flex-col mt-20 gap-15">
-          <Button isLoading={isLoading} type="submit" color="default">
+          <Button isLoading={isPending} type="submit" color="default">
             Book Appointment
           </Button>
-          <Button type="submit" color="primary">
+          <Button color="primary" onClick={handleReset}>
             Reset
           </Button>
         </div>

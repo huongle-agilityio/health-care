@@ -15,7 +15,7 @@ const Page = async ({ params }: { params: Promise<{ doctorId: string }> }) => {
   return (
     <div className="container">
       <div className="flex flex-col pt-[50px] 2xl:pt-[80px] pb-20 items-center">
-        <Text color="tertiary" className="text-2xl md:text-4xl">
+        <Text variants="h1" color="tertiary" className="text-2xl md:text-4xl">
           Booking Appointments
         </Text>
       </div>

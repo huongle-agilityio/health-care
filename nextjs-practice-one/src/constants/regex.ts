@@ -4,3 +4,5 @@ export const REGEX_EMAIL =
 export const REGEX_PASSWORD = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 export const REGEX_PHONE_NUMBER = /^\+?[1-9]\d{1,14}$/;
+
+export const REGEX_NON_NUMBER = /[^0-9-]/g;

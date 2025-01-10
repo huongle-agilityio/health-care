@@ -1,3 +1,5 @@
+export const FAVICON_URL = '/favicon.ico';
+
 export const IMAGES = {
   FALLBACK_URL: '/images/default-fallback.webp',
   ONBOARDING_BACKGROUND: '/images/onboarding-background.webp',

@@ -8,7 +8,7 @@ import './globals.css';
 import { auth } from '@/config';
 
 // Constants
-import { BRAND } from '@/constants';
+import { BRAND, FAVICON_URL } from '@/constants';
 
 // Components
 import { Header } from '@/sections';
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   icons: [
     {
       rel: 'icon',
-      url: '/favicon.ico',
+      url: FAVICON_URL,
     },
   ],
 };

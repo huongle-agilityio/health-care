@@ -75,12 +75,12 @@ const CardBodyBase = extendVariants(CardBody, {
 });
 
 interface CardProps {
-  name: string;
-  specialty: string;
-  experience: number;
   rating: number;
-  imageSrc: string;
+  experience: number;
+  name: string;
   href: string;
+  imageSrc: string;
+  specialty: string;
   className?: {
     wrap?: string;
     header?: string;

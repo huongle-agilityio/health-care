@@ -13,6 +13,7 @@ interface IApiClient<T> {
   method: string;
   body?: T;
   token?: string;
+  options?: RequestInit;
 }
 
 class HttpService {
@@ -27,21 +28,26 @@ class HttpService {
     method,
     body,
     token,
+    options,
   }: IApiClient<TPayload>): Promise<TResponse> {
-    const options: RequestInit = {
+    const initOptions: RequestInit = {
       method,
       headers: {
         ...(token && { Authorization: `Bearer ${token}` }),
         'Content-Type': 'application/json',
       },
+      ...options,
     };
 
     if (body) {
-      options.body = JSON.stringify(body);
+      initOptions.body = JSON.stringify(body);
     }
 
     try {
-      const response = await fetch(`${this.apiUrl}api/${endpoint}`, options);
+      const response = await fetch(
+        `${this.apiUrl}api/${endpoint}`,
+        initOptions,
+      );
 
       if (!response.ok) {
         const error = await response.json();
@@ -63,11 +69,16 @@ class HttpService {
   }
 
   // GET method
-  async get<TResponse>(endpoint: string, token?: string): Promise<TResponse> {
+  async get<TResponse>(
+    endpoint: string,
+    token?: string,
+    options?: RequestInit,
+  ): Promise<TResponse> {
     return this.createRequest<TResponse>({
       endpoint,
       method: HttpMethod.GET,
       token,
+      options,
     });
   }
 

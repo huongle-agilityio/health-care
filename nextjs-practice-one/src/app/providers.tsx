@@ -4,31 +4,23 @@ import { ReactNode } from 'react';
 import { ThemeProvider } from 'next-themes';
 import { NextUIProvider } from '@nextui-org/system';
 
-// Components
-import { Toast } from '@/components';
+// Contexts
+import { ToastProvider } from '@/contexts';
 
-// Stores
-import { useToastStore } from '@/stores';
+// Sections
+import { ToastWrapper } from '@/sections';
 
 export interface ProvidersProps {
   children: ReactNode;
 }
 
 export function Providers({ children }: ProvidersProps) {
-  const { toast } = useToastStore();
-
   return (
     <NextUIProvider>
       <ThemeProvider attribute="class" defaultTheme="light">
-        {children}
-
-        {toast?.description && (
-          <Toast
-            title={toast?.title}
-            description={toast?.description}
-            variant={toast?.variant}
-          />
-        )}
+        <ToastProvider>
+          <ToastWrapper>{children}</ToastWrapper>
+        </ToastProvider>
       </ThemeProvider>
     </NextUIProvider>
   );

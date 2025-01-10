@@ -22,7 +22,6 @@ This is a [Next.js](https://nextjs.org/) practice built with [`create-next-app`]
 - [TypeScript](https://www.typescriptlang.org/) v5
 - [Tailwind CSS](https://tailwindcss.com/) v3
 - [NextUI](https://nextui.org/)
-- [Zustand](https://zustand.docs.pmnd.rs/getting-started/introduction)
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)/ [Jest](https://jestjs.io/)
 - [React Hook Form](https://react-hook-form.com/)
 - [zod](https://zod.dev/)

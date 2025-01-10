@@ -2,7 +2,14 @@
 
 import { useForm } from 'react-hook-form';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  useTransition,
+} from 'react';
 
 // Actions
 import { getSpecialties } from '@/actions';
@@ -17,8 +24,8 @@ import { EXPERIENCES, FEES, RATING } from '@/constants/mocks';
 // Types
 import { DoctorFilterParams, Specialty } from '@/types';
 
-// Stores
-import { useToastStore } from '@/stores';
+// Contexts
+import { ToastContext } from '@/contexts';
 
 // Utils
 import { cn, formatSpecialtiesOption } from '@/utils';
@@ -33,11 +40,14 @@ export const FormFilterDoctors = ({
   const { replace } = useRouter();
   const searchParams = useSearchParams();
 
+  const [isPending, startTransition] = useTransition();
   const [specialties, setSpecialty] = useState<Specialty[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { showToast } = useToastStore();
-  const params = new URLSearchParams(searchParams.toString());
+  const { showToast } = useContext(ToastContext);
+  const params = useMemo(
+    () => new URLSearchParams(searchParams),
+    [searchParams],
+  );
 
   const initialState = {
     specialty,
@@ -50,11 +60,14 @@ export const FormFilterDoctors = ({
     control,
     clearErrors,
     reset,
+    formState: { isDirty },
     handleSubmit: submitForm,
   } = useForm<DoctorFilterParams>({
     mode: 'onSubmit',
     defaultValues: initialState,
   });
+
+  const isDisabledButtonReset = !(isDirty || params.size);
 
   /**
    * Function to handle form submit
@@ -62,7 +75,7 @@ export const FormFilterDoctors = ({
   const handleSubmit = (data: DoctorFilterParams) => {
     (Object.keys(data) as (keyof DoctorFilterParams)[]).forEach((key) => {
       const value = data[key];
-      if (value !== undefined) {
+      if (value) {
         params.set(key, value.toString());
       }
     });
@@ -73,22 +86,28 @@ export const FormFilterDoctors = ({
    * Function to reset form and url
    */
   const handleReset = useCallback(() => {
-    reset();
-    replace(pathname);
-  }, [pathname, replace, reset]);
+    reset({
+      specialty: '',
+      rating: 0,
+      experience: '',
+      fee: 0,
+    });
+
+    if (params.size) replace(pathname);
+  }, [params, pathname, replace, reset]);
 
   // Fetch specialties
   useEffect(() => {
     const fetchSpecialties = async () => {
-      setIsLoading(true);
       const { data, error } = await getSpecialties();
-      setIsLoading(false);
 
-      if (error) {
-        return showToast({ description: error });
-      }
+      startTransition(() => {
+        if (error) {
+          return showToast({ description: error });
+        }
 
-      setSpecialty(data);
+        setSpecialty(data);
+      });
     };
 
     fetchSpecialties();
@@ -104,7 +123,7 @@ export const FormFilterDoctors = ({
         'h-fit 2xl:h-[96px]',
       )}
     >
-      {isLoading ? (
+      {isPending ? (
         <SkeletonFilter />
       ) : (
         <div className="flex flex-row gap-8 2xl:gap-21 w-full 2xl:w-fit">
@@ -170,10 +189,15 @@ export const FormFilterDoctors = ({
         </div>
       )}
       <div className="flex flex-col 2xl:flex-row gap-8 2xl:gap-21 w-full 2xl:w-fit">
-        <Button type="submit" isLoading={isLoading}>
+        <Button type="submit" isDisabled={!isDirty} isLoading={isPending}>
           Search
         </Button>
-        <Button color="primary" onClick={handleReset} isLoading={isLoading}>
+        <Button
+          color="primary"
+          isDisabled={isDisabledButtonReset}
+          onClick={handleReset}
+          isLoading={isPending}
+        >
           Reset
         </Button>
       </div>

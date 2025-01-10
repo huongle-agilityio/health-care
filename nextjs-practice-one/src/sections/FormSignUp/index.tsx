@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { useCallback, useContext } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -18,8 +18,8 @@ import { Button, InputController, PasswordInputController } from '@/components';
 // Schema
 import { signUpSchema } from '@/schema';
 
-// Stores
-import { useToastStore } from '@/stores';
+// Contexts
+import { ToastContext } from '@/contexts';
 
 // Utils
 import { getErrorMessage } from '@/utils';
@@ -27,24 +27,22 @@ import { getErrorMessage } from '@/utils';
 export const FormSignUp = () => {
   const router = useRouter();
 
-  // Stores
-  const { showToast } = useToastStore();
+  // Contexts
+  const { showToast } = useContext(ToastContext);
 
-  const initialState = useMemo(
-    () => ({
-      name: '',
-      email: '',
-      password: '',
-      phone: '',
-    }),
-    [],
-  );
+  const initialState = {
+    name: '',
+    email: '',
+    password: '',
+    phone: '',
+  };
 
   const {
     control,
     clearErrors,
     reset,
     handleSubmit: submitForm,
+    formState: { isDirty },
   } = useForm<z.infer<typeof signUpSchema>>({
     mode: 'onChange',
     resolver: zodResolver(signUpSchema),
@@ -77,8 +75,8 @@ export const FormSignUp = () => {
 
   // Function reset form
   const handleReset = useCallback(() => {
-    reset(initialState);
-  }, [initialState, reset]);
+    reset();
+  }, [reset]);
 
   return (
     <form onSubmit={submitForm(handleSubmit)} className="flex flex-col gap-10">
@@ -93,9 +91,10 @@ export const FormSignUp = () => {
         <InputController
           control={control}
           placeholder="Enter your phone number"
+          maxLength={10}
           label="Phone"
           name="phone"
-          type="number"
+          type="tel"
           clearErrors={clearErrors}
         />
         <InputController
@@ -113,7 +112,7 @@ export const FormSignUp = () => {
       </div>
       <div className="flex flex-col gap-5">
         <Button type="submit">Submit</Button>
-        <Button color="primary" onClick={handleReset}>
+        <Button color="primary" isDisabled={!isDirty} onClick={handleReset}>
           Reset
         </Button>
       </div>
