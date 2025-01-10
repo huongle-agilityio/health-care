@@ -7,7 +7,7 @@ import {
   AUTH_ROUTERS,
   AUTH_SECRET,
   PRIVATE_ROUTERS,
-  ROUTERS,
+  ROUTES,
 } from './constants';
 
 // Config
@@ -19,14 +19,14 @@ export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request, secret: AUTH_SECRET });
 
   if (token && AUTH_ROUTERS.includes(request.nextUrl.pathname)) {
-    return NextResponse.redirect(new URL(ROUTERS.HOME, request.url));
+    return NextResponse.redirect(new URL(ROUTES.HOME, request.url));
   }
 
   if (
     !token &&
     PRIVATE_ROUTERS.some((route) => request.nextUrl.pathname.includes(route))
   ) {
-    return NextResponse.redirect(new URL(ROUTERS.LOGIN, request.url));
+    return NextResponse.redirect(new URL(ROUTES.LOGIN, request.url));
   }
 
   return NextResponse.next();

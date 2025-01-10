@@ -7,7 +7,7 @@ import { Button, Text } from '@/components';
 import { UpComingIcon } from '@/icons';
 
 // Constants
-import { ROUTERS } from '@/constants';
+import { ROUTES } from '@/constants';
 
 // Utils
 import { cn } from '@/utils';
@@ -26,7 +26,7 @@ export const UpComing = () => (
     <Text size="xl" color="holder" className="text-center">
       This feature is coming soon!
     </Text>
-    <Link href={ROUTERS.HOME} className="mt-10">
+    <Link href={ROUTES.HOME} className="mt-10">
       <Button color="primary">Back to home page</Button>
     </Link>
   </div>

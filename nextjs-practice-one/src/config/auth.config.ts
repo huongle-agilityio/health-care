@@ -1,7 +1,7 @@
 import type { NextAuthConfig } from 'next-auth';
 
 // Constants
-import { ROUTERS, TIMING } from '../constants';
+import { ROUTES, TIMING } from '../constants';
 
 // Types
 import { UserSession } from '../types';
@@ -14,7 +14,7 @@ declare module 'next-auth' {
 
 export const authConfig = {
   pages: {
-    signIn: ROUTERS.LOGIN,
+    signIn: ROUTES.LOGIN,
   },
   callbacks: {
     jwt: async ({ user, token }) => {

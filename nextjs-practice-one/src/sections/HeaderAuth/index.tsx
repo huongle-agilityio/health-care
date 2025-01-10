@@ -3,7 +3,7 @@
 import Link from 'next/link';
 
 // Constants
-import { NAVIGATION_ITEMS_WITH_LOGOUT, ROUTERS } from '@/constants';
+import { NAVIGATION_ITEMS_WITH_LOGOUT, ROUTES } from '@/constants';
 
 // Components
 import { Button } from '@/components';
@@ -33,12 +33,12 @@ export const HeaderAuth = ({ isAuthenticated, onClick }: HeaderAuthProps) => (
       />
     ) : (
       <>
-        <Link href={ROUTERS.LOGIN}>
+        <Link href={ROUTES.LOGIN}>
           <Button size="xs" variant="bordered" color="bordered">
             Login
           </Button>
         </Link>
-        <Link href={ROUTERS.REGISTER}>
+        <Link href={ROUTES.REGISTER}>
           <Button size="xs">Register</Button>
         </Link>
       </>

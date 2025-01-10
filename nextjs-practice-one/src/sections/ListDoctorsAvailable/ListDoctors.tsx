@@ -4,7 +4,7 @@ import { memo } from 'react';
 import { Card, Pagination } from '@/components';
 
 // Constants
-import { ROUTERS } from '@/constants';
+import { ROUTES } from '@/constants';
 
 // Constants
 import { Doctor } from '@/types';
@@ -34,7 +34,7 @@ export const ListDoctors = memo(
               experience={experience}
               imageSrc={avatar}
               name={name}
-              href={ROUTERS.BOOKING_APPOINTMENTS_DETAIL(documentId)}
+              href={ROUTES.BOOKING_APPOINTMENTS_DETAIL(documentId)}
               rating={rating}
               specialty={specialty?.name || ''}
             />

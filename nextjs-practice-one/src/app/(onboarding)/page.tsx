@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 
 // Constants
-import { IMAGE_DETAILS, ROUTERS } from '@/constants';
+import { IMAGE_DETAILS, ROUTES } from '@/constants';
 
 // Components
 import { Button, Image, Text } from '@/components';
@@ -34,7 +34,7 @@ const Page = () => (
           </Text>
         </div>
 
-        <Link href={ROUTERS.APPOINTMENTS}>
+        <Link href={ROUTES.APPOINTMENTS}>
           <Button
             className={cn(
               'mt-12 md:mt-25',

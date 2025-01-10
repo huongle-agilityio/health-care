@@ -20,7 +20,7 @@ import {
 } from '@/components';
 
 // Constants
-import { ROUTERS } from '@/constants';
+import { ROUTES } from '@/constants';
 
 // Stores
 import { useToastStore } from '@/stores';
@@ -105,7 +105,7 @@ export const FormBookingBase = ({
         description: 'Booking successful',
         variant: 'success',
       });
-      router.push(ROUTERS.APPOINTMENTS);
+      router.push(ROUTES.APPOINTMENTS);
     }
   };
 

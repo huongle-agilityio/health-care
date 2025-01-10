@@ -7,7 +7,7 @@ import { Button, Text } from '@/components';
 import { WarningIcon } from '@/icons';
 
 // Constants
-import { ROUTERS } from '@/constants';
+import { ROUTES } from '@/constants';
 
 // Utils
 import { cn } from '@/utils';
@@ -26,7 +26,7 @@ const NotFound = () => (
     <Text size="xl" color="holder" className="text-center">
       Sorry, we couldn&apos;t find the page you were looking for.
     </Text>
-    <Link href={ROUTERS.HOME}>
+    <Link href={ROUTES.HOME}>
       <Button size="xs" color="primary" className="mt-10">
         Back to home page
       </Button>

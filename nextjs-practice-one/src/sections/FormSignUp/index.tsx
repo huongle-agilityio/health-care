@@ -10,7 +10,7 @@ import { z } from 'zod';
 import { login, signUp } from '@/actions';
 
 // Constants
-import { ROUTERS } from '@/constants';
+import { ROUTES } from '@/constants';
 
 // Components
 import { Button, InputController } from '@/components';
@@ -72,7 +72,7 @@ export const FormSignUp = () => {
         });
       }
 
-      router.push(ROUTERS.HOME);
+      router.push(ROUTES.HOME);
     } catch (error) {
       showToast({
         description: getErrorMessage(error),

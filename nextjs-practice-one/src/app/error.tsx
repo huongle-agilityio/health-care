@@ -9,7 +9,7 @@ import { Button, Text } from '@/components';
 import { WarningIcon } from '@/icons';
 
 // Constants
-import { ROUTERS } from '@/constants';
+import { ROUTES } from '@/constants';
 
 const Error = () => (
   <html lang="en">
@@ -21,7 +21,7 @@ const Error = () => (
       <Text size="xl" color="holder" className="text-center">
         Oops, something went wrong.
       </Text>
-      <Link href={ROUTERS.HOME}>
+      <Link href={ROUTES.HOME}>
         <Button size="xs" color="primary" className="mt-10">
           Back to home page
         </Button>

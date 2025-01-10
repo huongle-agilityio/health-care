@@ -10,7 +10,7 @@ import { z } from 'zod';
 import { login } from '@/actions';
 
 // Constants
-import { ROUTERS } from '@/constants';
+import { ROUTES } from '@/constants';
 
 // Components
 import { Button, InputController, Text } from '@/components';
@@ -61,7 +61,7 @@ export const FormLogin = () => {
       });
     }
 
-    router.push(ROUTERS.HOME);
+    router.push(ROUTES.HOME);
   };
 
   // Function reset form

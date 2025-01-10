@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 
 // Constants
-import { ROUTERS } from '@/constants';
+import { ROUTES } from '@/constants';
 
 // Components
 import { Text } from '@/components';
@@ -21,7 +21,7 @@ const Page = () => (
       <Text size="xs" color="holder">
         Already a member?
       </Text>
-      <Link href={ROUTERS.LOGIN}>
+      <Link href={ROUTES.LOGIN}>
         <Text size="xs" color="primary">
           Login
         </Text>
