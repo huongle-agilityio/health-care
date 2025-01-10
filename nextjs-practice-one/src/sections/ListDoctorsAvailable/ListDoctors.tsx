@@ -10,9 +10,9 @@ import { ROUTES } from '@/constants';
 import { Doctor } from '@/types';
 
 interface ListDoctors {
-  doctors: Doctor[];
-  currentPage: number;
   pageCount: number;
+  currentPage: number;
+  doctors: Doctor[];
 }
 
 export const ListDoctors = memo(

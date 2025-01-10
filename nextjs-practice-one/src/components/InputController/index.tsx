@@ -9,6 +9,9 @@ import {
   UseFormClearErrors,
 } from 'react-hook-form';
 
+// Constants
+import { REGEX_NON_NUMBER } from '@/constants';
+
 // Components
 import { Input } from '..';
 
@@ -22,6 +25,8 @@ interface InputControllerProps<T extends FieldValues, K extends Path<T>>
 
 export const InputController = <T extends FieldValues, K extends Path<T>>({
   label,
+  type,
+  maxLength,
   name,
   control,
   isDisabled,
@@ -41,15 +46,21 @@ export const InputController = <T extends FieldValues, K extends Path<T>>({
    */
   const handleOnChange = useCallback(
     (text: string) => {
+      if (type === 'tel' && maxLength) {
+        text = text.replace(REGEX_NON_NUMBER, '');
+      }
+
       onChange(text);
       clearErrors();
     },
-    [clearErrors, onChange],
+    [clearErrors, maxLength, onChange, type],
   );
 
   return (
     <Input
+      type={type}
       label={label}
+      maxLength={maxLength}
       value={value}
       onBlur={onBlur}
       autoComplete="off"

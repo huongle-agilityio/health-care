@@ -5,11 +5,11 @@ import Link from 'next/link';
 import { cn } from '@/utils';
 
 interface PopoverItemProps {
-  url?: string;
-  isLastItem?: boolean;
   title: string;
-  action?: () => void;
+  isLastItem?: boolean;
+  url?: string;
   onClose: () => void;
+  action?: () => void;
 }
 
 export const PopoverItem = memo(

@@ -1,12 +1,12 @@
-export type Toast = {
+export interface Toast {
   title?: string;
   description: string;
   variant?: 'success' | 'error' | 'holder';
   duration?: number;
-};
+}
 
-export type ToastStore = {
+export interface Context {
   toast: Toast | null;
   showToast: (toast: Toast) => void;
-  closeToast: () => void;
-};
+  closeToast: (message?: string) => void;
+}

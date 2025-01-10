@@ -20,7 +20,11 @@ export const UpComing = () => (
     )}
   >
     <UpComingIcon className="w-[100px] h-[100px] md:w-[150px] md:h-[150px] fill-primary-100" />
-    <Text color="tertiary" className="text-center text-2xl md:text-4xl">
+    <Text
+      variants="h1"
+      color="tertiary"
+      className="text-center text-2xl md:text-4xl"
+    >
       Coming Soon
     </Text>
     <Text size="xl" color="holder" className="text-center">

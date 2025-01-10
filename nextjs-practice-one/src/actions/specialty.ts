@@ -12,5 +12,8 @@ import { safeHttpRequest } from './safeHttpRequest';
 
 export const getSpecialties = async () =>
   safeHttpRequest<Specialty[]>(
-    async () => await httpClient.get<SpecialtyResponse>(API_ENDPOINT.SPECIALTY),
+    async () =>
+      await httpClient.get<SpecialtyResponse>(API_ENDPOINT.SPECIALTY, '', {
+        cache: 'force-cache',
+      }),
   );

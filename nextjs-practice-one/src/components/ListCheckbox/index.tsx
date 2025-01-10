@@ -11,9 +11,9 @@ import { OptionCheckBox } from '@/types';
 import { cn } from '@/utils';
 
 interface ListCheckboxProps {
+  selectedValue: string;
   error?: string;
   className?: string;
-  selectedValue: string;
   options: OptionCheckBox[];
   onChange: (value: ChangeEvent<HTMLInputElement>) => void;
 }

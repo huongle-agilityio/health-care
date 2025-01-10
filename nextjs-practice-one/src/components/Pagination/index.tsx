@@ -42,8 +42,8 @@ const PaginationBase = memo(
 );
 
 interface PaginationProps {
-  page: number;
   total: number;
+  page?: number;
 }
 
 export const Pagination = memo(({ page = 1, total }: PaginationProps) => {

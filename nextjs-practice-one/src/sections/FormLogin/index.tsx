@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { useCallback, useContext } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -20,8 +20,8 @@ import {
   Text,
 } from '@/components';
 
-// Stores
-import { useToastStore } from '@/stores';
+// Contexts
+import { ToastContext } from '@/contexts';
 
 // Utils
 import { loginSchema } from '@/schema';
@@ -29,22 +29,20 @@ import { loginSchema } from '@/schema';
 export const FormLogin = () => {
   const router = useRouter();
 
-  // Stores
-  const { showToast } = useToastStore();
+  // Contexts
+  const { showToast } = useContext(ToastContext);
 
-  const initialState = useMemo(
-    () => ({
-      email: '',
-      password: '',
-    }),
-    [],
-  );
+  const initialState = {
+    email: '',
+    password: '',
+  };
 
   const {
     control,
     clearErrors,
     reset,
     handleSubmit: submitForm,
+    formState: { isDirty },
   } = useForm<z.infer<typeof loginSchema>>({
     mode: 'onChange',
     resolver: zodResolver(loginSchema),
@@ -66,8 +64,8 @@ export const FormLogin = () => {
 
   // Function reset form
   const handleReset = useCallback(() => {
-    reset(initialState);
-  }, [initialState, reset]);
+    reset();
+  }, [reset]);
 
   return (
     <>
@@ -91,7 +89,7 @@ export const FormLogin = () => {
         </div>
         <div className="flex flex-col gap-5">
           <Button type="submit">Submit</Button>
-          <Button color="primary" onClick={handleReset}>
+          <Button isDisabled={!isDirty} color="primary" onClick={handleReset}>
             Reset
           </Button>
         </div>

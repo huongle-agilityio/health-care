@@ -22,7 +22,9 @@ import { safeHttpRequest } from './safeHttpRequest';
 export const getTimeSlot = async () =>
   safeHttpRequest<TimeSlot[]>(async () => {
     const url = `${API_ENDPOINT.TIME_SLOT}?${QUERY_FILTER_URL.SORT_BY_TIME}`;
-    return await httpClient.get<TimeSlotResponse>(url);
+    return await httpClient.get<TimeSlotResponse>(url, '', {
+      cache: 'force-cache',
+    });
   });
 
 export const getBookingAppointmentById = async (userId: string) =>

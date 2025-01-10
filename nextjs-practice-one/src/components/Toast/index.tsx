@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useEffect } from 'react';
+import { memo, useContext, useEffect } from 'react';
 
 // Constants
 import { TIMING } from '@/constants';
@@ -11,8 +11,8 @@ import { Text } from '..';
 // Icons
 import { CloseIcon } from '@/icons';
 
-// Stores
-import { useToastStore } from '@/stores';
+// Contexts
+import { ToastContext } from '@/contexts';
 
 // Utils
 import { cn } from '@/utils';
@@ -36,8 +36,8 @@ const TOAST_ICON_COLORS = {
 };
 
 interface ToastProps {
-  title?: string;
   description: string;
+  title?: string;
   className?: string;
   placement?: 'left' | 'right' | 'none';
   variant?: 'success' | 'error' | 'holder';
@@ -54,7 +54,7 @@ export const Toast = memo(
     className,
     ...props
   }: ToastProps) => {
-    const { closeToast } = useToastStore();
+    const { closeToast } = useContext(ToastContext);
 
     // Close toast after duration
     useEffect(() => {

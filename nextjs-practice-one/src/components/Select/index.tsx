@@ -72,9 +72,9 @@ const SelectItemBase = extendVariants(SelectItem, {
 });
 
 interface SelectProps extends Omit<SelectNextUIProps, 'children' | 'value'> {
+  'aria-label': string;
   value?: string;
   options: Option[];
-  'aria-label': string;
   classNameItem?: SlotsToClasses<ListboxItemSlots>;
 }
 

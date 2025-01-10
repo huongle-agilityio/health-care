@@ -1,7 +1,7 @@
 'use server';
 
 // Constants
-import { API_ENDPOINT, QUERY_URL } from '@/constants';
+import { API_ENDPOINT, QUERY_URL, TIMING } from '@/constants';
 
 // Services
 import { httpClient } from '@/services';
@@ -48,5 +48,8 @@ export const getDoctorById = async (id: string) =>
 
 export const getDoctors = async () =>
   safeHttpRequest<Doctor[]>(
-    async () => await httpClient.get<DoctorResponse>(API_ENDPOINT.DOCTOR),
+    async () =>
+      await httpClient.get<DoctorResponse>(API_ENDPOINT.DOCTOR, '', {
+        next: { revalidate: TIMING.REVALIDATE_AFTER_A_DAY },
+      }),
   );

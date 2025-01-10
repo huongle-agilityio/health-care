@@ -11,4 +11,5 @@ export * from './ListBooking/ListBookingSkeleton';
 export * from './FilterDoctors';
 export * from './ListDoctorsAvailable';
 export * from './UpComing';
+export * from './ToastWrapper';
 export * from './FormBooking/FormBookingBaseSkeleton';
