@@ -61,7 +61,7 @@ describe('formatUserInfo', () => {
     const expectedOutput: ListInfo[] = [
       {
         title: 'Name',
-        value: 'Jane Doe',
+        value: 'John Doe',
       },
       {
         title: 'Phone',
@@ -69,7 +69,7 @@ describe('formatUserInfo', () => {
       },
       {
         title: 'Email',
-        value: 'jane.doe@example.com',
+        value: 'john.doe@example.com',
       },
     ];
 
