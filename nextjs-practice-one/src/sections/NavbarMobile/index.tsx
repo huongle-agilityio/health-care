@@ -66,7 +66,7 @@ export const NavBarMobile = ({
     <div className="absolute top-6 left-12">
       <OutlineBurgerIcon
         size="16"
-        className="xl:hidden cursor-pointer"
+        className="lg:hidden cursor-pointer"
         onClick={onOpenChange}
       />
       <div className="lg:hidden">

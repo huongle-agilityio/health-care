@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 // Components
 import { Image } from '@/components';
 
@@ -7,7 +9,7 @@ import { IMAGE_DETAILS } from '@/constants';
 // Utils
 import { cn } from '@/utils';
 
-const Layout = ({ children }: { children: React.ReactNode }) => (
+const Layout = ({ children }: { children: ReactNode }) => (
   <div className="w-full h-full">
     <Image
       alt={IMAGE_DETAILS.ONBOARDING_BACKGROUND.alt}

@@ -5,8 +5,7 @@ import { IMAGE_DETAILS } from '@/constants';
 
 // Components
 import { Image, Text } from '@/components';
-import { FilterDoctors } from '@/sections/FilterDoctors';
-import { ListDoctorsAvailable } from '@/sections/ListDoctorsAvailable';
+import { FilterDoctors, ListDoctorsAvailable } from '@/sections';
 
 // Types
 import { DoctorFilterParams } from '@/types';

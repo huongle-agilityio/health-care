@@ -20,6 +20,9 @@ importers:
       '@nextui-org/react':
         specifier: ^2.4.8
         version: 2.4.8(@types/react@18.3.3)(framer-motion@11.13.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5)))
+      '@nextui-org/select':
+        specifier: 2.2.7
+        version: 2.2.7(@nextui-org/system@2.2.6(@nextui-org/theme@2.2.11(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))))(framer-motion@11.13.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@nextui-org/theme@2.2.11(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))))(@types/react@18.3.3)(framer-motion@11.13.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@nextui-org/system':
         specifier: ^2.2.6
         version: 2.2.6(@nextui-org/theme@2.2.11(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))))(framer-motion@11.13.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -10184,7 +10187,7 @@ snapshots:
       '@react-aria/interactions': 3.22.5(react@18.3.1)
       '@react-aria/utils': 3.26.0(react@18.3.1)
       '@react-stately/toggle': 3.8.0(react@18.3.1)
-      '@react-types/button': 3.9.4(react@18.3.1)
+      '@react-types/button': 3.10.1(react@18.3.1)
       '@react-types/shared': 3.26.0(react@18.3.1)
       '@swc/helpers': 0.5.13
       react: 18.3.1
@@ -10197,7 +10200,7 @@ snapshots:
       '@react-aria/live-announcer': 3.4.1
       '@react-aria/utils': 3.26.0(react@18.3.1)
       '@react-stately/calendar': 3.5.1(react@18.3.1)
-      '@react-types/button': 3.9.4(react@18.3.1)
+      '@react-types/button': 3.10.1(react@18.3.1)
       '@react-types/calendar': 3.4.6(react@18.3.1)
       '@react-types/shared': 3.26.0(react@18.3.1)
       '@swc/helpers': 0.5.13
@@ -10408,7 +10411,7 @@ snapshots:
       '@react-aria/selection': 3.21.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@react-aria/utils': 3.26.0(react@18.3.1)
       '@react-stately/collections': 3.12.0(react@18.3.1)
-      '@react-stately/list': 3.10.5(react@18.3.1)
+      '@react-stately/list': 3.11.1(react@18.3.1)
       '@react-types/listbox': 3.5.3(react@18.3.1)
       '@react-types/shared': 3.26.0(react@18.3.1)
       '@swc/helpers': 0.5.13
@@ -10442,10 +10445,10 @@ snapshots:
       '@react-aria/selection': 3.21.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@react-aria/utils': 3.26.0(react@18.3.1)
       '@react-stately/collections': 3.12.0(react@18.3.1)
-      '@react-stately/menu': 3.7.1(react@18.3.1)
-      '@react-stately/tree': 3.8.1(react@18.3.1)
+      '@react-stately/menu': 3.9.0(react@18.3.1)
+      '@react-stately/tree': 3.8.6(react@18.3.1)
       '@react-types/button': 3.10.1(react@18.3.1)
-      '@react-types/menu': 3.9.9(react@18.3.1)
+      '@react-types/menu': 3.9.13(react@18.3.1)
       '@react-types/shared': 3.26.0(react@18.3.1)
       '@swc/helpers': 0.5.13
       react: 18.3.1
@@ -10600,7 +10603,7 @@ snapshots:
       '@react-aria/interactions': 3.22.5(react@18.3.1)
       '@react-aria/live-announcer': 3.4.1
       '@react-aria/utils': 3.26.0(react@18.3.1)
-      '@react-aria/visually-hidden': 3.8.12(react@18.3.1)
+      '@react-aria/visually-hidden': 3.8.18(react@18.3.1)
       '@react-stately/collections': 3.12.0(react@18.3.1)
       '@react-stately/flags': 3.0.5
       '@react-stately/table': 3.11.8(react@18.3.1)
@@ -10809,7 +10812,7 @@ snapshots:
   '@react-stately/menu@3.7.1(react@18.3.1)':
     dependencies:
       '@react-stately/overlays': 3.6.12(react@18.3.1)
-      '@react-types/menu': 3.9.9(react@18.3.1)
+      '@react-types/menu': 3.9.13(react@18.3.1)
       '@react-types/shared': 3.26.0(react@18.3.1)
       '@swc/helpers': 0.5.13
       react: 18.3.1
@@ -10832,7 +10835,7 @@ snapshots:
   '@react-stately/overlays@3.6.7(react@18.3.1)':
     dependencies:
       '@react-stately/utils': 3.10.5(react@18.3.1)
-      '@react-types/overlays': 3.8.7(react@18.3.1)
+      '@react-types/overlays': 3.8.11(react@18.3.1)
       '@swc/helpers': 0.5.13
       react: 18.3.1
 
@@ -11119,7 +11122,7 @@ snapshots:
 
   '@react-types/tooltip@3.4.9(react@18.3.1)':
     dependencies:
-      '@react-types/overlays': 3.8.7(react@18.3.1)
+      '@react-types/overlays': 3.8.11(react@18.3.1)
       '@react-types/shared': 3.26.0(react@18.3.1)
       react: 18.3.1
 
@@ -15516,6 +15519,7 @@ snapshots:
       '@internationalized/date': 3.6.0
       '@nextui-org/pagination': 2.0.36(@nextui-org/system@2.2.6(@nextui-org/theme@2.2.11(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))))(framer-motion@11.13.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@nextui-org/theme@2.2.11(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@nextui-org/react': 2.4.8(@types/react@18.3.3)(framer-motion@11.13.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5)))
+      '@nextui-org/select': 2.2.7(@nextui-org/system@2.2.6(@nextui-org/theme@2.2.11(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))))(framer-motion@11.13.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@nextui-org/theme@2.2.11(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))))(@types/react@18.3.3)(framer-motion@11.13.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@nextui-org/system': 2.2.6(@nextui-org/theme@2.2.11(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))))(framer-motion@11.13.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx: 2.1.1
       dayjs: 1.11.10

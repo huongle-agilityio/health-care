@@ -6,14 +6,13 @@ import { Button } from '../Button';
 // Icons
 import { ArrowLeftIcon, ArrowRightIcon } from '@/icons';
 
+interface PaginationButtonProps {
+  isNextButton?: boolean;
+  onPress: () => void;
+}
+
 export const PaginationButton = memo(
-  ({
-    onPress,
-    isNextButton = false,
-  }: {
-    onPress: () => void;
-    isNextButton?: boolean;
-  }) => (
+  ({ onPress, isNextButton = false }: PaginationButtonProps) => (
     <Button
       size="none"
       color="bordered"

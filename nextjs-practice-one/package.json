@@ -19,6 +19,7 @@
     "@internationalized/date": "^3.6.0",
     "@nextui-org/pagination": "2.0.36",
     "@nextui-org/react": "^2.4.8",
+    "@nextui-org/select": "2.2.7",
     "@nextui-org/system": "^2.2.6",
     "clsx": "^2.1.1",
     "dayjs": "1.11.10",
