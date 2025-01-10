@@ -4,7 +4,7 @@ import { MetadataRoute } from 'next';
 import { getDoctors } from '@/actions';
 
 // Constants
-import { BASE_URL, ROUTERS } from '@/constants';
+import { BASE_URL, ROUTES } from '@/constants';
 
 export const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const { data: doctors } = await getDoctors();
@@ -12,7 +12,7 @@ export const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const bookingAppointmentsRoutes = doctors
     .map((doctor) => [
       {
-        url: `${BASE_URL}${ROUTERS.BOOKING_APPOINTMENTS_DETAIL(doctor?.documentId || '')}`,
+        url: `${BASE_URL}${ROUTES.BOOKING_APPOINTMENTS_DETAIL(doctor?.documentId || '')}`,
         lastModified: new Date(),
       },
     ])
@@ -20,31 +20,31 @@ export const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
 
   return [
     {
-      url: `${BASE_URL}${ROUTERS.HOME}`,
+      url: `${BASE_URL}${ROUTES.HOME}`,
       lastModified: new Date(),
     },
     {
-      url: `${BASE_URL}${ROUTERS.LOGIN}`,
+      url: `${BASE_URL}${ROUTES.LOGIN}`,
       lastModified: new Date(),
     },
     {
-      url: `${BASE_URL}${ROUTERS.REGISTER}`,
+      url: `${BASE_URL}${ROUTES.REGISTER}`,
       lastModified: new Date(),
     },
     {
-      url: `${BASE_URL}${ROUTERS.APPOINTMENTS}`,
+      url: `${BASE_URL}${ROUTES.APPOINTMENTS}`,
       lastModified: new Date(),
     },
     {
-      url: `${BASE_URL}${ROUTERS.HEALTH_BLOG}`,
+      url: `${BASE_URL}${ROUTES.HEALTH_BLOG}`,
       lastModified: new Date(),
     },
     {
-      url: `${BASE_URL}${ROUTERS.REVIEWS}`,
+      url: `${BASE_URL}${ROUTES.REVIEWS}`,
       lastModified: new Date(),
     },
     {
-      url: `${BASE_URL}${ROUTERS.SETTING}`,
+      url: `${BASE_URL}${ROUTES.SETTING}`,
       lastModified: new Date(),
     },
     ...bookingAppointmentsRoutes,

@@ -10,7 +10,7 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { NAVIGATION_ITEMS, ROUTERS } from '@/constants';
+import { NAVIGATION_ITEMS, ROUTES } from '@/constants';
 
 // Components
 import { Button } from '@/components';
@@ -56,7 +56,7 @@ export const NavBarMobile = ({
         ...NAVIGATION_ITEMS,
         {
           title: 'Setting',
-          url: ROUTERS.SETTING,
+          url: ROUTES.SETTING,
           icon: SettingIcon,
         },
       ]
@@ -89,7 +89,7 @@ export const NavBarMobile = ({
                     <LogoutButton size="xs">Logout</LogoutButton>
                   ) : (
                     <div className="flex flex-col gap-8">
-                      <Link href={ROUTERS.LOGIN}>
+                      <Link href={ROUTES.LOGIN}>
                         <Button
                           size="xs"
                           variant="bordered"
@@ -100,7 +100,7 @@ export const NavBarMobile = ({
                           Login
                         </Button>
                       </Link>
-                      <Link href={ROUTERS.REGISTER}>
+                      <Link href={ROUTES.REGISTER}>
                         <Button size="xs" onClick={onClose} className="w-full">
                           Register
                         </Button>

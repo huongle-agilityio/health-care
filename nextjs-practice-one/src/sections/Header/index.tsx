@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 // Constants
-import { NAVIGATION_ITEMS, ROUTERS } from '@/constants';
+import { NAVIGATION_ITEMS, ROUTES } from '@/constants';
 
 // Components
 import { Text } from '@/components';
@@ -41,7 +41,7 @@ export const Header = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
       >
         <NavBarMobile isAuthenticated={isAuthenticated} />
         <Link
-          href={ROUTERS.HOME}
+          href={ROUTES.HOME}
           className="flex gap-4 items-center m-auto lg:m-0"
         >
           <LogoIcon />

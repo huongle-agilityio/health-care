@@ -1,4 +1,4 @@
-export const ROUTERS = {
+export const ROUTES = {
   HOME: '/',
   LOGIN: '/login',
   REGISTER: '/register',
@@ -16,5 +16,5 @@ export const ROUTERS = {
   SETTING: '/setting',
 };
 
-export const PRIVATE_ROUTERS = [ROUTERS.BOOKING_APPOINTMENTS, ROUTERS.SETTING];
-export const AUTH_ROUTERS = [ROUTERS.LOGIN, ROUTERS.REGISTER];
+export const PRIVATE_ROUTERS = [ROUTES.BOOKING_APPOINTMENTS, ROUTES.SETTING];
+export const AUTH_ROUTERS = [ROUTES.LOGIN, ROUTES.REGISTER];

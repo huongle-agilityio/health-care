@@ -1,5 +1,5 @@
 export * from './api-endpoint';
-export * from './router';
+export * from './routes';
 export * from './images';
 export * from './env-vars';
 export * from './brand';

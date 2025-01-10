@@ -1,4 +1,4 @@
-import { ROUTERS } from './router';
+import { ROUTES } from './routes';
 
 // Icons
 import {
@@ -14,22 +14,22 @@ import { OptionMenu } from '@/types';
 
 export const NAVIGATION_ITEMS: OptionMenu[] = [
   {
-    url: ROUTERS.HOME,
+    url: ROUTES.HOME,
     title: 'Home',
     icon: HomeIcon,
   },
   {
-    url: ROUTERS.APPOINTMENTS,
+    url: ROUTES.APPOINTMENTS,
     title: 'Appointments',
     icon: CalendarIcon,
   },
   {
-    url: ROUTERS.HEALTH_BLOG,
+    url: ROUTES.HEALTH_BLOG,
     title: 'Health Blog',
     icon: BlogIcon,
   },
   {
-    url: ROUTERS.REVIEWS,
+    url: ROUTES.REVIEWS,
     title: 'Review',
     icon: ReviewIcon,
   },
@@ -40,7 +40,7 @@ export const NAVIGATION_ITEMS_WITH_LOGOUT = (
 ): OptionMenu[] => [
   {
     title: 'Setting',
-    url: ROUTERS.SETTING,
+    url: ROUTES.SETTING,
     icon: SettingIcon,
   },
   {

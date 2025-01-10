@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react';
 import { fn } from '@storybook/test';
 
 // Constants
-import { ROUTERS } from '@/constants';
+import { ROUTES } from '@/constants';
 
 // Components
 import { Button } from '../Button';
@@ -56,7 +56,7 @@ Default.args = {
   menuOptions: [
     {
       label: 'Setting',
-      url: ROUTERS.SETTING,
+      url: ROUTES.SETTING,
     },
     {
       label: 'Logout',

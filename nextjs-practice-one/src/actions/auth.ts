@@ -14,7 +14,7 @@ import {
   AUTH_METHOD,
   ERROR_MESSAGES,
   ERROR_TYPES,
-  ROUTERS,
+  ROUTES,
 } from '@/constants';
 
 // Types
@@ -47,5 +47,5 @@ export const signUp = async (payload: UserPayload) =>
   );
 
 export const logout = async () => {
-  await signOut({ redirectTo: ROUTERS.LOGIN });
+  await signOut({ redirectTo: ROUTES.LOGIN });
 };
