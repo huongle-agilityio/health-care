@@ -3,6 +3,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 // Components
 import { Card } from '.';
 
+// Mocks
+import { cardMock } from '@/constants/mocks';
+
 const meta = {
   title: 'Components/Card',
   component: Card,
@@ -10,14 +13,7 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  args: {
-    name: 'Caitlyn',
-    specialty: 'Dentist',
-    experience: 2,
-    rating: 4,
-    imageSrc: '/images/dentist.webp',
-    href: '/test',
-  },
+  args: cardMock,
 } satisfies Meta<typeof Card>;
 
 export default meta;

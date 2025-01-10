@@ -3,6 +3,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 // Components
 import { BookingCard } from '.';
 
+// Mocks
+import { bookingCardMock } from '@/constants/mocks';
+
 const meta = {
   title: 'Components/BookingCard',
   component: BookingCard,
@@ -24,12 +27,7 @@ const meta = {
       control: 'text',
     },
   },
-  args: {
-    date: '12/12/2024',
-    name: 'Caitlyn',
-    time: '09:00',
-    imageSrc: '/images/dentist.webp',
-  },
+  args: bookingCardMock,
 } satisfies Meta<typeof BookingCard>;
 
 export default meta;

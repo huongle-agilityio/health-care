@@ -5,14 +5,11 @@ import { cn } from '@/utils';
 
 export const TimeSlotsSkeleton = () => (
   <div className="flex flex-col gap-6 w-full">
-    <Skeleton className={cn('rounded-xl', 'w-full xl:w-[110px] h-[20px]')}>
-      <div className="bg-default-300" />
-    </Skeleton>
-    <Skeleton className={cn('rounded-xl', 'w-full xl:w-[110px] h-[20px]')}>
-      <div className="bg-default-300" />
-    </Skeleton>
-    <Skeleton className={cn('rounded-xl', 'w-full xl:w-[110px] h-[20px]')}>
-      <div className="bg-default-300" />
-    </Skeleton>
+    {Array.from({ length: 3 }, (_, index) => (
+      <Skeleton
+        key={`time-slot-skeleton-${index}`}
+        className={cn('rounded-xl', 'w-full xl:w-[90px] h-[20px]')}
+      />
+    ))}
   </div>
 );

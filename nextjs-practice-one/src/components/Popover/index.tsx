@@ -1,7 +1,6 @@
 'use client';
 
 import { memo, ReactNode } from 'react';
-import Link from 'next/link';
 import {
   Popover as PopoverNextUI,
   PopoverProps as PopoverNextUIProps,
@@ -14,7 +13,7 @@ import {
 import { OptionMenu } from '@/types';
 
 // Utils
-import { cn } from '@/utils';
+import { PopoverItem } from './PopoverItem';
 
 export interface PopoverProps {
   placement?: PopoverNextUIProps['placement'];
@@ -37,36 +36,16 @@ export const Popover = memo(
         <PopoverContent className="mt-1 p-0 rounded-sm min-w-[100px]">
           {menuOptions.map(({ title, action, url }, index) => {
             const isLastItem = index + 1 === menuOptions.length;
-            const handleAction = () => {
-              action?.();
-              onClose();
-            };
 
-            return url ? (
-              <Link
-                key={`${title}-${index}`}
-                href={url}
-                className={cn(
-                  'text-center',
-                  'px-6 py-6 hover:bg-secondary-400 w-full',
-                  isLastItem ? 'rounded-b-sm' : 'rounded-t-sm',
-                )}
-                onClick={handleAction}
-              >
-                {title}
-              </Link>
-            ) : (
-              <div
-                key={`${title}-${index}`}
-                className={cn(
-                  'text-center cursor-pointer',
-                  'px-6 py-6 hover:bg-secondary-400 w-full',
-                  isLastItem ? 'rounded-b-sm' : 'rounded-t-sm',
-                )}
-                onClick={handleAction}
-              >
-                {title}
-              </div>
+            return (
+              <PopoverItem
+                key={`popover-item-${index}`}
+                title={title}
+                action={action}
+                url={url}
+                isLastItem={isLastItem}
+                onClose={onClose}
+              />
             );
           })}
         </PopoverContent>

@@ -40,13 +40,11 @@ const meta = {
   },
 } satisfies Meta<typeof Popover>;
 
-const Template = (args: PopoverProps) => {
-  return (
-    <Popover {...args}>
-      <Button>Toggle Popover</Button>
-    </Popover>
-  );
-};
+const Template = (args: PopoverProps) => (
+  <Popover {...args}>
+    <Button>Toggle Popover</Button>
+  </Popover>
+);
 
 export default meta;
 export const Default = (args: PopoverProps) => <Template {...args} />;
@@ -55,11 +53,11 @@ Default.args = {
   placement: 'bottom-end',
   menuOptions: [
     {
-      label: 'Setting',
+      title: 'Setting',
       url: ROUTES.SETTING,
     },
     {
-      label: 'Logout',
+      title: 'Logout',
       action: fn(),
     },
   ],

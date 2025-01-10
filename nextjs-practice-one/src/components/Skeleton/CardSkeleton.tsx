@@ -18,22 +18,14 @@ export const CardSkeleton = () => (
         'lg:w-[150px] lg:h-[150px]',
         'rounded-full',
       )}
-    >
-      <div className="bg-default-300" />
-    </Skeleton>
+    />
     <div className="w-[255px] space-y-10 lg:pt-[27px]">
       <div className="lg:pb-15 flex-col space-y-5">
-        <Skeleton className="hidden lg:block h-[36px] rounded-lg">
-          <div className="bg-default-200" />
-        </Skeleton>
-        <Skeleton className="h-[80px] rounded-lg">
-          <div className="bg-default-200" />
-        </Skeleton>
+        <Skeleton className="hidden lg:block h-[36px] rounded-lg" />
+        <Skeleton className="h-[80px] rounded-lg" />
       </div>
 
-      <Skeleton className="h-[60px] rounded-lg">
-        <div className="bg-default-200" />
-      </Skeleton>
+      <Skeleton className="h-[60px] rounded-lg" />
     </div>
   </Card>
 );

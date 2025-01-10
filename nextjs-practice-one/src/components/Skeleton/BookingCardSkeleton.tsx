@@ -12,16 +12,10 @@ export const BookingCardSkeleton = () => (
     )}
     radius="lg"
   >
-    <Skeleton className="w-[75px] h-[75px] rounded-full">
-      <div className="bg-default-300" />
-    </Skeleton>
+    <Skeleton className="w-[75px] h-[75px] rounded-full" />
     <div className="w-4/5 md:w-[200px] pr-5 md:pr-0 space-y-10">
-      <Skeleton className="h-[36px] rounded-lg">
-        <div className="bg-default-200" />
-      </Skeleton>
-      <Skeleton className="h-[76px] rounded-lg">
-        <div className="bg-default-200" />
-      </Skeleton>
+      <Skeleton className="h-[36px] rounded-lg" />
+      <Skeleton className="h-[76px] rounded-lg" />
     </div>
   </Card>
 );
