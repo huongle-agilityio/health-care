@@ -28,7 +28,11 @@ export const ListDoctorsAvailable = async ({
     experience,
     fee,
   });
-  const { currentPage = 0, pageCount = 0, total = 0 } = meta?.pagination || {};
+  const {
+    page: currentPage = 1,
+    pageCount = 0,
+    total = 0,
+  } = meta?.pagination || {};
 
   return (
     <>
