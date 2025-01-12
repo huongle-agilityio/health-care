@@ -19,7 +19,6 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      console.log('auth?.user', auth?.user);
 
       if (isLoggedIn && AUTH_ROUTERS.includes(nextUrl.pathname)) {
         return Response.redirect(new URL(ROUTES.HOME, nextUrl));

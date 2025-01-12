@@ -33,14 +33,12 @@ import { cn, formatSpecialtiesOption } from '@/utils';
 export const FormFilterDoctors = ({
   specialty,
   rating,
-  session,
   experience,
   fee,
 }: DoctorFilterParams) => {
   const pathname = usePathname();
   const { replace } = useRouter();
   const searchParams = useSearchParams();
-  console.log('session', session);
 
   const [isPending, startTransition] = useTransition();
   const [specialties, setSpecialty] = useState<Specialty[]>([]);

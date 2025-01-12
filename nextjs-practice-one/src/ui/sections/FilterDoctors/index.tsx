@@ -9,12 +9,9 @@ import { DoctorFilterParams } from '@/types';
 
 // Utils
 import { cn } from '@/utils';
-import { auth } from '@/config';
 
 export const FilterDoctors = memo(
   async ({ specialty, rating, experience, fee }: DoctorFilterParams) => {
-    const session = await auth();
-
     return (
       <div
         className={cn(
@@ -27,7 +24,6 @@ export const FilterDoctors = memo(
           Find a doctor at your own ease
         </Text>
         <FormFilterDoctors
-          session={session}
           specialty={specialty}
           rating={rating}
           experience={experience}
