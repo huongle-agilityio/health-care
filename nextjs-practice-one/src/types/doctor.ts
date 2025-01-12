@@ -1,12 +1,14 @@
 import { Specialty } from './specialty';
 import { ApiPaginationResponse } from './api';
 import { TimeSlot } from './timeSlot';
+import { Session } from 'next-auth';
 
 export interface DoctorFilterParams {
   page?: number;
   pageSize?: number;
   rating?: number;
   experience?: string;
+  session?: Session | null;
   expStart?: number;
   expEnd?: number;
   fee?: number;

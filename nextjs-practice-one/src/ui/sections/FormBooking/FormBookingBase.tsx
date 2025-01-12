@@ -39,11 +39,9 @@ import { Doctor, BookingTimeSlots, TimeSlot, UserSession } from '@/types';
 
 // Utils
 import { cn, getStatusTimeSlots, todayWithFormat } from '@/utils';
-import { Session } from 'next-auth';
 
 interface FormBookingBaseProps {
   doctorId: string;
-  session?: Session | null;
   doctor: Doctor;
   times: TimeSlot[];
   userInfo?: UserSession;
@@ -52,14 +50,12 @@ interface FormBookingBaseProps {
 export const FormBookingBase = ({
   doctorId,
   doctor,
-  session,
   userInfo,
   times,
 }: FormBookingBaseProps) => {
   const [isPending, startTransition] = useTransition();
   const [timeSlots, setTimeSlots] = useState<BookingTimeSlots[]>([]);
   const { name, specialty, experience, rating, avatar } = doctor;
-  console.log('session', session);
 
   const router = useRouter();
 
