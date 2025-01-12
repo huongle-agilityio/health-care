@@ -1,7 +1,7 @@
 import type { NextAuthConfig } from 'next-auth';
 
 // Constants
-import { ROUTES, TIMING } from '../constants';
+import { AUTH_ROUTERS, PRIVATE_ROUTERS, ROUTES, TIMING } from '../constants';
 
 // Types
 import { UserSession } from '../types';
@@ -17,6 +17,23 @@ export const authConfig = {
     signIn: ROUTES.LOGIN,
   },
   callbacks: {
+    authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user;
+      console.log('auth?.user', auth?.user);
+
+      if (isLoggedIn && AUTH_ROUTERS.includes(nextUrl.pathname)) {
+        return Response.redirect(new URL(ROUTES.HOME, nextUrl));
+      }
+
+      if (
+        !isLoggedIn &&
+        PRIVATE_ROUTERS.some((route) => nextUrl.pathname.includes(route))
+      ) {
+        return Response.redirect(new URL(ROUTES.LOGIN, nextUrl));
+      }
+
+      return true;
+    },
     jwt: async ({ user, token }) => {
       if (token) Object.assign(token, user);
 

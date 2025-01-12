@@ -1,36 +1,26 @@
 import NextAuth from 'next-auth';
-import { getToken } from 'next-auth/jwt';
-import { NextRequest, NextResponse } from 'next/server';
-
-// Constants
-import {
-  AUTH_ROUTERS,
-  AUTH_SECRET,
-  PRIVATE_ROUTERS,
-  ROUTES,
-} from './constants';
 
 // Config
 import { authConfig } from '@/config';
 
 export default NextAuth(authConfig).auth;
 
-export async function middleware(request: NextRequest) {
-  const token = await getToken({ req: request, secret: AUTH_SECRET });
+// export async function middleware(request: NextRequest) {
+//   const token = await getToken({ req: request, secret: AUTH_SECRET });
 
-  if (token && AUTH_ROUTERS.includes(request.nextUrl.pathname)) {
-    return NextResponse.redirect(new URL(ROUTES.HOME, request.url));
-  }
+//   if (token && AUTH_ROUTERS.includes(request.nextUrl.pathname)) {
+//     return NextResponse.redirect(new URL(ROUTES.HOME, request.url));
+//   }
 
-  if (
-    !token &&
-    PRIVATE_ROUTERS.some((route) => request.nextUrl.pathname.includes(route))
-  ) {
-    return NextResponse.redirect(new URL(ROUTES.LOGIN, request.url));
-  }
+//   if (
+//     !token &&
+//     PRIVATE_ROUTERS.some((route) => request.nextUrl.pathname.includes(route))
+//   ) {
+//     return NextResponse.redirect(new URL(ROUTES.LOGIN, request.url));
+//   }
 
-  return NextResponse.next();
-}
+//   return NextResponse.next();
+// }
 
 export const config = {
   matcher: [

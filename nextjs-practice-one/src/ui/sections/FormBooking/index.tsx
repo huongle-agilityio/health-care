@@ -18,7 +18,6 @@ export const FormBooking = async ({ doctorId }: { doctorId: string }) => {
 
   return (
     <FormBookingBase
-      session={session}
       doctorId={doctorId}
       userInfo={userInfo}
       doctor={doctor.data}
