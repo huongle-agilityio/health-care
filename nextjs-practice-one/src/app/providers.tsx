@@ -7,9 +7,6 @@ import { NextUIProvider } from '@nextui-org/system';
 // Contexts
 import { ToastProvider } from '@/contexts';
 
-// Sections
-import { ToastWrapper } from '@/ui/sections';
-
 export interface ProvidersProps {
   children: ReactNode;
 }
@@ -18,9 +15,7 @@ export function Providers({ children }: ProvidersProps) {
   return (
     <NextUIProvider>
       <ThemeProvider attribute="class" defaultTheme="light">
-        <ToastProvider>
-          <ToastWrapper>{children}</ToastWrapper>
-        </ToastProvider>
+        <ToastProvider>{children}</ToastProvider>
       </ThemeProvider>
     </NextUIProvider>
   );

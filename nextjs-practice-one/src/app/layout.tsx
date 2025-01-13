@@ -11,7 +11,7 @@ import { auth } from '@/config';
 import { BRAND, FAVICON_URL } from '@/constants';
 
 // Components
-import { Header } from '@/ui/sections';
+import { Header, ToastWrapper } from '@/ui/sections';
 
 // Providers
 import { Providers } from './providers';
@@ -47,7 +47,7 @@ export default async function RootLayout({
       <body className={montserrat.className}>
         <Providers>
           <Header isAuthenticated={isAuthenticated} />
-          {children}
+          <ToastWrapper>{children}</ToastWrapper>
         </Providers>
       </body>
     </html>
