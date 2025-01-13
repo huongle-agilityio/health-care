@@ -4,6 +4,7 @@ import { ListCheckbox } from '..';
 export default {
   title: 'Components/ListCheckbox',
   component: ListCheckbox,
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
