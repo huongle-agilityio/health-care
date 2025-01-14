@@ -20,4 +20,11 @@ export interface UserResponse {
   user: User;
 }
 
-export type UserSession = Omit<User, 'password'> & { jwt?: string };
+export interface UserSession {
+  id?: string;
+  email: string;
+  name: string;
+  username?: string;
+  phone: string;
+  jwt?: string;
+}

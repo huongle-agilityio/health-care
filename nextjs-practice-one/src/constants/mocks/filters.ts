@@ -21,20 +21,11 @@ export const RATING = [
   },
 ];
 
-export const EXPERIENCES = [
-  {
-    value: 'fresher',
-    label: '1-2 years',
-  },
-  {
-    value: 'junior',
-    label: '2-5 years',
-  },
-  {
-    value: 'senior',
-    label: '5-10 years',
-  },
-];
+export const WORK_EXPERIENCE_YEARS = {
+  fresher: [1, 2],
+  junior: [2, 5],
+  senior: [5, 10],
+};
 
 export const FEES = [
   {

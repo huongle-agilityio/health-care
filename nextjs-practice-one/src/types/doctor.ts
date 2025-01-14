@@ -1,14 +1,17 @@
+import { TimeSlot } from './timeSlot';
 import { Specialty } from './specialty';
 import { ApiPaginationResponse } from './api';
-import { TimeSlot } from './timeSlot';
+
+// Constants
+import { WORK_EXPERIENCE_YEARS } from '@/constants/mocks';
 
 export interface DoctorFilterParams {
   page?: number;
   pageSize?: number;
   rating?: number;
-  experience?: string;
-  expStart?: number;
-  expEnd?: number;
+  experience?: keyof typeof WORK_EXPERIENCE_YEARS;
+  minExperience?: number;
+  maxExperience?: number;
   fee?: number;
   specialty?: string;
 }

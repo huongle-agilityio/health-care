@@ -9,10 +9,10 @@ export const QUERY_FILTER_URL = {
       pageSize &&
       `&pagination[pageSize]=${pageSize}&pagination[page]=${page}`) ||
     '',
-  BY_EXPERIENCE: (expStart: number, expEnd: number) =>
-    (expEnd &&
-      expStart &&
-      `&filters[experience][$between][0]=${expStart}&filters[experience][$between][1]=${expEnd}`) ||
+  BY_EXPERIENCE: (minExperience: number, maxExperience: number) =>
+    (maxExperience &&
+      minExperience &&
+      `&filters[experience][$between][0]=${minExperience}&filters[experience][$between][1]=${maxExperience}`) ||
     '',
   BY_RATING: (rating: number) =>
     (rating && `&filters[rating][$eq]=${rating}`) || '',
@@ -24,15 +24,15 @@ export const QUERY_FILTER_URL = {
 
 export const QUERY_URL = {
   DOCTORS: ({
-    expStart = 0,
-    expEnd = 0,
+    minExperience = 0,
+    maxExperience = 0,
     rating = 0,
     fee = 0,
     specialty = '',
     page = CURRENT_PAGE,
     pageSize = PAGE_SIZE,
   }: DoctorFilterParams) =>
-    `?populate[specialty][fields][0]=name${QUERY_FILTER_URL.BY_EXPERIENCE(expStart, expEnd)}${QUERY_FILTER_URL.BY_RATING(rating)}${QUERY_FILTER_URL.BY_FEE(fee)}${QUERY_FILTER_URL.BY_SPECIALTY(specialty)}${QUERY_FILTER_URL.PAGINATION(
+    `?populate[specialty][fields][0]=name${QUERY_FILTER_URL.BY_EXPERIENCE(minExperience, maxExperience)}${QUERY_FILTER_URL.BY_RATING(rating)}${QUERY_FILTER_URL.BY_FEE(fee)}${QUERY_FILTER_URL.BY_SPECIALTY(specialty)}${QUERY_FILTER_URL.PAGINATION(
       page,
       pageSize,
     )}`,
