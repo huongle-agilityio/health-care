@@ -27,7 +27,7 @@ export const getTimeSlot = async () =>
     });
   });
 
-export const getBookingAppointmentById = async (userId: string) =>
+export const getBookingAppointmentByUserId = async (userId: string) =>
   safeHttpRequest<BookingSlot[]>(async (token) => {
     const url = `${API_ENDPOINT.BOOKING_SLOT}${QUERY_URL.APPOINTMENT_BY_USER_ID(userId)}`;
     return await httpClient.get<BookingSlotResponse>(url, token);

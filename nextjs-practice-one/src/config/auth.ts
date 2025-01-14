@@ -11,10 +11,10 @@ import { API_ENDPOINT } from '@/constants';
 import { authConfig } from './auth.config';
 
 // Types
-import { UserPayload, UserResponse } from '@/types';
+import { AuthPayload, AuthResponse } from '@/types';
 
 const CredentialsProvider = Credentials({
-  authorize: async (credentials: Partial<UserPayload>) => {
+  authorize: async (credentials: Partial<AuthPayload>) => {
     const { email = '', password = '' } = credentials;
     const payload = {
       identifier: email,
@@ -22,7 +22,7 @@ const CredentialsProvider = Credentials({
       password,
     };
 
-    const response = await httpClient.post<UserResponse, UserPayload>(
+    const response = await httpClient.post<AuthResponse, AuthPayload>(
       API_ENDPOINT.SIGN_IN,
       payload,
     );

@@ -18,9 +18,9 @@ import {
 } from '@/constants';
 
 // Types
-import { UserPayload, UserResponse } from '@/types';
+import { AuthPayload, AuthResponse } from '@/types';
 
-export const login = async (payload: UserPayload) => {
+export const login = async (payload: AuthPayload) => {
   try {
     await signIn(AUTH_METHOD.CREDENTIALS, {
       ...payload,
@@ -40,8 +40,8 @@ export const login = async (payload: UserPayload) => {
   }
 };
 
-export const signUp = async (payload: UserPayload) =>
-  await httpClient.post<UserResponse, UserPayload>(
+export const signUp = async (payload: AuthPayload) =>
+  await httpClient.post<AuthResponse, AuthPayload>(
     API_ENDPOINT.SIGN_UP,
     payload,
   );

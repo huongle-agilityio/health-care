@@ -23,10 +23,11 @@ import {
   CalendarController,
   InputController,
   CheckboxController,
+  SelectController,
 } from '@/ui/components';
 
 // Constants
-import { ROUTES } from '@/constants';
+import { BOOKING_REASONS, ROUTES } from '@/constants';
 
 // Contexts
 import { ToastContext } from '@/contexts';
@@ -67,6 +68,7 @@ export const FormBookingBase = ({
     name: userName,
     phone,
     time: '',
+    reason: '',
     date: todayWithFormat(),
   };
 
@@ -77,7 +79,7 @@ export const FormBookingBase = ({
     reset,
     handleSubmit: submitForm,
   } = useForm<z.infer<typeof bookingSchema>>({
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: zodResolver(bookingSchema),
     defaultValues: initialState,
   });
@@ -91,6 +93,7 @@ export const FormBookingBase = ({
         date: values.date,
         timeSlot: values.time,
         doctor: doctorId,
+        reason: values.reason,
         user: id,
       },
     };
@@ -118,6 +121,7 @@ export const FormBookingBase = ({
       name: '',
       phone: '',
       time: '',
+      reason: '',
       date: todayWithFormat(),
     });
   }, [reset]);
@@ -201,11 +205,34 @@ export const FormBookingBase = ({
           name="email"
           clearErrors={clearErrors}
         />
-        <div className="flex flex-col mt-20 gap-15">
-          <Button isLoading={isPending} type="submit" color="default">
+
+        <SelectController
+          name="reason"
+          label="What's your reason for booking?"
+          aria-label="Choice reason booking"
+          options={BOOKING_REASONS}
+          placeholder="Choice your reason"
+          control={control}
+          clearErrors={clearErrors}
+          classNames={{
+            mainWrapper: 'mt-8',
+          }}
+        />
+        <div className="flex flex-col xl:flex-row mt-20 gap-15">
+          <Button
+            isLoading={isPending}
+            type="submit"
+            color="default"
+            className="w-full"
+          >
             Book Appointment
           </Button>
-          <Button color="primary" onPress={handleReset}>
+          <Button
+            type="reset"
+            color="primary"
+            onPress={handleReset}
+            className="w-full"
+          >
             Reset
           </Button>
         </div>

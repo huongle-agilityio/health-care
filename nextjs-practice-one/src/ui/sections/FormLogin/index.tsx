@@ -44,7 +44,7 @@ export const FormLogin = () => {
     handleSubmit: submitForm,
     formState: { isDirty },
   } = useForm<z.infer<typeof loginSchema>>({
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: zodResolver(loginSchema),
     defaultValues: initialState,
   });
