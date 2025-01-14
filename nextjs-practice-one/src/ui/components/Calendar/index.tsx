@@ -1,6 +1,6 @@
 'use client';
 
-import { memo } from 'react';
+import { ComponentType, memo } from 'react';
 import { parseDate } from '@internationalized/date';
 
 import {
@@ -9,9 +9,6 @@ import {
   DateValue,
   extendVariants,
 } from '@nextui-org/react';
-
-// Components
-import { Text } from '..';
 
 // Utils
 import { cn, isDateUnavailable, todayWithFormat } from '@/utils';
@@ -24,6 +21,7 @@ export const CalendarBase = extendVariants(CalendarNextUI, {
         gridBodyRow: 'gap-1',
         gridHeaderCell: 'w-17 h-17',
         gridBody: 'bg-primary-500',
+        errorMessage: 'text-red-400 text-xs',
         cellButton: cn(
           'bg-transparent',
           'w-17 h-17 rounded-sm border-1 border-primary-500',
@@ -49,7 +47,7 @@ export const CalendarBase = extendVariants(CalendarNextUI, {
     color: 'default',
     size: 'md',
   },
-});
+}) as ComponentType<CalendarNextUIProps>;
 
 export interface CalendarProps extends CalendarNextUIProps {
   value?: DateValue;
@@ -63,19 +61,14 @@ export const Calendar = memo(({ value, error, ...props }: CalendarProps) => {
     : parseDate(todayWithFormat());
 
   return (
-    <div className="flex-col">
-      <CalendarBase
-        disableAnimation
-        value={date}
-        isDateUnavailable={isDateUnavailable}
-        {...props}
-      />
-      {error && (
-        <Text size="xs" color="error">
-          {error}
-        </Text>
-      )}
-    </div>
+    <CalendarBase
+      disableAnimation
+      value={date}
+      isDateUnavailable={isDateUnavailable}
+      isInvalid={!!error}
+      errorMessage={error}
+      {...props}
+    />
   );
 });
 

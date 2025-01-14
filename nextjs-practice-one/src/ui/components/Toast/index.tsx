@@ -6,7 +6,7 @@ import { memo, useContext, useEffect } from 'react';
 import { TIMING } from '@/constants';
 
 // Components
-import { Text } from '..';
+import { Text } from '../Text';
 
 // Icons
 import { CloseIcon } from '@/ui/icons';

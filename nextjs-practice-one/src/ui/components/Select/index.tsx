@@ -1,6 +1,6 @@
 'use client';
 
-import { memo } from 'react';
+import { ComponentType, memo } from 'react';
 import {
   SelectItem,
   ListboxItemSlots,
@@ -51,7 +51,7 @@ const SelectBase = extendVariants(SelectNextUI, {
   defaultVariants: {
     color: 'default',
   },
-});
+}) as ComponentType<SelectNextUIProps>;
 
 const SelectItemBase = extendVariants(SelectItem, {
   variants: {

@@ -1,7 +1,11 @@
 import { ChangeEvent, useState } from 'react';
-import { ListCheckbox } from '..';
 
-export default {
+import type { Meta } from '@storybook/react';
+
+// Components
+import { ListCheckbox, ListCheckboxProps } from '.';
+
+const meta = {
   title: 'Components/ListCheckbox',
   component: ListCheckbox,
   tags: ['autodocs'],
@@ -16,12 +20,9 @@ export default {
     ],
     selectedValue: 'option1',
   },
-};
+} satisfies Meta<typeof ListCheckbox>;
 
-const Template: React.FC<{
-  options: { value: string; label: string; isDisabled: boolean }[];
-  selectedValue: string;
-}> = (args) => {
+const Template = (args: ListCheckboxProps) => {
   const [value, setValue] = useState(args.selectedValue);
 
   const onChange = (text: ChangeEvent<HTMLInputElement>) =>
@@ -30,4 +31,6 @@ const Template: React.FC<{
   return <ListCheckbox {...args} selectedValue={value} onChange={onChange} />;
 };
 
-export const Default = Template.bind({});
+export default meta;
+export const Default = (args: ListCheckboxProps) => <Template {...args} />;
+Default.args = {};

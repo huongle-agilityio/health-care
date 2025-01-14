@@ -10,7 +10,7 @@ import { OptionCheckBox } from '@/types';
 // Utils
 import { cn } from '@/utils';
 
-interface ListCheckboxProps {
+export interface ListCheckboxProps {
   selectedValue: string;
   error?: string;
   className?: string;

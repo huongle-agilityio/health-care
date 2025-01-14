@@ -11,7 +11,10 @@ import {
 import Link from 'next/link';
 
 // Components
-import { Text, Button, Image, Rating } from '..';
+import { Text } from '../Text';
+import { Image } from '../Image';
+import { Button } from '../Button';
+import { Rating } from '../Rating';
 
 // Icons
 import { HourglassIcon, StethoscopeIcon } from '@/ui/icons';
