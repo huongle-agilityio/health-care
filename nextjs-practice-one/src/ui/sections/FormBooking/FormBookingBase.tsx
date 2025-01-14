@@ -38,7 +38,7 @@ import { bookingSchema } from '@/schema';
 import { Doctor, BookingTimeSlots, TimeSlot, UserSession } from '@/types';
 
 // Utils
-import { cn, getStatusTimeSlots, todayWithFormat } from '@/utils';
+import { cn, formatBookingTimeSlotsWithStatus, todayWithFormat } from '@/utils';
 
 interface FormBookingBaseProps {
   doctorId: string;
@@ -169,7 +169,7 @@ export const FormBookingBase = ({
               <CheckboxController
                 control={control}
                 name="time"
-                options={getStatusTimeSlots(times, timeSlots)}
+                options={formatBookingTimeSlotsWithStatus(times, timeSlots)}
                 clearErrors={clearErrors}
                 className="flex flex-row xl:flex-col flex-wrap mb-10 xl:mb-0"
               />

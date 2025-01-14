@@ -13,3 +13,9 @@ export const BOOKING_TIMES = [
   { value: '16:00', label: '16:00 PM' },
   { value: '17:00', label: '17:00 PM' },
 ];
+
+export const BOOKING_STATUS_COLORS = {
+  [BOOKING_STATUS.TODAY]: 'bg-amber-400',
+  [BOOKING_STATUS.UPCOMING]: 'bg-lime-600',
+  [BOOKING_STATUS.EXPIRED]: 'bg-red-400',
+};
