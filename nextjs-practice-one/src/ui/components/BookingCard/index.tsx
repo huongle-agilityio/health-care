@@ -7,6 +7,7 @@ import { extendVariants, Chip } from '@nextui-org/react';
 import { CardHeader, CardBody, Card } from '../Card';
 import { Text } from '../Text';
 import { Image } from '../Image';
+import { CardHeader, CardBody, Card } from '../Card';
 
 // Utils
 import { cn, getBookingStatus, getColorsWithStatusBooking } from '@/utils';

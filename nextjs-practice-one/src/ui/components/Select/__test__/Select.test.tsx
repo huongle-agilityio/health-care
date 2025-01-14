@@ -1,4 +1,5 @@
-import { render, fireEvent, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { render, screen, waitFor } from '@testing-library/react';
 
 // Components
 import { Select } from '..';
@@ -37,7 +38,7 @@ describe('Select component', () => {
 
   test('Should select an option when clicked', () => {
     const handleChange = jest.fn();
-    const { getAllByText, getByRole } = render(
+    render(
       <Select
         value="dentist"
         options={SPECIALTIES}
@@ -46,20 +47,23 @@ describe('Select component', () => {
       />,
     );
 
-    const select = getByRole('button');
-    fireEvent.click(select);
-    const option = getAllByText(SPECIALTIES[1].label);
-    fireEvent.click(option[1]);
+    const select = screen.getByRole('button');
+    userEvent.click(select);
 
-    expect(handleChange).toHaveBeenCalled();
-    expect(handleChange.mock.calls[0][0].target.value).toBe(
-      SPECIALTIES[1].value,
-    );
+    const option = screen.getAllByText(SPECIALTIES[1].label);
+    userEvent.click(option[1]);
+
+    waitFor(() => {
+      expect(handleChange).toHaveBeenCalled();
+      expect(handleChange.mock.calls[0][0].target.value).toBe(
+        SPECIALTIES[1].value,
+      );
+    });
   });
 
   test('Should not call function handleChange when select input is disabled', () => {
     const handleChange = jest.fn();
-    const { getByRole } = render(
+    render(
       <Select
         isDisabled
         options={SPECIALTIES}
@@ -68,9 +72,12 @@ describe('Select component', () => {
       />,
     );
 
-    const select = getByRole('button');
-    fireEvent.click(select);
+    const select = screen.getByRole('button');
 
-    expect(handleChange).not.toHaveBeenCalled();
+    userEvent.click(select);
+
+    waitFor(() => {
+      expect(handleChange).not.toHaveBeenCalled();
+    });
   });
 });

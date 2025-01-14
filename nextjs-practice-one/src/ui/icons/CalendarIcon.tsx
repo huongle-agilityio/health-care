@@ -1,3 +1,4 @@
+import { JSX } from 'react';
 import { SvgFactory, SvgFactoryProps } from './SvgFactory';
 
 // Utils

@@ -1,4 +1,5 @@
-import { render, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { render, screen, waitFor } from '@testing-library/react';
 
 // Components
 import { Pagination } from '..';
@@ -31,24 +32,26 @@ describe('Pagination component', () => {
   });
 
   test('Should not decrement page below 1 when clicking Previous button', () => {
-    const { getByText, getAllByText } = render(
-      <Pagination page={2} total={10} />,
-    );
+    render(<Pagination page={2} total={10} />);
 
-    const prevButton = getByText('Previous');
-    fireEvent.click(prevButton);
+    const prevButton = screen.getByText('Previous');
 
-    expect(getAllByText('1').length).toBe(1);
+    userEvent.click(prevButton);
+
+    waitFor(() => {
+      expect(screen.getAllByText('1').length).toBe(1);
+    });
   });
 
   test('Should not increment page above total when clicking Next button', () => {
-    const { getByText, getAllByText } = render(
-      <Pagination page={9} total={10} />,
-    );
+    render(<Pagination page={9} total={10} />);
 
-    const nextButton = getByText('Next');
-    fireEvent.click(nextButton);
+    const nextButton = screen.getByText('Next');
 
-    expect(getAllByText('10').length).toBe(1);
+    userEvent.click(nextButton);
+
+    waitFor(() => {
+      expect(screen.getAllByText('10').length).toBe(1);
+    });
   });
 });

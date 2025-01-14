@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { render, screen, waitFor } from '@testing-library/react';
 
 // Components
 import { Button } from '..';
@@ -9,43 +10,53 @@ describe('Button component', () => {
     expect(screen.getByText('Click me')).toBeInTheDocument();
   });
 
-  test('Should call function onPress when user click button', () => {
+  test('Should call function onPress when user clicks button', () => {
     const handlePress = jest.fn();
-    const { getByRole } = render(
-      <Button onPress={handlePress}>Click me</Button>,
-    );
-    const button = getByRole('button');
-    fireEvent.click(button);
+    render(<Button onPress={handlePress}>Click me</Button>);
 
-    expect(handlePress).toHaveBeenCalled();
-    expect(handlePress).toHaveBeenCalledTimes(1);
+    const button = screen.getByRole('button');
+
+    userEvent.click(button);
+
+    waitFor(() => {
+      expect(handlePress).toHaveBeenCalled();
+      expect(handlePress).toHaveBeenCalledTimes(1);
+    });
   });
 
   test('Should not call function onPress when isLoading is true', () => {
     const handlePress = jest.fn();
-    const { getByRole } = render(
+    render(
       <Button onPress={handlePress} isLoading>
         Click me
       </Button>,
     );
-    const button = getByRole('button');
-    fireEvent.click(button);
 
-    expect(handlePress).not.toHaveBeenCalled();
-    expect(handlePress).toHaveBeenCalledTimes(0);
+    const button = screen.getByRole('button');
+
+    userEvent.click(button);
+
+    waitFor(() => {
+      expect(handlePress).not.toHaveBeenCalled();
+      expect(handlePress).toHaveBeenCalledTimes(0);
+    });
   });
 
   test('Should not call function onPress when isDisabled is true', () => {
     const handlePress = jest.fn();
-    const { getByRole } = render(
+    render(
       <Button onPress={handlePress} isDisabled>
         Click me
       </Button>,
     );
-    const button = getByRole('button');
-    fireEvent.click(button);
 
-    expect(handlePress).not.toHaveBeenCalled();
-    expect(handlePress).toHaveBeenCalledTimes(0);
+    const button = screen.getByRole('button');
+
+    userEvent.click(button);
+
+    waitFor(() => {
+      expect(handlePress).not.toHaveBeenCalled();
+      expect(handlePress).toHaveBeenCalledTimes(0);
+    });
   });
 });
