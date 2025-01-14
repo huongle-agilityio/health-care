@@ -10,7 +10,8 @@ import {
 } from '@nextui-org/react';
 
 // Components
-import { Text, Image } from '..';
+import { Text } from '../Text';
+import { Image } from '../Image';
 
 // Utils
 import { cn, getBookingStatus, getColorsWithStatusBooking } from '@/utils';
