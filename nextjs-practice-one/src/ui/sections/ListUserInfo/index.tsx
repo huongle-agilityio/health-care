@@ -1,8 +1,7 @@
 import { memo } from 'react';
-import { Skeleton } from '@nextui-org/react';
 
 // Components
-import { Text } from '@/ui/components';
+import { Skeleton, Text } from '@/ui/components';
 
 // Utils
 import { formatUserInfo } from '@/utils';

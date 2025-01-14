@@ -1,8 +1,8 @@
 import { ChangeEvent, memo } from 'react';
-import { Checkbox } from '@nextui-org/react';
 
 // Components
 import { Text } from '../Text';
+import { Checkbox } from '../Checkbox';
 
 // Types
 import { OptionCheckBox } from '@/types';

@@ -195,7 +195,7 @@ export const FormFilterDoctors = ({
         <Button
           color="primary"
           isDisabled={isDisabledButtonReset}
-          onClick={handleReset}
+          onPress={handleReset}
           isLoading={isPending}
         >
           Reset

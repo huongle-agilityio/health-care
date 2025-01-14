@@ -1,14 +1,14 @@
 import { render, screen } from '@testing-library/react';
 
 // Components
-import { Card } from '..';
+import { DoctorCard } from '..';
 
 // Mocks
 import { cardMock } from '@/constants/mocks';
 
-describe('Card component', () => {
-  test('Should render Card with name, specialty, and experience', () => {
-    render(<Card {...cardMock} />);
+describe('DoctorCard component', () => {
+  test('Should render DoctorCard with name, specialty, and experience', () => {
+    render(<DoctorCard {...cardMock} />);
 
     expect(screen.getByText(`Dr ${cardMock.name}`)).toBeInTheDocument();
     expect(screen.getByText(cardMock.specialty)).toBeInTheDocument();

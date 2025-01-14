@@ -205,7 +205,7 @@ export const FormBookingBase = ({
           <Button isLoading={isPending} type="submit" color="default">
             Book Appointment
           </Button>
-          <Button color="primary" onClick={handleReset}>
+          <Button color="primary" onPress={handleReset}>
             Reset
           </Button>
         </div>

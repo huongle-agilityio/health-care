@@ -1,4 +1,5 @@
-import { Skeleton } from '@nextui-org/react';
+// Components
+import { Skeleton } from './Skeleton';
 
 // Utils
 import { cn } from '@/utils';

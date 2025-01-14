@@ -1,22 +1,17 @@
 'use client';
 
 import { memo } from 'react';
-import {
-  Card as CardNextUI,
-  CardHeader,
-  CardBody,
-  extendVariants,
-  Chip,
-} from '@nextui-org/react';
+import { extendVariants, Chip } from '@nextui-org/react';
 
 // Components
+import { CardHeader, CardBody, Card } from '../Card';
 import { Text } from '../Text';
 import { Image } from '../Image';
 
 // Utils
 import { cn, getBookingStatus, getColorsWithStatusBooking } from '@/utils';
 
-const CardBase = extendVariants(CardNextUI, {
+const CardBase = extendVariants(Card, {
   variants: {
     color: {
       default: {
