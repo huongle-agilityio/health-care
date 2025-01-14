@@ -11,7 +11,7 @@ import {
 } from '@nextui-org/react';
 
 // Utils
-import { cn, isDateUnavailable, todayWithFormat } from '@/utils';
+import { cn, isDateAvailable, todayWithFormat } from '@/utils';
 
 export const CalendarBase = extendVariants(CalendarNextUI, {
   variants: {
@@ -60,11 +60,13 @@ export const Calendar = memo(({ value, error, ...props }: CalendarProps) => {
     ? parseDate(value.toString())
     : parseDate(todayWithFormat());
 
+  const handleDateUnavailable = (date: DateValue) => !isDateAvailable(date);
+
   return (
     <CalendarBase
       disableAnimation
       value={date}
-      isDateUnavailable={isDateUnavailable}
+      isDateUnavailable={handleDateUnavailable}
       isInvalid={!!error}
       errorMessage={error}
       {...props}

@@ -3,14 +3,16 @@
 import { memo } from 'react';
 import { extendVariants, Chip } from '@nextui-org/react';
 
+// Constants
+import { BOOKING_STATUS_COLORS } from '@/constants';
+
 // Components
-import { CardHeader, CardBody, Card } from '../Card';
 import { Text } from '../Text';
-import { Image } from '../Image';
 import { CardHeader, CardBody, Card } from '../Card';
+import { Image } from '../Image';
 
 // Utils
-import { cn, getBookingStatus, getColorsWithStatusBooking } from '@/utils';
+import { cn, getBookingStatus } from '@/utils';
 
 const CardBase = extendVariants(Card, {
   variants: {
@@ -65,7 +67,7 @@ interface BookingCardProps {
 export const BookingCard = memo(
   ({ date, name, imageSrc, time }: BookingCardProps) => {
     const statusBooking = getBookingStatus(date);
-    const chipColors = getColorsWithStatusBooking(statusBooking);
+    const chipColors = BOOKING_STATUS_COLORS[statusBooking];
 
     return (
       <CardBase>

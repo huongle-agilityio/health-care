@@ -2,7 +2,7 @@ import { CalendarDate, today } from '@internationalized/date';
 import dayjs from 'dayjs';
 
 // Utils
-import { todayWithFormat, isDateUnavailable, getDateWithFormat } from '..';
+import { todayWithFormat, getDateWithFormat, isDateAvailable } from '..';
 
 describe('date', () => {
   describe('todayWithFormat', () => {
@@ -18,19 +18,27 @@ describe('date', () => {
     });
   });
 
-  describe('isDateUnavailable', () => {
-    it('Should return true for weekends', () => {
+  describe('isDateAvailable', () => {
+    it('Should return false for weekends', () => {
       const saturday = new CalendarDate(2025, 1, 11);
       const sunday = new CalendarDate(2025, 1, 12);
 
-      expect(isDateUnavailable(saturday)).toBe(true);
-      expect(isDateUnavailable(sunday)).toBe(true);
+      expect(isDateAvailable(saturday)).toBe(false);
+      expect(isDateAvailable(sunday)).toBe(false);
     });
 
-    it('Should return true for the day before today', () => {
+    it('Should return false for the day before today', () => {
       const yesterday = today('UTC').subtract({ days: 1 });
 
-      expect(isDateUnavailable(yesterday)).toBe(true);
+      expect(isDateAvailable(yesterday)).toBe(false);
+    });
+
+    it('Should return true for a weekday that is today or later', () => {
+      const todayDate = today('UTC');
+      const futureDate = today('UTC').add({ days: 1 });
+
+      expect(isDateAvailable(todayDate)).toBe(true);
+      expect(isDateAvailable(futureDate)).toBe(true);
     });
   });
 
