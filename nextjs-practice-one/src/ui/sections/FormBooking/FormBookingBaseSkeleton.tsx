@@ -1,7 +1,5 @@
-import { Skeleton } from '@nextui-org/react';
-
 // Components
-import { TimeSlotsSkeleton } from '@/ui/components';
+import { Skeleton, TimeSlotsSkeleton } from '@/ui/components';
 
 // Utils
 import { cn } from '@/utils';

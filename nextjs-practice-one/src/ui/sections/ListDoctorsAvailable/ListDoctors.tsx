@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 // Components
-import { Card, Pagination } from '@/ui/components';
+import { DoctorCard, Pagination } from '@/ui/components';
 
 // Constants
 import { ROUTES } from '@/constants';
@@ -29,7 +29,7 @@ export const ListDoctors = memo(
             rating,
             specialty,
           }) => (
-            <Card
+            <DoctorCard
               key={`doctor-${id}`}
               experience={experience}
               imageSrc={avatar}

@@ -116,7 +116,7 @@ export const FormSignUp = () => {
       </div>
       <div className="flex flex-col gap-5">
         <Button type="submit">Submit</Button>
-        <Button color="primary" isDisabled={!isDirty} onClick={handleReset}>
+        <Button color="primary" isDisabled={!isDirty} onPress={handleReset}>
           Reset
         </Button>
       </div>

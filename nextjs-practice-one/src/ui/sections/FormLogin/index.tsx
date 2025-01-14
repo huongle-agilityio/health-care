@@ -89,7 +89,7 @@ export const FormLogin = () => {
         </div>
         <div className="flex flex-col gap-5">
           <Button type="submit">Submit</Button>
-          <Button isDisabled={!isDirty} color="primary" onClick={handleReset}>
+          <Button isDisabled={!isDirty} color="primary" onPress={handleReset}>
             Reset
           </Button>
         </div>
