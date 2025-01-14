@@ -7,9 +7,6 @@ import { httpClient } from '@/services';
 // Constants
 import { API_ENDPOINT } from '@/constants';
 
-// Schema
-import { loginSchema } from '@/schema';
-
 // Config
 import { authConfig } from './auth.config';
 
@@ -17,14 +14,8 @@ import { authConfig } from './auth.config';
 import { UserPayload, UserResponse } from '@/types';
 
 const CredentialsProvider = Credentials({
-  authorize: async (credentials) => {
-    const parsedCredentials = loginSchema.safeParse(credentials);
-
-    if (!parsedCredentials.success) {
-      return null;
-    }
-
-    const { email, password } = parsedCredentials.data;
+  authorize: async (credentials: Partial<UserPayload>) => {
+    const { email = '', password = '' } = credentials;
     const payload = {
       identifier: email,
       email,

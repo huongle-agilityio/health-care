@@ -1,6 +1,7 @@
 'use server';
 
 // Constants
+import { WORK_EXPERIENCE_YEARS } from '@/constants/mocks';
 import { API_ENDPOINT, QUERY_URL, TIMING } from '@/constants';
 
 // Services
@@ -15,23 +16,24 @@ import {
 } from '@/types';
 
 // Utils
-import { getExperienceRange } from '@/utils';
 import { safeHttpRequest } from './safeHttpRequest';
 
 export const getDoctorsByParams = async ({
   specialty,
   rating,
-  experience = '',
+  experience,
   fee,
   page,
 }: DoctorFilterParams) =>
   safeHttpRequest<Doctor[]>(async () => {
-    const { expEnd, expStart } = getExperienceRange(experience);
+    const [minExperience, maxExperience] = experience
+      ? WORK_EXPERIENCE_YEARS[experience]
+      : [0, 0];
     const url = `${API_ENDPOINT.DOCTOR}${QUERY_URL.DOCTORS({
       specialty,
       rating,
-      expEnd,
-      expStart,
+      maxExperience,
+      minExperience,
       fee,
       page,
     })}`;

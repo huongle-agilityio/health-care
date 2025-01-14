@@ -19,10 +19,10 @@ import { SkeletonFilter } from './FilterSkeleton';
 import { Button, SelectController } from '@/ui/components';
 
 // Mocks
-import { EXPERIENCES, FEES, RATING } from '@/constants/mocks';
+import { WORK_EXPERIENCE_YEARS, FEES, RATING } from '@/constants/mocks';
 
 // Types
-import { DoctorFilterParams, Specialty } from '@/types';
+import { Specialty } from '@/types';
 
 // Contexts
 import { ToastContext } from '@/contexts';
@@ -30,12 +30,19 @@ import { ToastContext } from '@/contexts';
 // Utils
 import { cn, formatSpecialtiesOption } from '@/utils';
 
+interface FormData {
+  specialty?: string;
+  rating?: number;
+  experience?: string;
+  fee?: number;
+}
+
 export const FormFilterDoctors = ({
   specialty,
   rating,
   experience,
   fee,
-}: DoctorFilterParams) => {
+}: FormData) => {
   const pathname = usePathname();
   const { replace } = useRouter();
   const searchParams = useSearchParams();
@@ -62,18 +69,24 @@ export const FormFilterDoctors = ({
     reset,
     formState: { isDirty },
     handleSubmit: submitForm,
-  } = useForm<DoctorFilterParams>({
+  } = useForm<FormData>({
     mode: 'onSubmit',
     defaultValues: initialState,
   });
 
   const isDisabledButtonReset = !(isDirty || params.size);
+  const formatExperience = Object.entries(WORK_EXPERIENCE_YEARS).map(
+    ([key, [start, end]]) => ({
+      value: key,
+      label: `${start}-${end} Years`,
+    }),
+  );
 
   /**
    * Function to handle form submit
    */
-  const handleSubmit = (data: DoctorFilterParams) => {
-    (Object.keys(data) as (keyof DoctorFilterParams)[]).forEach((key) => {
+  const handleSubmit = (data: FormData) => {
+    (Object.keys(data) as (keyof FormData)[]).forEach((key) => {
       const value = data[key];
       if (value) {
         params.set(key, value.toString());
@@ -162,7 +175,7 @@ export const FormFilterDoctors = ({
               name="experience"
               label="Experience"
               aria-label="Choice Experience"
-              options={EXPERIENCES}
+              options={formatExperience}
               control={control}
               placeholder="Experience"
               clearErrors={clearErrors}
