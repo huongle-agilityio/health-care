@@ -8,5 +8,5 @@ export const SCREEN_HEIGHT_WITHOUT_FOOTER_DESKTOP =
   'lg:min-h-[calc(100vh-128px)]';
 
 export const STYLE_HEADER_HEIGHT_MOBILE = 'h-21';
-export const STYLE_HEADER_HEIGHT_DESKTOP = 'lg:h-[128px]';
+export const STYLE_HEADER_HEIGHT_DESKTOP = 'xl:h-[128px]';
 export const STYLE_FOOTER_HEIGHT = 'h-25';

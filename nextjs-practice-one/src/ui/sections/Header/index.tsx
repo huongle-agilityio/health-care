@@ -52,7 +52,7 @@ export const Header = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
         <NavBarMobile isAuthenticated={isAuthenticated} />
         <Link
           href={ROUTES.HOME}
-          className="flex gap-4 items-center m-auto lg:m-0"
+          className="flex gap-4 items-center m-auto xl:m-0"
         >
           <LogoIcon />
           <Text size="2xl" color="primary">
@@ -60,7 +60,7 @@ export const Header = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
           </Text>
         </Link>
 
-        <div className={cn('hidden lg:flex', 'w-full justify-between')}>
+        <div className={cn('hidden xl:flex', 'w-full justify-between')}>
           <div className="flex gap-17 items-center">
             {listMenu.map(({ url = '', title }, index) => {
               const isActive = url === pathname;

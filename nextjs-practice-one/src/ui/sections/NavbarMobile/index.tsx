@@ -76,10 +76,10 @@ export const NavBarMobile = ({
     <div className="absolute top-6 left-12">
       <OutlineBurgerIcon
         size="16"
-        className="lg:hidden cursor-pointer"
+        className="xl:hidden cursor-pointer"
         onClick={onOpenChange}
       />
-      <div className="lg:hidden">
+      <div className="xl:hidden">
         <NavBarMobileBase
           isOpen={isOpen}
           onOpenChange={onOpenChange}
