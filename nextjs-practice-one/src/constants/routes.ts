@@ -14,7 +14,14 @@ export const ROUTES = {
 
   // Setting
   SETTING: '/setting',
+
+  // Schedules
+  SCHEDULES: '/schedules',
 };
 
-export const PRIVATE_ROUTERS = [ROUTES.BOOKING_APPOINTMENTS, ROUTES.SETTING];
+export const PRIVATE_ROUTERS = [
+  ROUTES.BOOKING_APPOINTMENTS,
+  ROUTES.SETTING,
+  ROUTES.SCHEDULES,
+];
 export const AUTH_ROUTERS = [ROUTES.LOGIN, ROUTES.REGISTER];

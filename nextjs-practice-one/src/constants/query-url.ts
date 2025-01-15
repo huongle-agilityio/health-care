@@ -40,5 +40,5 @@ export const QUERY_URL = {
   BOOKING_TIME_SLOT: (doctorId: string, date: string) =>
     `?filters[date][$eq]=${date}&populate[timeSlot][fields][0]=time&filters[doctor][documentId][$eq]=${doctorId}`,
   APPOINTMENT_BY_USER_ID: (id: string) =>
-    `?filters[user][$eq]=${id}&populate[doctor][fields][0]=*&populate[timeSlot][fields][0]=time`,
+    `?filters[user][$eq]=${id}&populate[doctor][fields][0]=*&populate[timeSlot][fields][0]=time&sort[date]=asc&sort[timeSlot][time]=asc`,
 };

@@ -5,11 +5,10 @@ import { getDoctorById, getTimeSlot } from '@/actions';
 import { FormBookingBase } from './FormBookingBase';
 
 // Config
-import { auth } from '@/config';
+import { getUserFromSession } from '@/utils/auth';
 
 export const FormBooking = async ({ doctorId }: { doctorId: string }) => {
-  const session = await auth();
-  const userInfo = session?.user;
+  const userInfo = await getUserFromSession();
 
   const [doctor, times] = await Promise.all([
     getDoctorById(doctorId),

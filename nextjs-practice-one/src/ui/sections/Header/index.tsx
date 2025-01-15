@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 
 // Constants
 import {
+  NAVIGATION_AUTHENTICATED,
   NAVIGATION_ITEMS,
   ROUTES,
   STYLE_HEADER_HEIGHT_DESKTOP,
@@ -29,6 +30,9 @@ const MenuAuth = withLogoutModal(HeaderAuth);
 
 export const Header = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
   const pathname = usePathname();
+  const listMenu = isAuthenticated
+    ? [...NAVIGATION_ITEMS, ...NAVIGATION_AUTHENTICATED]
+    : NAVIGATION_ITEMS;
 
   return (
     <header
@@ -58,7 +62,7 @@ export const Header = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
 
         <div className={cn('hidden lg:flex', 'w-full justify-between')}>
           <div className="flex gap-17 items-center">
-            {NAVIGATION_ITEMS.map(({ url = '', title }, index) => {
+            {listMenu.map(({ url = '', title }, index) => {
               const isActive = url === pathname;
 
               return (

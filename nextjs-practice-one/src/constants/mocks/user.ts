@@ -3,3 +3,12 @@ export const USER_MOCK = {
   phone: '123-456-7890',
   email: 'john.doe@example.com',
 };
+
+export const INIT_USER_SESSION = {
+  id: '',
+  email: '',
+  name: '',
+  username: '',
+  phone: '',
+  jwt: '',
+};

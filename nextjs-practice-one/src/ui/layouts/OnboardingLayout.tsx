@@ -1,7 +1,10 @@
 import { ReactNode } from 'react';
 
 // Constants
-import { HEADER_HEIGHT_DESKTOP, HEADER_HEIGHT_MOBILE } from '@/constants';
+import {
+  SCREEN_HEIGHT_WITHOUT_FOOTER_DESKTOP,
+  SCREEN_HEIGHT_WITHOUT_FOOTER_MOBILE,
+} from '@/constants';
 
 // Utils
 import { cn } from '@/utils';
@@ -11,7 +14,8 @@ export const OnboardingLayout = ({ children }: { children: ReactNode }) => (
     <section
       className={cn(
         'relative',
-        `min-h-[calc(100vh-${HEADER_HEIGHT_MOBILE})] lg:min-h-[calc(100vh-${HEADER_HEIGHT_DESKTOP})]`,
+        SCREEN_HEIGHT_WITHOUT_FOOTER_MOBILE,
+        SCREEN_HEIGHT_WITHOUT_FOOTER_DESKTOP,
       )}
     >
       {children}

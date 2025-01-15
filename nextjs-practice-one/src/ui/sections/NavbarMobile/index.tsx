@@ -17,7 +17,12 @@ import { Button } from '@/ui/components';
 import { NavbarList } from './NavbarList';
 
 // Icons
-import { CloseIcon, OutlineBurgerIcon, SettingIcon } from '@/ui/icons';
+import {
+  CloseIcon,
+  OutlineBurgerIcon,
+  SchedulesIcon,
+  SettingIcon,
+} from '@/ui/icons';
 
 // HOCs
 import { withLogoutModal } from '@/hocs';
@@ -58,6 +63,11 @@ export const NavBarMobile = ({
           title: 'Setting',
           url: ROUTES.SETTING,
           icon: SettingIcon,
+        },
+        {
+          url: ROUTES.SCHEDULES,
+          title: 'Schedules',
+          icon: SchedulesIcon,
         },
       ]
     : NAVIGATION_ITEMS;
