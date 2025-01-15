@@ -1,5 +1,5 @@
 // Apis
-import { getBookingAppointmentById } from '@/actions';
+import { getBookingAppointmentByUserId } from '@/actions';
 
 // Components
 import { BookingCard, Text } from '@/ui/components';
@@ -10,7 +10,7 @@ interface ListBookingProps {
 
 export const ListBooking = async ({ userId }: ListBookingProps) => {
   const { data: bookingAppointments, error } =
-    await getBookingAppointmentById(userId);
+    await getBookingAppointmentByUserId(userId);
 
   return !bookingAppointments.length || error ? (
     <div className="w-full flex justify-center px-10 py-25">

@@ -48,7 +48,7 @@ export const FormSignUp = () => {
     handleSubmit: submitForm,
     formState: { isDirty },
   } = useForm<z.infer<typeof signUpSchema>>({
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: zodResolver(signUpSchema),
     defaultValues: initialState,
   });
