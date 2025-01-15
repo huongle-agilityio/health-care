@@ -46,6 +46,7 @@ export const InputController = <T extends FieldValues, K extends Path<T>>({
    */
   const handleOnChange = useCallback(
     (text: string) => {
+      // Remove non number characters if type is tel
       if (type === 'tel' && maxLength) {
         text = text.replace(REGEX_NON_NUMBER, '');
       }

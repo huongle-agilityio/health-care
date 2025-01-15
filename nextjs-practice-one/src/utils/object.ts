@@ -1,5 +1,6 @@
 /**
- * It returns true if the value is empty, false otherwise
+ * Function to check if an object is empty or not
+ *
  * @param {object} value - The value to check if it's empty.
  * @returns A function that takes a value of type T and returns a boolean.
  */

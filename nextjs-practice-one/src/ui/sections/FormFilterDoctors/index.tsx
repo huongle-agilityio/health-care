@@ -76,28 +76,26 @@ export const FormFilterDoctors = ({
 
   const isDisabledButtonReset = !(isDirty || params.size);
   const formatExperience = Object.entries(WORK_EXPERIENCE_YEARS).map(
-    ([key, [start, end]]) => ({
+    ([key, [min, max]]) => ({
       value: key,
-      label: `${start}-${end} Years`,
+      label: `${min}-${max} Years`,
     }),
   );
 
   /**
-   * Function to handle form submit
+   * Handles form submission for the filter form.
+   * @param {FormData} data - The form data to update the URL with.
    */
   const handleSubmit = (data: FormData) => {
-    (Object.keys(data) as (keyof FormData)[]).forEach((key) => {
-      const value = data[key];
-      if (value) {
-        params.set(key, value.toString());
-      }
-    });
+    // Update the URL with the new search parameters
+    Object.entries(data).forEach(([key, value]) =>
+      value ? params.set(key, value.toString()) : params.delete(key),
+    );
+
+    // Replace the current URL with the new URL
     replace(`${pathname}?${params.toString()}`);
   };
 
-  /**
-   * Function to reset form and url
-   */
   const handleReset = useCallback(() => {
     reset({
       specialty: '',
@@ -106,10 +104,10 @@ export const FormFilterDoctors = ({
       fee: 0,
     });
 
+    // Remove all search parameters
     if (params.size) replace(pathname);
   }, [params, pathname, replace, reset]);
 
-  // Fetch specialties
   useEffect(() => {
     const fetchSpecialties = async () => {
       const { data, error } = await getSpecialties();

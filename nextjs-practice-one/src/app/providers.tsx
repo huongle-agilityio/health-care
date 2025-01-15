@@ -11,12 +11,10 @@ export interface ProvidersProps {
   children: ReactNode;
 }
 
-export function Providers({ children }: ProvidersProps) {
-  return (
-    <NextUIProvider>
-      <ThemeProvider attribute="class" defaultTheme="light">
-        <ToastProvider>{children}</ToastProvider>
-      </ThemeProvider>
-    </NextUIProvider>
-  );
-}
+export const Providers = ({ children }: ProvidersProps) => (
+  <NextUIProvider>
+    <ThemeProvider attribute="class" defaultTheme="light">
+      <ToastProvider>{children}</ToastProvider>
+    </ThemeProvider>
+  </NextUIProvider>
+);

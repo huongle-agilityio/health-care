@@ -7,11 +7,12 @@ import { BOOKING_STATUS } from '@/constants';
 import { BookingTimeSlots, OptionCheckBox, TimeSlot } from '@/types';
 
 /**
- * Get status booking with date
- * @param date {string}
- * @returns 'Expired' | 'ToDay' | 'Upcoming'
+ * Gets the status of a booking based on the given date.
+ *
+ * @param {string} date The date to determine the status for.
+ * @returns {BOOKING_STATUS} The status of the booking.
  */
-export const getBookingStatus = (date: string) => {
+export const getBookingStatus = (date: string): BOOKING_STATUS => {
   if (isPast(date)) return BOOKING_STATUS.EXPIRED;
 
   if (isToday(date)) return BOOKING_STATUS.TODAY;
@@ -20,21 +21,21 @@ export const getBookingStatus = (date: string) => {
 };
 
 /**
- * Function to format time slots and determine their status
- * @param bookingTimes - Array of booking times
- * @param data - Array of booking time slots from data source
- * @returns OptionCheckBox[]
+ * Formats booking time slots data to OptionCheckBox array
+ * If the time slot is already in the data, the option is disabled.
+ *
+ * @param {TimeSlot[]} bookingTimes The time slots to format.
+ * @param {BookingTimeSlots[]} data The booking time slots data.
+ * @returns {OptionCheckBox[]} The formatted time slots with status check.
  */
 export const formatBookingTimeSlotsWithStatus = (
   bookingTimes: TimeSlot[],
   data: BookingTimeSlots[],
 ): OptionCheckBox[] => {
-  // Format the data time slots to TimeSlot array
   const formattedTimeSlots = data.map(({ timeSlot: { time } }) => ({
     time,
   }));
 
-  // Map bookingTimes to OptionCheckBox array with status check
   return bookingTimes.map((bookingTime) => ({
     value: bookingTime.documentId || '',
     label: bookingTime.time,
