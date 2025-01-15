@@ -5,9 +5,8 @@ import { Footer } from '@/ui/sections';
 
 // Constants
 import {
-  FOOTER_HEIGHT,
-  HEADER_HEIGHT_DESKTOP,
-  HEADER_HEIGHT_MOBILE,
+  SCREEN_HEIGHT_WITH_FOOTER_DESKTOP,
+  SCREEN_HEIGHT_WITH_FOOTER_MOBILE,
 } from '@/constants';
 
 // Utils
@@ -18,7 +17,8 @@ export const MainLayout = ({ children }: { children: ReactNode }) => (
     <section
       className={cn(
         'pb-19',
-        `min-h-[calc(100vh-(${FOOTER_HEIGHT}+${HEADER_HEIGHT_MOBILE}))] lg:min-h-[calc(100vh-(${FOOTER_HEIGHT}+${HEADER_HEIGHT_DESKTOP}))]`,
+        SCREEN_HEIGHT_WITH_FOOTER_MOBILE,
+        SCREEN_HEIGHT_WITH_FOOTER_DESKTOP,
       )}
     >
       {children}

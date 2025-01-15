@@ -1,6 +1,3 @@
-// Config
-import { auth } from '@/config';
-
 // Constants
 import { ERROR_MESSAGES, INIT_PAGINATION } from '@/constants';
 
@@ -9,6 +6,7 @@ import { ApiPagination, ApiPaginationResponse } from '@/types';
 
 // Utils
 import { getErrorMessage } from '@/utils';
+import { getUserFromSession } from '@/utils/auth';
 
 /**
  * Executes an HTTP request safely, handling authentication and errors.
@@ -32,8 +30,7 @@ export const safeHttpRequest = async <T>(
   error: string | null;
 }> => {
   try {
-    const session = await auth();
-    const token = session?.user?.jwt;
+    const { jwt: token } = await getUserFromSession();
 
     if (hasToken && !token) {
       throw new Error(ERROR_MESSAGES.UNAUTHORIZED);

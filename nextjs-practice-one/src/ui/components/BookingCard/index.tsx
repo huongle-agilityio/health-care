@@ -21,7 +21,7 @@ const CardBase = extendVariants(Card, {
         base: cn(
           'bg-background-200 border-secondary-100 border-2',
           'flex-row py-8',
-          'md:min-w-[230px] md:flex-col md:py-10 md:px-8 md:items-center',
+          'md:w-[230px] md:flex-col md:py-10 md:px-8 md:items-center',
         ),
       },
     },
@@ -88,9 +88,15 @@ export const BookingCard = memo(
                 {statusBooking}
               </Chip>
             </div>
-            <Text size="2xl" color="tertiary" className="md:text-center">
-              Dr {name}
-            </Text>
+            <div className="h-[36px] flex">
+              <Text
+                size="2xl"
+                color="tertiary"
+                className="md:text-center overflow-hidden text-ellipsis"
+              >
+                Dr {name}
+              </Text>
+            </div>
           </div>
 
           <div className="flex flex-col gap-4">

@@ -19,4 +19,5 @@ export * from './EyeIcon';
 export * from './EyeCloseIcon';
 export * from './UpComingIcon';
 export * from './WarningIcon';
+export * from './SchedulesIcon';
 export * from './SvgFactory';

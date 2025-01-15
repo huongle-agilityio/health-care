@@ -7,6 +7,7 @@ import {
   HomeIcon,
   BlogIcon,
   SettingIcon,
+  SchedulesIcon,
 } from '@/ui/icons';
 
 // Types
@@ -32,6 +33,14 @@ export const NAVIGATION_ITEMS: OptionMenu[] = [
     url: ROUTES.REVIEWS,
     title: 'Review',
     icon: ReviewIcon,
+  },
+];
+
+export const NAVIGATION_AUTHENTICATED = [
+  {
+    url: ROUTES.SCHEDULES,
+    title: 'Schedules',
+    icon: SchedulesIcon,
   },
 ];
 
