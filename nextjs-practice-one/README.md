@@ -16,7 +16,7 @@
 ## Techniques Stack
 
 - [Next.js](https://nextjs.org/) v15
-- [React](https://react.dev/) v18
+- [React](https://react.dev/) v19
 - [TypeScript](https://www.typescriptlang.org/) v5
 - [Tailwind CSS](https://tailwindcss.com/) v3
 - [NextUI](https://nextui.org/)
