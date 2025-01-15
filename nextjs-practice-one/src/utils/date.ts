@@ -2,7 +2,14 @@ import { DateValue } from '@nextui-org/react';
 import dayjs from 'dayjs';
 
 export const today = dayjs();
-export const todayWithFormat = (format: string = 'YYYY-MM-DD') =>
+
+/**
+ * Returns today's date formatted in the specified format.
+ *
+ * @param {string} format The desired format (default is 'YYYY-MM-DD').
+ * @returns {string} Today's date in the specified format.
+ */
+export const todayWithFormat = (format: string = 'YYYY-MM-DD'): string =>
   dayjs().format(format);
 
 /**
@@ -12,7 +19,7 @@ export const todayWithFormat = (format: string = 'YYYY-MM-DD') =>
  * @returns {boolean} True if the date is today, false otherwise.
  */
 
-export const isToday = (date: string) => {
+export const isToday = (date: string): boolean => {
   return today.isSame(dayjs(date), 'day');
 };
 
@@ -22,7 +29,7 @@ export const isToday = (date: string) => {
  * @param {string} date The date to check in string format.
  * @returns {boolean} True if the date is in the past, false otherwise.
  */
-export const isPast = (date: string) => {
+export const isPast = (date: string): boolean => {
   return today.isAfter(dayjs(date), 'day');
 };
 
@@ -32,15 +39,12 @@ export const isPast = (date: string) => {
  * @param {string} date The date to check in string format.
  * @returns {boolean} True if the date is in the future, false otherwise.
  */
-export const isFuture = (date: string) => {
+export const isFuture = (date: string): boolean => {
   return today.isBefore(dayjs(date), 'day');
 };
 
 /**
  * Checks if the given date is available.
- *
- * The date is considered available if it's not a weekend (Saturday or Sunday)
- * and it's not the day before the current date.
  *
  * @param {DateValue} date The date to check.
  * @returns A boolean indicating whether the date is available.

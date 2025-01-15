@@ -14,6 +14,12 @@ import { authConfig } from './auth.config';
 import { AuthPayload, AuthResponse } from '@/types';
 
 const CredentialsProvider = Credentials({
+  /**
+   * Authenticates the user and returns the user data and JWT if successful.
+   *
+   * @param {Partial<AuthPayload>} credentials - The user credentials.
+   * @returns {Promise<AuthPayload | null>} The user data and JWT if successful, otherwise null.
+   */
   authorize: async (credentials: Partial<AuthPayload>) => {
     const { email = '', password = '' } = credentials;
     const payload = {

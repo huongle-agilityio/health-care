@@ -44,14 +44,13 @@ export const PasswordInputController = <
 
   const { onChange, onBlur, value } = field;
 
-  // Function toggle show/ hide password
   const handleToggleVisible = useCallback(() => {
     setIsShowPassword(!isShowPassword);
   }, [isShowPassword]);
 
   /**
    * Function onChange input and clear error if any
-   * @param text - value input
+   * @param {string} text - value input
    */
   const handleOnChange = useCallback(
     (text: string) => {

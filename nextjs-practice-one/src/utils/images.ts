@@ -1,18 +1,25 @@
+/**
+ * Converts a string to a base64 encoded string.
+ *
+ * @param {string} value - The string to convert to a base64 encoded string.
+ * @returns {string} A base64 encoded string representing the input string.
+ */
 export const toBase64 = (value: string) =>
   typeof window === 'undefined'
     ? Buffer.from(value).toString('base64')
     : window.btoa(value);
 
 /**
- * Generates a base64 image from a given width and height
- * @param width
- * @param height
- * @returns base64 string
+ * Generates a base64 encoded SVG image with a gradient effect.
+ *
+ * @param {number|string} width The width of the image.
+ * @param {number|string} height The height of the image.
+ * @returns {string} A base64 encoded string representing the SVG image.
  */
 export const generateImageBase64 = (
   width: number | string,
   height: number | string,
-) => {
+): string => {
   const convertImage = `
   <svg width="${width}" height="${height}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>

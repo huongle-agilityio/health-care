@@ -20,12 +20,10 @@ export const ToastContext = createContext<Context>(initState);
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const [toast, setToast] = useState<Toast | null>(null);
 
-  // Function show toast
   const showToast = useCallback((toast: Toast) => {
     setToast({ variant: 'error', ...toast });
   }, []);
 
-  // Function close toast
   const closeToast = useCallback(() => {
     setToast(null);
   }, []);

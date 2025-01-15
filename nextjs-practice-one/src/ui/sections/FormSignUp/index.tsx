@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useContext } from 'react';
+import { useContext } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -44,7 +44,6 @@ export const FormSignUp = () => {
   const {
     control,
     clearErrors,
-    reset,
     handleSubmit: submitForm,
     formState: { isDirty },
   } = useForm<z.infer<typeof signUpSchema>>({
@@ -53,11 +52,16 @@ export const FormSignUp = () => {
     defaultValues: initialState,
   });
 
-  // Function submit form
+  /**
+   * Handles form submission for sign-up.
+   * @param {z.infer<typeof signUpSchema>} data - The form data conforming to the sign-up schema.
+   */
   const handleSubmit = async (data: z.infer<typeof signUpSchema>) => {
     const payload = { username: data.email, ...data };
     try {
       const response = await signUp(payload);
+
+      // Fetch api login after signup success
       const error = await login({
         email: response.user.email,
         password: data.password,
@@ -76,11 +80,6 @@ export const FormSignUp = () => {
       });
     }
   };
-
-  // Function reset form
-  const handleReset = useCallback(() => {
-    reset();
-  }, [reset]);
 
   return (
     <form onSubmit={submitForm(handleSubmit)} className="flex flex-col gap-10">
@@ -116,7 +115,7 @@ export const FormSignUp = () => {
       </div>
       <div className="flex flex-col gap-5">
         <Button type="submit">Submit</Button>
-        <Button color="primary" isDisabled={!isDirty} onPress={handleReset}>
+        <Button type="reset" color="primary" isDisabled={!isDirty}>
           Reset
         </Button>
       </div>

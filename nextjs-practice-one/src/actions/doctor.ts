@@ -18,6 +18,16 @@ import {
 // Utils
 import { safeHttpRequest } from './safeHttpRequest';
 
+/**
+ * Fetches a list of doctors based on the provided filter parameters.
+ *
+ * @param {string} params.specialty - The specialty of the doctors to filter by.
+ * @param {number} params.rating - The rating of the doctors to filter by.
+ * @param {string} params.experience - The experience level of the doctors to filter by.
+ * @param {number} params.fee - The fee of the doctors to filter by.
+ * @param {number} params.page - The page number for pagination.
+ * @returns {Promise<Doctor[]>} A promise that resolves to an array of doctors matching the criteria.
+ */
 export const getDoctorsByParams = async ({
   specialty,
   rating,
@@ -25,7 +35,7 @@ export const getDoctorsByParams = async ({
   fee,
   page,
 }: DoctorFilterParams) =>
-  safeHttpRequest<Doctor[]>(async () => {
+  safeHttpRequest<Doctor[]>(() => {
     const [minExperience, maxExperience] = experience
       ? WORK_EXPERIENCE_YEARS[experience]
       : [0, 0];
@@ -37,21 +47,30 @@ export const getDoctorsByParams = async ({
       fee,
       page,
     })}`;
-    const response = await httpClient.get<DoctorResponse>(url);
 
-    return response;
+    return httpClient.get<DoctorResponse>(url);
   });
 
+/**
+ * Fetches a doctor by ID.
+ *
+ * @param {string} id - The ID of the doctor to fetch.
+ * @returns {Promise<Doctor>} A promise that resolves to the doctor with the matching ID.
+ */
 export const getDoctorById = async (id: string) =>
-  safeHttpRequest<Doctor>(async () => {
+  safeHttpRequest<Doctor>(() => {
     const url = `${API_ENDPOINT.DOCTOR}${QUERY_URL.DOCTOR_BY_ID(id)}`;
-    return await httpClient.get<ApiPaginationResponse<Doctor>>(url);
+    return httpClient.get<ApiPaginationResponse<Doctor>>(url);
   });
 
+/**
+ * Fetches all doctors.
+ *
+ * @returns {Promise<Doctor[]>} A promise that resolves to an array of all doctors.
+ */
 export const getDoctors = async () =>
-  safeHttpRequest<Doctor[]>(
-    async () =>
-      await httpClient.get<DoctorResponse>(API_ENDPOINT.DOCTOR, '', {
-        next: { revalidate: TIMING.REVALIDATE_AFTER_A_DAY },
-      }),
+  safeHttpRequest<Doctor[]>(() =>
+    httpClient.get<DoctorResponse>(API_ENDPOINT.DOCTOR, '', {
+      next: { revalidate: TIMING.REVALIDATE_AFTER_A_DAY },
+    }),
   );

@@ -14,6 +14,9 @@ interface PopoverItemProps {
 
 export const PopoverItem = memo(
   ({ title, isLastItem, action, url, onClose }: PopoverItemProps) => {
+    /**
+     * Handles the action of the popover item and closing the popover.
+     */
     const handleAction = () => {
       action?.();
       onClose();

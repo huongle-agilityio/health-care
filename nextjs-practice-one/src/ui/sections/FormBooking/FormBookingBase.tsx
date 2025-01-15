@@ -86,7 +86,10 @@ export const FormBookingBase = ({
 
   const date = watch('date');
 
-  // Function submit form
+  /**
+   * Handles form submission for booking.
+   * @param {z.infer<typeof bookingSchema>} values - The form data conforming to the booking schema.
+   */
   const handleSubmit = async (values: z.infer<typeof bookingSchema>) => {
     const payload = {
       data: {
@@ -100,21 +103,22 @@ export const FormBookingBase = ({
 
     const { data, error } = await createBookingAppointment(payload);
 
-    if (error) {
-      return showToast({ description: error });
-    }
+    startTransition(() => {
+      if (error) {
+        return showToast({ description: error });
+      }
 
-    if (data) {
-      showToast({
-        title: 'Success',
-        description: 'Booking successful',
-        variant: 'success',
-      });
-      router.push(ROUTES.APPOINTMENTS);
-    }
+      if (data) {
+        showToast({
+          title: 'Success',
+          description: 'Booking successful',
+          variant: 'success',
+        });
+        router.push(ROUTES.APPOINTMENTS);
+      }
+    });
   };
 
-  // Function reset form
   const handleReset = useCallback(() => {
     reset({
       email: '',
@@ -126,7 +130,6 @@ export const FormBookingBase = ({
     });
   }, [reset]);
 
-  // Function fetch time slots
   useEffect(() => {
     const fetchSpecialties = async () => {
       const { data, error } = await getBookingTimeSlotById(doctorId, date);
@@ -228,8 +231,8 @@ export const FormBookingBase = ({
             Book Appointment
           </Button>
           <Button
-            type="reset"
             color="primary"
+            isLoading={isPending}
             onPress={handleReset}
             className="w-full"
           >

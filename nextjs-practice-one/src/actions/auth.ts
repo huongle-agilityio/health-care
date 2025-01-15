@@ -20,7 +20,15 @@ import {
 // Types
 import { AuthPayload, AuthResponse } from '@/types';
 
-export const login = async (payload: AuthPayload) => {
+/**
+ * Login the user in with the provided payload
+ *
+ * @param {AuthPayload} payload - The payload to sign in with.
+ * @returns {Promise<string>} A success message if the user was signed in successfully, or an error message
+ */
+export const login = async (
+  payload: AuthPayload,
+): Promise<string | undefined> => {
   try {
     await signIn(AUTH_METHOD.CREDENTIALS, {
       ...payload,
@@ -40,12 +48,18 @@ export const login = async (payload: AuthPayload) => {
   }
 };
 
-export const signUp = async (payload: AuthPayload) =>
-  await httpClient.post<AuthResponse, AuthPayload>(
-    API_ENDPOINT.SIGN_UP,
-    payload,
-  );
+/**
+ * SignUp the user up with the provided payload
+ *
+ * @param {AuthPayload} payload - The payload to sign up with.
+ * @returns {Promise<AuthResponse>} The response from the API after signing up successfully.
+ */
+export const signUp = async (payload: AuthPayload): Promise<AuthResponse> =>
+  httpClient.post<AuthResponse, AuthPayload>(API_ENDPOINT.SIGN_UP, payload);
 
+/**
+ * Logout and redirects to the login page.
+ */
 export const logout = async () => {
   await signOut({ redirectTo: ROUTES.LOGIN });
 };

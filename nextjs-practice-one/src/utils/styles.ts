@@ -4,6 +4,8 @@ import { twMerge } from 'tailwind-merge';
 
 /**
  * Combines multiple class names into a single string.
+ * and remove duplicate class names
+ *
  * @param inputs - The class name inputs to process.
  * @returns A single string of combined and resolved class names.
  */

@@ -61,11 +61,11 @@ export const Pagination = memo(({ page = 1, total }: PaginationProps) => {
 
   const handleSetPage = useCallback(
     (value: number) => {
-      const newPage = Math.max(1, Math.min(value, total));
-      params.set('page', newPage.toString());
+      // Update URL
+      params.set('page', value.toString());
       replace(`${pathname}?${params.toString()}`);
     },
-    [total, params, replace, pathname],
+    [params, replace, pathname],
   );
 
   const handlePrevPage = useCallback(() => {

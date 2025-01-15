@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useContext } from 'react';
+import { useContext } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -40,7 +40,6 @@ export const FormLogin = () => {
   const {
     control,
     clearErrors,
-    reset,
     handleSubmit: submitForm,
     formState: { isDirty },
   } = useForm<z.infer<typeof loginSchema>>({
@@ -49,7 +48,10 @@ export const FormLogin = () => {
     defaultValues: initialState,
   });
 
-  // Function submit form
+  /**
+   * Handles form submission for login.
+   * @param {z.infer<typeof loginSchema>} data - The form data conforming to the login schema.
+   */
   const handleSubmit = async (data: z.infer<typeof loginSchema>) => {
     const error = await login(data);
 
@@ -61,11 +63,6 @@ export const FormLogin = () => {
 
     router.push(ROUTES.HOME);
   };
-
-  // Function reset form
-  const handleReset = useCallback(() => {
-    reset();
-  }, [reset]);
 
   return (
     <>
@@ -89,7 +86,7 @@ export const FormLogin = () => {
         </div>
         <div className="flex flex-col gap-5">
           <Button type="submit">Submit</Button>
-          <Button isDisabled={!isDirty} color="primary" onPress={handleReset}>
+          <Button type="reset" isDisabled={!isDirty} color="primary">
             Reset
           </Button>
         </div>

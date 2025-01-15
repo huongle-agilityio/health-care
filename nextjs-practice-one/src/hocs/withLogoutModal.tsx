@@ -20,7 +20,6 @@ export const withLogoutModal = <P extends object>(
   const RenderWithOptionsModal = (props: P) => {
     const { isOpen, onOpenChange } = useDisclosure();
 
-    // Function logout
     const handleConfirmLogout = () => {
       logout();
       onOpenChange();
