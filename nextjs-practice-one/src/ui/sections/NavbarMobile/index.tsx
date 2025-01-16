@@ -7,13 +7,14 @@ import {
   Modal as ModalNextUI,
   useDisclosure,
 } from '@nextui-org/react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 import { NAVIGATION_ITEMS, ROUTES } from '@/constants';
 
 // Components
 import { Button } from '@/ui/components';
 import { NavbarList } from './NavbarList';
+import { HeaderAuthButtons } from '../HeaderAuth/HeaderAuthButtons';
 
 // Icons
 import {
@@ -52,7 +53,6 @@ export const NavBarMobile = ({
 }: {
   isAuthenticated: boolean;
 }) => {
-  const router = useRouter();
   const pathname = usePathname();
   const { isOpen, onOpenChange } = useDisclosure();
 
@@ -86,52 +86,25 @@ export const NavBarMobile = ({
           closeButton={<CloseIcon size="17" />}
         >
           <ModalContent>
-            {(onClose) => {
-              const handleNavigateLogin = () => {
-                onClose();
-                router.push(ROUTES.LOGIN);
-              };
+            {(onClose) => (
+              <ModalBody className="pt-25 px-12 gap-12">
+                <div className="flex flex-col gap-12">
+                  <NavbarList
+                    pathname={pathname}
+                    options={options}
+                    onClose={onClose}
+                  />
 
-              const handleNavigateRegister = () => {
-                onClose();
-                router.push(ROUTES.REGISTER);
-              };
-
-              return (
-                <ModalBody className="pt-25 px-12 gap-12">
-                  <div className="flex flex-col gap-12">
-                    <NavbarList
-                      pathname={pathname}
-                      options={options}
-                      onClose={onClose}
-                    />
-
-                    {isAuthenticated ? (
-                      <LogoutButton size="xs">Logout</LogoutButton>
-                    ) : (
-                      <div className="flex flex-col gap-8">
-                        <Button
-                          size="xs"
-                          variant="bordered"
-                          color="bordered"
-                          onPress={handleNavigateLogin}
-                          className="w-full"
-                        >
-                          Login
-                        </Button>
-                        <Button
-                          size="xs"
-                          onPress={handleNavigateRegister}
-                          className="w-full"
-                        >
-                          Register
-                        </Button>
-                      </div>
-                    )}
-                  </div>
-                </ModalBody>
-              );
-            }}
+                  {isAuthenticated ? (
+                    <LogoutButton size="xs">Logout</LogoutButton>
+                  ) : (
+                    <div className="flex flex-col gap-8">
+                      <HeaderAuthButtons onPress={onClose} />
+                    </div>
+                  )}
+                </div>
+              </ModalBody>
+            )}
           </ModalContent>
         </NavBarMobileBase>
       </div>

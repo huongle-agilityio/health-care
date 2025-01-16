@@ -1,12 +1,10 @@
 'use client';
 
-import Link from 'next/link';
-
 // Constants
-import { NAVIGATION_ITEMS_WITH_LOGOUT, ROUTES } from '@/constants';
+import { NAVIGATION_ITEMS_WITH_LOGOUT } from '@/constants';
 
 // Components
-import { Button } from '@/ui/components';
+import { HeaderAuthButtons } from './HeaderAuthButtons';
 
 // Icons
 import { UserIcon } from '@/ui/icons';
@@ -32,16 +30,7 @@ export const HeaderAuth = ({ isAuthenticated, onClick }: HeaderAuthProps) => (
         menuOptions={NAVIGATION_ITEMS_WITH_LOGOUT(onClick)}
       />
     ) : (
-      <>
-        <Link href={ROUTES.LOGIN}>
-          <Button size="xs" variant="bordered" color="bordered">
-            Login
-          </Button>
-        </Link>
-        <Link href={ROUTES.REGISTER}>
-          <Button size="xs">Register</Button>
-        </Link>
-      </>
+      <HeaderAuthButtons />
     )}
   </div>
 );
