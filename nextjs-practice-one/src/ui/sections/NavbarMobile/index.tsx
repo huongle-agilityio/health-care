@@ -7,8 +7,7 @@ import {
   Modal as ModalNextUI,
   useDisclosure,
 } from '@nextui-org/react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { NAVIGATION_ITEMS, ROUTES } from '@/constants';
 
@@ -53,6 +52,7 @@ export const NavBarMobile = ({
 }: {
   isAuthenticated: boolean;
 }) => {
+  const router = useRouter();
   const pathname = usePathname();
   const { isOpen, onOpenChange } = useDisclosure();
 
@@ -86,40 +86,52 @@ export const NavBarMobile = ({
           closeButton={<CloseIcon size="17" />}
         >
           <ModalContent>
-            {(onClose) => (
-              <ModalBody className="pt-25 px-12 gap-12">
-                <div className="flex flex-col gap-12">
-                  <NavbarList
-                    pathname={pathname}
-                    options={options}
-                    onClose={onClose}
-                  />
+            {(onClose) => {
+              const handleNavigateLogin = () => {
+                onClose();
+                router.push(ROUTES.LOGIN);
+              };
 
-                  {isAuthenticated ? (
-                    <LogoutButton size="xs">Logout</LogoutButton>
-                  ) : (
-                    <div className="flex flex-col gap-8">
-                      <Link href={ROUTES.LOGIN}>
+              const handleNavigateRegister = () => {
+                onClose();
+                router.push(ROUTES.REGISTER);
+              };
+
+              return (
+                <ModalBody className="pt-25 px-12 gap-12">
+                  <div className="flex flex-col gap-12">
+                    <NavbarList
+                      pathname={pathname}
+                      options={options}
+                      onClose={onClose}
+                    />
+
+                    {isAuthenticated ? (
+                      <LogoutButton size="xs">Logout</LogoutButton>
+                    ) : (
+                      <div className="flex flex-col gap-8">
                         <Button
                           size="xs"
                           variant="bordered"
                           color="bordered"
-                          onPress={onClose}
+                          onPress={handleNavigateLogin}
                           className="w-full"
                         >
                           Login
                         </Button>
-                      </Link>
-                      <Link href={ROUTES.REGISTER}>
-                        <Button size="xs" onPress={onClose} className="w-full">
+                        <Button
+                          size="xs"
+                          onPress={handleNavigateRegister}
+                          className="w-full"
+                        >
                           Register
                         </Button>
-                      </Link>
-                    </div>
-                  )}
-                </div>
-              </ModalBody>
-            )}
+                      </div>
+                    )}
+                  </div>
+                </ModalBody>
+              );
+            }}
           </ModalContent>
         </NavBarMobileBase>
       </div>
