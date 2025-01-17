@@ -1,4 +1,4 @@
-import { CalendarDate, today } from '@internationalized/date';
+import { CalendarDate, parseDate } from '@internationalized/date';
 import dayjs from 'dayjs';
 
 // Utils
@@ -19,6 +19,8 @@ describe('date', () => {
   });
 
   describe('isDateAvailable', () => {
+    const mockDate = parseDate('2025-01-15');
+
     it('Should return false for weekends', () => {
       const saturday = new CalendarDate(2025, 1, 11);
       const sunday = new CalendarDate(2025, 1, 12);
@@ -27,18 +29,18 @@ describe('date', () => {
       expect(isDateAvailable(sunday)).toBe(false);
     });
 
-    it('Should return false for the day before today', () => {
-      const yesterday = today('UTC').subtract({ days: 1 });
+    it('Should return false for the day before', () => {
+      const yesterday = mockDate.subtract({ days: 1 });
 
       expect(isDateAvailable(yesterday)).toBe(false);
     });
 
-    it('Should return true for a weekday that is today or later', () => {
-      const todayDate = today('UTC');
-      const futureDate = today('UTC').add({ days: 1 });
+    it('Should return true for the passed and future dates', () => {
+      const todayDate = mockDate;
+      const futureDate = mockDate.add({ days: 1 });
 
-      expect(isDateAvailable(todayDate)).toBe(true);
-      expect(isDateAvailable(futureDate)).toBe(true);
+      expect(!isDateAvailable(todayDate)).toBe(true);
+      expect(!isDateAvailable(futureDate)).toBe(true);
     });
   });
 
