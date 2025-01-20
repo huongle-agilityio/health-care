@@ -29,13 +29,13 @@ describe('date', () => {
       expect(isDateAvailable(sunday)).toBe(false);
     });
 
-    it('Should return false for the day before', () => {
+    it('Should return false for the day before date passed in', () => {
       const yesterday = mockDate.subtract({ days: 1 });
 
       expect(isDateAvailable(yesterday)).toBe(false);
     });
 
-    it('Should return true for the passed and future dates', () => {
+    it('Should return true for date passed in and future dates', () => {
       const todayDate = mockDate;
       const futureDate = mockDate.add({ days: 1 });
 
