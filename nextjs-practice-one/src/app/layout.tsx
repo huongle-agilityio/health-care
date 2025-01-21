@@ -8,7 +8,7 @@ import './globals.css';
 import { auth } from '@/config';
 
 // Constants
-import { BRAND, FAVICON_URL } from '@/constants';
+import { BASE_URL, BRAND, FAVICON_URL, IMAGES } from '@/constants';
 
 // Components
 import { Header, ToastWrapper } from '@/ui/sections';
@@ -27,14 +27,18 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL || ''),
   title: BRAND.NAME,
-  description: BRAND.APP_NAME,
+  description: BRAND.APP_DESCRIPTION,
   icons: [
     {
       rel: 'icon',
       url: FAVICON_URL,
     },
   ],
+  openGraph: {
+    images: [IMAGES.HERO_SECTION],
+  },
 };
 
 export default async function RootLayout({

@@ -1,10 +1,9 @@
 'use client';
 
-import { useContext } from 'react';
+import { useState, useTransition } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 // Apis
 import { login } from '@/actions';
@@ -20,17 +19,19 @@ import {
   Text,
 } from '@/ui/components';
 
-// Contexts
-import { ToastContext } from '@/contexts';
-
 // Utils
 import { loginSchema } from '@/schema';
 
+interface FormData {
+  email: string;
+  password: string;
+}
+
 export const FormLogin = () => {
   const router = useRouter();
-
-  // Contexts
-  const { showToast } = useContext(ToastContext);
+  const searchParams = useSearchParams();
+  const [error, setError] = useState<string>('');
+  const [isPending, startTransition] = useTransition();
 
   const initialState = {
     email: '',
@@ -42,7 +43,7 @@ export const FormLogin = () => {
     clearErrors,
     handleSubmit: submitForm,
     formState: { isDirty },
-  } = useForm<z.infer<typeof loginSchema>>({
+  } = useForm<FormData>({
     mode: 'onBlur',
     resolver: zodResolver(loginSchema),
     defaultValues: initialState,
@@ -50,18 +51,19 @@ export const FormLogin = () => {
 
   /**
    * Handles form submission for login.
-   * @param {z.infer<typeof loginSchema>} data - The form data conforming to the login schema.
+   * @param {FormData} data - The form data conforming to the login schema.
    */
-  const handleSubmit = async (data: z.infer<typeof loginSchema>) => {
-    const error = await login(data);
+  const handleSubmit = (data: FormData) => {
+    startTransition(async () => {
+      const backTo = searchParams.get('backTo');
+      const error = await login(data);
 
-    if (error) {
-      return showToast({
-        description: error,
-      });
-    }
+      if (error) {
+        return setError(error);
+      }
 
-    router.push(ROUTES.HOME);
+      return backTo ? router.push(backTo) : router.push(ROUTES.HOME);
+    });
   };
 
   return (
@@ -84,9 +86,21 @@ export const FormLogin = () => {
             clearErrors={clearErrors}
           />
         </div>
+        {error && (
+          <Text size="xs" className="text-danger-100">
+            {error}
+          </Text>
+        )}
         <div className="flex flex-col gap-5">
-          <Button type="submit">Submit</Button>
-          <Button type="reset" isDisabled={!isDirty} color="primary">
+          <Button isLoading={isPending} type="submit">
+            Submit
+          </Button>
+          <Button
+            isLoading={isPending}
+            type="reset"
+            isDisabled={!isDirty}
+            color="primary"
+          >
             Reset
           </Button>
         </div>

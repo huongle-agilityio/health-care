@@ -1,6 +1,9 @@
 // Actions
 import { getDoctorsByParams } from '@/actions';
 
+// Constants
+import { DOCTOR_LIST_AVAILABLE_SECTION_ID } from '@/constants';
+
 // Components
 import { Text } from '@/ui/components';
 import { ListDoctors } from './ListDoctors';
@@ -36,7 +39,10 @@ export const ListDoctorsAvailable = async ({
 
   return (
     <>
-      <div className="flex flex-col pt-[330px] 2xl:pt-[120px] pb-20 items-center">
+      <div
+        className="flex flex-col pt-[330px] 2xl:pt-[120px] pb-20 items-center"
+        id={DOCTOR_LIST_AVAILABLE_SECTION_ID}
+      >
         <Text
           color="tertiary"
           size="4xl"
@@ -52,10 +58,6 @@ export const ListDoctorsAvailable = async ({
         {error ? (
           <div className="px-10 py-25">
             <Text color="error">{error}</Text>
-          </div>
-        ) : !doctors.length ? (
-          <div className="px-10 py-25">
-            <Text color="tertiary">No results found.</Text>
           </div>
         ) : (
           <ListDoctors

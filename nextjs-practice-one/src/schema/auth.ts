@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 import {
   validateEmail,
+  validateName,
   validatePassword,
   validatePhone,
   validateRequired,
@@ -13,7 +14,7 @@ export const loginSchema = z.object({
 });
 
 export const signUpSchema = z.object({
-  name: validateRequired,
+  name: validateName,
   phone: validatePhone,
   email: validateEmail,
   password: validatePassword,

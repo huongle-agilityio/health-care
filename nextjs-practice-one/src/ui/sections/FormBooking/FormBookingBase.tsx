@@ -13,7 +13,10 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 // Apis
-import { createBookingAppointment, getBookingTimeSlotById } from '@/actions';
+import {
+  createBookingAppointment,
+  getBookingTimeSlotByDoctorId,
+} from '@/actions';
 
 // Components
 import { DoctorInfo } from './DoctorInfo';
@@ -76,6 +79,7 @@ export const FormBookingBase = ({
     control,
     clearErrors,
     watch,
+    setValue,
     reset,
     handleSubmit: submitForm,
   } = useForm<z.infer<typeof bookingSchema>>({
@@ -90,20 +94,20 @@ export const FormBookingBase = ({
    * Handles form submission for booking.
    * @param {z.infer<typeof bookingSchema>} values - The form data conforming to the booking schema.
    */
-  const handleSubmit = async (values: z.infer<typeof bookingSchema>) => {
-    const payload = {
-      data: {
-        date: values.date,
-        timeSlot: values.time,
-        doctor: doctorId,
-        reason: values.reason,
-        user: id,
-      },
-    };
+  const handleSubmit = (values: z.infer<typeof bookingSchema>) => {
+    startTransition(async () => {
+      const payload = {
+        data: {
+          date: values.date,
+          timeSlot: values.time,
+          doctor: doctorId,
+          reason: values.reason,
+          user: id,
+        },
+      };
 
-    const { data, error } = await createBookingAppointment(payload);
+      const { data, error } = await createBookingAppointment(payload);
 
-    startTransition(() => {
       if (error) {
         return showToast({ description: error });
       }
@@ -119,6 +123,10 @@ export const FormBookingBase = ({
     });
   };
 
+  const handleResetTimeSlot = useCallback(() => {
+    setValue('time', '');
+  }, [setValue]);
+
   const handleReset = useCallback(() => {
     reset({
       email: '',
@@ -132,7 +140,10 @@ export const FormBookingBase = ({
 
   useEffect(() => {
     const fetchSpecialties = async () => {
-      const { data, error } = await getBookingTimeSlotById(doctorId, date);
+      const { data, error } = await getBookingTimeSlotByDoctorId(
+        doctorId,
+        date,
+      );
 
       startTransition(() => {
         if (error) {
@@ -167,6 +178,7 @@ export const FormBookingBase = ({
           <CalendarController
             name="date"
             control={control}
+            onClick={handleResetTimeSlot}
             clearErrors={clearErrors}
           />
           <div className="h-[150px] xl:h-fit flex items-center xl:self-start px-8 xl:px-0 w-full">

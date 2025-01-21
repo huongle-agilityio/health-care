@@ -1,18 +1,22 @@
 export const RATING = [
   {
-    value: '1',
+    value: 0,
+    label: 'All',
+  },
+  {
+    value: 1,
     label: '1',
   },
   {
-    value: '2',
+    value: 2,
     label: '2',
   },
   {
-    value: '3',
+    value: 3,
     label: '3',
   },
   {
-    value: '4',
+    value: 4,
     label: '4',
   },
   {
@@ -29,15 +33,20 @@ export const WORK_EXPERIENCE_YEARS = {
 
 export const FEES = [
   {
-    value: '0',
+    value: 0,
     label: 'No',
   },
   {
-    value: '10',
+    value: 10,
     label: '$10',
   },
   {
-    value: '15',
+    value: 15,
     label: '$15',
   },
 ];
+
+export const OPTION_ALL = {
+  value: '',
+  label: 'All',
+};

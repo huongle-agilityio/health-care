@@ -39,7 +39,7 @@ export const SelectController = <T extends FieldValues, K extends Path<T>>({
     fieldState: { error },
   } = useController({ name, control });
 
-  const { onChange, onBlur, value } = field;
+  const { onChange, value } = field;
 
   /**
    * Function onChange select and clear error if any
@@ -57,7 +57,6 @@ export const SelectController = <T extends FieldValues, K extends Path<T>>({
     <Select
       label={label}
       options={options}
-      onBlur={onBlur}
       isDisabled={isDisabled}
       isInvalid={!!error?.message}
       onSelectionChange={handleOnChange}

@@ -10,3 +10,5 @@ export const SCREEN_HEIGHT_WITHOUT_FOOTER_DESKTOP =
 export const STYLE_HEADER_HEIGHT_MOBILE = 'h-21';
 export const STYLE_HEADER_HEIGHT_DESKTOP = 'xl:h-[128px]';
 export const STYLE_FOOTER_HEIGHT = 'h-25';
+
+export const DOCTOR_LIST_AVAILABLE_SECTION_ID = 'doctor-list-available-section';

@@ -4,13 +4,20 @@ import { z } from 'zod';
 import {
   ERROR_MESSAGES,
   REGEX_EMAIL,
+  REGEX_NAME,
   REGEX_PASSWORD,
   REGEX_PHONE_NUMBER,
 } from '@/constants';
 
+export const optional = z.string().optional();
+
 export const validateRequired = z
   .string()
   .min(1, { message: ERROR_MESSAGES.REQUIRED });
+
+export const validateName = validateRequired.regex(REGEX_NAME, {
+  message: ERROR_MESSAGES.INVALID_NAME,
+});
 
 export const validateEmail = validateRequired.regex(REGEX_EMAIL, {
   message: ERROR_MESSAGES.INVALID_EMAIL,

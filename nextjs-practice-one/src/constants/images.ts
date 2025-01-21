@@ -2,6 +2,7 @@ export const FAVICON_URL = '/favicon.ico';
 
 export const IMAGES = {
   FALLBACK_URL: '/images/default-fallback.webp',
+  HERO_SECTION: '/images/hero-section.png',
   ONBOARDING_BACKGROUND: '/images/onboarding-background.webp',
   DOCTOR: '/images/doctor.webp',
   DENTIST: '/images/dentist.webp',

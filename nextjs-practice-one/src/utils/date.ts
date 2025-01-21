@@ -51,6 +51,7 @@ export const isFuture = (date: string): boolean => {
  */
 export const isDateAvailable = (date: DateValue): boolean => {
   const targetDate = dayjs(date.toString());
+  const oneMonthLater = today.add(1, 'month');
 
   // Check if the date is a weekend ( Saturday or Sunday )
   if (targetDate.day() === 0) return false;
@@ -58,6 +59,9 @@ export const isDateAvailable = (date: DateValue): boolean => {
 
   // Check if the date is the day before today
   if (targetDate.isBefore(today, 'day')) return false;
+
+  // Check if the date is more than one month from today
+  if (targetDate.isAfter(oneMonthLater, 'day')) return false;
 
   return true;
 };

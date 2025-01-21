@@ -21,6 +21,7 @@ interface CalendarControllerProps<T extends FieldValues, K extends Path<T>>
   name: K;
   control: Control<T>;
   clearErrors: UseFormClearErrors<T>;
+  onClick?: () => void;
 }
 
 export const CalendarController = <T extends FieldValues, K extends Path<T>>({
@@ -28,6 +29,7 @@ export const CalendarController = <T extends FieldValues, K extends Path<T>>({
   control,
   isDisabled,
   clearErrors,
+  onClick,
   ...props
 }: CalendarControllerProps<T, K>) => {
   const {
@@ -44,6 +46,7 @@ export const CalendarController = <T extends FieldValues, K extends Path<T>>({
   const handleOnChange = useCallback(
     (text: DateValue) => {
       onChange(getDateWithFormat(text));
+      onClick?.();
       clearErrors();
     },
     [clearErrors, onChange],

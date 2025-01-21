@@ -24,7 +24,7 @@ const PaginationBase = memo(
             'text-primary-400',
             'bg-transparent hover:bg-transparent',
             'shadow-none rounded-md active:border-1 border-primary-400 hover:border-primary-100',
-            'justify-center items-center leading-none',
+            'justify-center items-center leading-none cursor-pointer',
             'pressed:bg-blue-600',
           ),
           cursor: cn(
@@ -44,53 +44,56 @@ const PaginationBase = memo(
 interface PaginationProps {
   total: number;
   page?: number;
+  scrollTo?: string;
 }
 
-export const Pagination = memo(({ page = 1, total }: PaginationProps) => {
-  const pathname = usePathname();
-  const { replace } = useRouter();
-  const searchParams = useSearchParams();
+export const Pagination = memo(
+  ({ page = 1, total, scrollTo = '' }: PaginationProps) => {
+    const pathname = usePathname();
+    const { replace } = useRouter();
+    const searchParams = useSearchParams();
 
-  const params = useMemo(
-    () => new URLSearchParams(searchParams.toString()),
-    [searchParams],
-  );
+    const params = useMemo(
+      () => new URLSearchParams(searchParams.toString()),
+      [searchParams],
+    );
 
-  const shouldShowPrev = page > 1;
-  const shouldShowNext = page < total;
+    const shouldShowPrev = page > 1;
+    const shouldShowNext = page < total;
 
-  const handleSetPage = useCallback(
-    (value: number) => {
-      // Update URL
-      params.set('page', value.toString());
-      replace(`${pathname}?${params.toString()}`);
-    },
-    [params, replace, pathname],
-  );
+    const handleSetPage = useCallback(
+      (value: number) => {
+        // Update URL
+        params.set('page', value.toString());
+        replace(`${pathname}?${params.toString()}${scrollTo}`);
+      },
+      [params, replace, pathname, scrollTo],
+    );
 
-  const handlePrevPage = useCallback(() => {
-    if (page > 1) {
-      handleSetPage(page - 1);
-    }
-  }, [handleSetPage, page]);
+    const handlePrevPage = useCallback(() => {
+      if (page > 1) {
+        handleSetPage(page - 1);
+      }
+    }, [handleSetPage, page]);
 
-  const handleNextPage = useCallback(() => {
-    if (page < total) {
-      handleSetPage(page + 1);
-    }
-  }, [handleSetPage, page, total]);
+    const handleNextPage = useCallback(() => {
+      if (page < total) {
+        handleSetPage(page + 1);
+      }
+    }, [handleSetPage, page, total]);
 
-  return (
-    <div className="flex items-center">
-      {shouldShowPrev && <PaginationButton onPress={handlePrevPage} />}
-
-      <PaginationBase page={page} total={total} onChange={handleSetPage} />
-
-      {shouldShowNext && (
-        <PaginationButton onPress={handleNextPage} isNextButton />
-      )}
-    </div>
-  );
-});
+    return (
+      <div className="flex items-center">
+        <PaginationButton onPress={handlePrevPage} isVisible={shouldShowPrev} />
+        <PaginationBase page={page} total={total} onChange={handleSetPage} />
+        <PaginationButton
+          onPress={handleNextPage}
+          isNextButton
+          isVisible={shouldShowNext}
+        />
+      </div>
+    );
+  },
+);
 
 Pagination.displayName = 'Pagination';

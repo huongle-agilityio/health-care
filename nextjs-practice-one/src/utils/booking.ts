@@ -2,9 +2,15 @@ import { isPast, isToday } from './date';
 
 // Constants
 import { BOOKING_STATUS } from '@/constants';
+import { WORK_EXPERIENCE_YEARS } from '@/constants/mocks';
 
 // Types
-import { BookingTimeSlots, OptionCheckBox, TimeSlot } from '@/types';
+import {
+  BookingSlot,
+  BookingTimeSlots,
+  OptionCheckBox,
+  TimeSlot,
+} from '@/types';
 
 /**
  * Gets the status of a booking based on the given date.
@@ -44,3 +50,39 @@ export const formatBookingTimeSlotsWithStatus = (
     ),
   }));
 };
+
+/**
+ * Sorts booking appointments based on their status.
+ * Ex: Today -> Upcoming -> Expired
+ *
+ * @param {BookingSlot[]} bookingAppointments - The array of booking appointments to sort.
+ * @returns {BookingSlot[]} The sorted array of booking appointments.
+ */
+
+export const sortedAppointments = (
+  bookingAppointments: BookingSlot[],
+): BookingSlot[] => {
+  const statusOrder = {
+    [BOOKING_STATUS.TODAY]: 0,
+    [BOOKING_STATUS.UPCOMING]: 1,
+    [BOOKING_STATUS.EXPIRED]: 2,
+  };
+
+  const sortedAppointments = [...bookingAppointments].sort(
+    (appointment1, appointment2) => {
+      const status1 = statusOrder[getBookingStatus(appointment1.date)];
+      const status2 = statusOrder[getBookingStatus(appointment2.date)];
+
+      return status1 - status2;
+    },
+  );
+
+  return sortedAppointments;
+};
+
+export const formatWorkingExperience = Object.entries(
+  WORK_EXPERIENCE_YEARS,
+).map(([key, [min, max]]) => ({
+  value: key,
+  label: `${min}-${max} Years`,
+}));

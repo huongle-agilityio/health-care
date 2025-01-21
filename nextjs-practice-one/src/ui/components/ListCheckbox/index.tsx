@@ -33,7 +33,7 @@ export const ListCheckbox = memo(
             isDisabled={isDisabled}
             size="lg"
             key={`option-${value}`}
-            value={value}
+            value={value?.toString()}
             isSelected={selectedValue === value}
             onChange={onChange}
             classNames={{
