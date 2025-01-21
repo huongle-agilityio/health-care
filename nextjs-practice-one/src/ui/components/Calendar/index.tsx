@@ -8,7 +8,7 @@ import {
   CalendarProps as CalendarNextUIProps,
   DateValue,
   extendVariants,
-} from '@nextui-org/react';
+} from '@heroui/react';
 
 // Utils
 import { cn, isDateAvailable, todayWithFormat } from '@/utils';

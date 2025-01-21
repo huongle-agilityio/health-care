@@ -1,7 +1,7 @@
 'use client';
 
 import { ComponentType } from 'react';
-import { PopoverProps, Skeleton } from '@nextui-org/react';
+import { PopoverProps, Skeleton } from '@heroui/react';
 import dynamic from 'next/dynamic';
 
 // Types

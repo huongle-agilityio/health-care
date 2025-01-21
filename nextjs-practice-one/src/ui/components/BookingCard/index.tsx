@@ -1,7 +1,7 @@
 'use client';
 
 import { memo } from 'react';
-import { extendVariants, Chip } from '@nextui-org/react';
+import { extendVariants, Chip } from '@heroui/react';
 
 // Constants
 import { BOOKING_STATUS_COLORS } from '@/constants';

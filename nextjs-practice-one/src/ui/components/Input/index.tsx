@@ -2,7 +2,7 @@
 
 import { memo } from 'react';
 
-import { extendVariants, Input as NextUIInput } from '@nextui-org/react';
+import { extendVariants, Input as NextUIInput } from '@heroui/react';
 
 // Utils
 import { cn } from '@/utils';

@@ -1,7 +1,7 @@
 'use client';
 
 import { ComponentType } from 'react';
-import { useDisclosure } from '@nextui-org/react';
+import { useDisclosure } from '@heroui/react';
 import dynamic from 'next/dynamic';
 
 // Apis

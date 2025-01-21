@@ -6,7 +6,7 @@ import {
   ComponentPropsWithoutRef,
   useCallback,
 } from 'react';
-import { CheckboxGroup } from '@nextui-org/react';
+import { CheckboxGroup } from '@heroui/react';
 import {
   Control,
   useController,

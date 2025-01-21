@@ -1,10 +1,7 @@
 'use client';
 
 import { memo, useCallback, useMemo } from 'react';
-import {
-  extendVariants,
-  Pagination as PaginationNextUI,
-} from '@nextui-org/react';
+import { extendVariants, Pagination as PaginationNextUI } from '@heroui/react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
 // Components

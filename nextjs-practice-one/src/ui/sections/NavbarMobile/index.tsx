@@ -6,7 +6,7 @@ import {
   ModalContent,
   Modal as ModalNextUI,
   useDisclosure,
-} from '@nextui-org/react';
+} from '@heroui/react';
 import { usePathname } from 'next/navigation';
 
 import { NAVIGATION_ITEMS, ROUTES } from '@/constants';

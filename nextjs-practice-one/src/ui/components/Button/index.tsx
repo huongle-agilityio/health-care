@@ -1,7 +1,7 @@
 'use client';
 
 import { ComponentProps, memo } from 'react';
-import { extendVariants, Button as ButtonNextUI } from '@nextui-org/react';
+import { extendVariants, Button as ButtonNextUI } from '@heroui/react';
 
 // Utils
 import { cn } from '@/utils';

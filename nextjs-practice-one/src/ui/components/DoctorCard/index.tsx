@@ -1,7 +1,7 @@
 'use client';
 
 import { memo } from 'react';
-import { extendVariants } from '@nextui-org/react';
+import { extendVariants } from '@heroui/react';
 import Link from 'next/link';
 
 // Components

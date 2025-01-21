@@ -1,7 +1,7 @@
 'use client';
 
 import { ComponentProps, useCallback } from 'react';
-import { SharedSelection } from '@nextui-org/system';
+import { SharedSelection } from '@heroui/system';
 import {
   Control,
   useController,

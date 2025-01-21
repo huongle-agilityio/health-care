@@ -7,7 +7,7 @@ import {
   ModalBody,
   ModalFooter,
   extendVariants,
-} from '@nextui-org/react';
+} from '@heroui/react';
 
 // Components
 import { Button, Text } from '@/ui/components';

@@ -1,3 +1,3 @@
 'use client';
 
-export { Checkbox } from '@nextui-org/react';
+export { Checkbox } from '@heroui/react';

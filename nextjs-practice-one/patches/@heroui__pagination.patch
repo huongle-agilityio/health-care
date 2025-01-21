@@ -1,7 +1,7 @@
-diff --git a/dist/chunk-TEHPZN3P.mjs b/dist/chunk-TEHPZN3P.mjs
-index 571c159cd3ab55f3a99d40750476a7ed33f6c5b7..2a82ff1a469958f237c72b47083fea2c2ce12398 100644
---- a/dist/chunk-TEHPZN3P.mjs
-+++ b/dist/chunk-TEHPZN3P.mjs
+diff --git a/dist/chunk-QDCFQH3Q.mjs b/dist/chunk-QDCFQH3Q.mjs
+index 225d94a28e9e0a1f799907b7e07fde55d79c4aa6..205b60f23f4cb68289b3abbda3745f3347b43112 100644
+--- a/dist/chunk-QDCFQH3Q.mjs
++++ b/dist/chunk-QDCFQH3Q.mjs
 @@ -39,7 +39,6 @@ function usePaginationItem(props) {
    const getItemProps = (props2 = {}) => {
      return {

@@ -1,4 +1,4 @@
-import { DateValue } from '@nextui-org/react';
+import { DateValue } from '@heroui/react';
 import dayjs from 'dayjs';
 
 export const today = dayjs();

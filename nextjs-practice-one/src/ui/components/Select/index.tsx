@@ -8,7 +8,7 @@ import {
   SelectProps as SelectNextUIProps,
   SlotsToClasses,
   extendVariants,
-} from '@nextui-org/react';
+} from '@heroui/react';
 
 // Types
 import { Option } from '@/types';

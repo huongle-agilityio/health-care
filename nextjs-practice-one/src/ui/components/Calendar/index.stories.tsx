@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Meta } from '@storybook/react';
 import { parseDate } from '@internationalized/date';
-import { DateValue } from '@nextui-org/react';
+import { DateValue } from '@heroui/react';
 
 // Components
 import { Calendar, CalendarProps } from '.';

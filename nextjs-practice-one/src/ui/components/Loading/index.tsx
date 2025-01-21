@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Spinner, SpinnerProps } from '@nextui-org/react';
+import { Spinner, SpinnerProps } from '@heroui/react';
 
 export const Loading = memo(
   ({ label = 'Loading...', color = 'current', ...props }: SpinnerProps) => (
