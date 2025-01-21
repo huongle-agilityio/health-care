@@ -16,6 +16,9 @@ import { Header, ToastWrapper } from '@/ui/sections';
 // Providers
 import { Providers } from './providers';
 
+// Utils
+import { cn } from '@/utils';
+
 const montserrat = Montserrat({
   weight: ['400', '500'],
   subsets: ['latin'],
@@ -44,7 +47,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={montserrat.className}>
+      <body className={cn(montserrat.className, 'overflow-y-scroll')}>
         <Providers>
           <Header isAuthenticated={isAuthenticated} />
           <ToastWrapper>{children}</ToastWrapper>
