@@ -79,12 +79,6 @@ interface CardProps {
   href: string;
   imageSrc: string;
   specialty: string;
-  className?: {
-    wrap?: string;
-    header?: string;
-    body?: string;
-    footer?: string;
-  };
 }
 
 export const DoctorCard = memo(

@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext } from 'react';
+import { useState, useTransition } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -17,22 +17,19 @@ import {
   Button,
   InputController,
   PasswordInputController,
+  Text,
 } from '@/ui/components';
 
 // Schema
 import { signUpSchema } from '@/schema';
-
-// Contexts
-import { ToastContext } from '@/contexts';
 
 // Utils
 import { getErrorMessage } from '@/utils';
 
 export const FormSignUp = () => {
   const router = useRouter();
-
-  // Contexts
-  const { showToast } = useContext(ToastContext);
+  const [error, setError] = useState<string>('');
+  const [isPending, startTransition] = useTransition();
 
   const initialState = {
     name: '',
@@ -56,29 +53,27 @@ export const FormSignUp = () => {
    * Handles form submission for sign-up.
    * @param {z.infer<typeof signUpSchema>} data - The form data conforming to the sign-up schema.
    */
-  const handleSubmit = async (data: z.infer<typeof signUpSchema>) => {
-    const payload = { username: data.email, ...data };
-    try {
-      const response = await signUp(payload);
+  const handleSubmit = (data: z.infer<typeof signUpSchema>) => {
+    startTransition(async () => {
+      const payload = { username: data.email, ...data };
+      try {
+        const response = await signUp(payload);
 
-      // Fetch api login after signup success
-      const error = await login({
-        email: response.user.email,
-        password: data.password,
-      });
-
-      if (error) {
-        return showToast({
-          description: error,
+        // Fetch api login after signup success
+        const error = await login({
+          email: response.user.email,
+          password: data.password,
         });
-      }
 
-      router.push(ROUTES.HOME);
-    } catch (error) {
-      showToast({
-        description: getErrorMessage(error),
-      });
-    }
+        if (error) {
+          return setError(error);
+        }
+
+        router.push(ROUTES.HOME);
+      } catch (error) {
+        setError(getErrorMessage(error));
+      }
+    });
   };
 
   return (
@@ -113,9 +108,21 @@ export const FormSignUp = () => {
           clearErrors={clearErrors}
         />
       </div>
+      {error && (
+        <Text size="xs" className="text-danger-100">
+          {error}
+        </Text>
+      )}
       <div className="flex flex-col gap-5">
-        <Button type="submit">Submit</Button>
-        <Button type="reset" color="primary" isDisabled={!isDirty}>
+        <Button isLoading={isPending} type="submit">
+          Submit
+        </Button>
+        <Button
+          isLoading={isPending}
+          type="reset"
+          color="primary"
+          isDisabled={!isDirty}
+        >
           Reset
         </Button>
       </div>

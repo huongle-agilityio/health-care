@@ -2,43 +2,31 @@
 
 import { useForm } from 'react-hook-form';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  useTransition,
-} from 'react';
-
-// Actions
-import { getSpecialties } from '@/actions';
+import { useCallback, useMemo } from 'react';
 
 // Components
-import { SkeletonFilter } from './FilterSkeleton';
 import { Button, SelectController } from '@/ui/components';
 
 // Mocks
-import { WORK_EXPERIENCE_YEARS, FEES, RATING } from '@/constants/mocks';
+import { FEES, RATING, OPTION_ALL } from '@/constants/mocks';
 
 // Types
 import { Specialty } from '@/types';
 
-// Contexts
-import { ToastContext } from '@/contexts';
-
 // Utils
-import { cn, formatSpecialtiesOption } from '@/utils';
+import { cn, formatSpecialtiesOption, formatWorkingExperience } from '@/utils';
 
 interface FormData {
   specialty?: string;
   rating?: number;
   experience?: string;
   fee?: number;
+  listSpecialties?: Specialty[];
 }
 
 export const FormFilterDoctors = ({
   specialty,
+  listSpecialties = [],
   rating,
   experience,
   fee,
@@ -47,10 +35,6 @@ export const FormFilterDoctors = ({
   const { replace } = useRouter();
   const searchParams = useSearchParams();
 
-  const [isPending, startTransition] = useTransition();
-  const [specialties, setSpecialty] = useState<Specialty[]>([]);
-
-  const { showToast } = useContext(ToastContext);
   const params = useMemo(
     () => new URLSearchParams(searchParams),
     [searchParams],
@@ -58,9 +42,9 @@ export const FormFilterDoctors = ({
 
   const initialState = {
     specialty,
-    rating,
+    rating: rating || 0,
     experience,
-    fee,
+    fee: fee || 0,
   };
 
   const {
@@ -75,12 +59,12 @@ export const FormFilterDoctors = ({
   });
 
   const isDisabledButtonReset = !(isDirty || params.size);
-  const formatExperience = Object.entries(WORK_EXPERIENCE_YEARS).map(
-    ([key, [min, max]]) => ({
-      value: key,
-      label: `${min}-${max} Years`,
-    }),
-  );
+
+  const workingExperienceOptions = [OPTION_ALL, ...formatWorkingExperience];
+  const specialtyOptions = [
+    OPTION_ALL,
+    ...formatSpecialtiesOption(listSpecialties),
+  ];
 
   /**
    * Handles form submission for the filter form.
@@ -89,11 +73,13 @@ export const FormFilterDoctors = ({
   const handleSubmit = (data: FormData) => {
     // Update the URL with the new search parameters
     Object.entries(data).forEach(([key, value]) =>
-      value ? params.set(key, value.toString()) : params.delete(key),
+      value && value !== '0'
+        ? params.set(key, value.toString())
+        : params.delete(key),
     );
 
     // Replace the current URL with the new URL
-    replace(`${pathname}?${params.toString()}`);
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   const handleReset = useCallback(() => {
@@ -108,22 +94,6 @@ export const FormFilterDoctors = ({
     if (params.size) replace(pathname);
   }, [params, pathname, replace, reset]);
 
-  useEffect(() => {
-    const fetchSpecialties = async () => {
-      const { data, error } = await getSpecialties();
-
-      startTransition(() => {
-        if (error) {
-          return showToast({ description: error });
-        }
-
-        setSpecialty(data);
-      });
-    };
-
-    fetchSpecialties();
-  }, [showToast]);
-
   return (
     <form
       onSubmit={submitForm(handleSubmit)}
@@ -134,80 +104,75 @@ export const FormFilterDoctors = ({
         'h-fit 2xl:h-[96px]',
       )}
     >
-      {isPending ? (
-        <SkeletonFilter />
-      ) : (
-        <div className="flex flex-row gap-8 2xl:gap-21 w-full 2xl:w-fit">
-          <div className="flex flex-col 2xl:flex-row gap-14 2xl:gap-21 w-full">
-            <SelectController
-              name="specialty"
-              label="Specialty"
-              aria-label="Choice Specialty"
-              options={formatSpecialtiesOption(specialties)}
-              placeholder="Specialty"
-              control={control}
-              clearErrors={clearErrors}
-              classNames={{
-                mainWrapper: '2xl:w-[197px]',
-                base: '2xl:w-[197px]',
-              }}
-            />
+      <div className="flex flex-row gap-8 2xl:gap-21 w-full 2xl:w-fit">
+        <div className="flex flex-col 2xl:flex-row gap-14 2xl:gap-21 w-full">
+          <SelectController
+            name="specialty"
+            label="Specialty"
+            aria-label="Choice Specialty"
+            placeholder="Choice Specialty"
+            options={specialtyOptions}
+            control={control}
+            clearErrors={clearErrors}
+            classNames={{
+              mainWrapper: '2xl:w-[197px]',
+              base: '2xl:w-[197px]',
+            }}
+          />
 
-            <SelectController
-              name="rating"
-              label="Rating"
-              aria-label="Choice Rating"
-              options={RATING}
-              placeholder="Rating"
-              control={control}
-              clearErrors={clearErrors}
-              classNames={{
-                mainWrapper: '2xl:w-[148px]',
-                base: '2xl:w-[148px]',
-              }}
-            />
-          </div>
-
-          <div className="flex flex-col 2xl:flex-row gap-14 2xl:gap-21 w-full">
-            <SelectController
-              name="experience"
-              label="Experience"
-              aria-label="Choice Experience"
-              options={formatExperience}
-              control={control}
-              placeholder="Experience"
-              clearErrors={clearErrors}
-              classNames={{
-                mainWrapper: '2xl:w-[215px]',
-                base: '2xl:w-[215px]',
-              }}
-            />
-
-            <SelectController
-              name="fee"
-              label="Booking Fee"
-              aria-label="Choice Fee"
-              options={FEES}
-              control={control}
-              placeholder="Fee"
-              clearErrors={clearErrors}
-              classNames={{
-                mainWrapper: '2xl:w-[160px]',
-                base: '2xl:w-[160px]',
-              }}
-            />
-          </div>
+          <SelectController
+            name="rating"
+            label="Rating"
+            aria-label="Choice Rating"
+            placeholder="Choice Rating"
+            options={RATING}
+            control={control}
+            clearErrors={clearErrors}
+            classNames={{
+              mainWrapper: '2xl:w-[148px]',
+              base: '2xl:w-[148px]',
+            }}
+          />
         </div>
-      )}
+
+        <div className="flex flex-col 2xl:flex-row gap-14 2xl:gap-21 w-full">
+          <SelectController
+            name="experience"
+            label="Experience"
+            aria-label="Choice Experience"
+            placeholder="Choice Experience"
+            options={workingExperienceOptions}
+            control={control}
+            clearErrors={clearErrors}
+            classNames={{
+              mainWrapper: '2xl:w-[215px]',
+              base: '2xl:w-[215px]',
+            }}
+          />
+
+          <SelectController
+            name="fee"
+            label="Booking Fee"
+            aria-label="Choice Fee"
+            placeholder="Choice Fee"
+            options={FEES}
+            control={control}
+            clearErrors={clearErrors}
+            classNames={{
+              mainWrapper: '2xl:w-[160px]',
+              base: '2xl:w-[160px]',
+            }}
+          />
+        </div>
+      </div>
       <div className="flex flex-col 2xl:flex-row gap-8 2xl:gap-21 w-full 2xl:w-fit">
-        <Button type="submit" isDisabled={!isDirty} isLoading={isPending}>
+        <Button type="submit" isDisabled={!isDirty}>
           Search
         </Button>
         <Button
           color="primary"
           isDisabled={isDisabledButtonReset}
           onPress={handleReset}
-          isLoading={isPending}
         >
           Reset
         </Button>

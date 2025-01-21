@@ -1,15 +1,30 @@
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 
+// Actions
+import { getDoctorById } from '@/actions';
+
 // Components
 import { Text } from '@/ui/components';
 import { FormBooking, FormBookingSkeleton } from '@/ui/sections';
 
-export const metadata: Metadata = {
-  title: 'Booking Appointments',
+type Props = {
+  params: Promise<{ doctorId: string }>;
 };
 
-const Page = async ({ params }: { params: Promise<{ doctorId: string }> }) => {
+export const generateMetadata = async ({
+  params,
+}: Props): Promise<Metadata> => {
+  const { doctorId } = await params;
+
+  const doctor = await getDoctorById(doctorId);
+
+  return {
+    title: `Booking Dr. ${doctor.data.name}`,
+  };
+};
+
+const Page = async ({ params }: Props) => {
   const { doctorId } = await params;
 
   return (

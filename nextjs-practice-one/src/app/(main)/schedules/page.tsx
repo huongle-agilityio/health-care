@@ -4,6 +4,8 @@ import { Suspense } from 'react';
 // Components
 import { Text } from '@/ui/components';
 import { ListBooking, ListBookingSkeleton } from '@/ui/sections';
+
+// Utils
 import { getUserFromSession } from '@/utils/auth';
 
 export const metadata: Metadata = {

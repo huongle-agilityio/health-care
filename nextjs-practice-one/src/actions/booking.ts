@@ -1,10 +1,18 @@
 'use server';
 
+import { revalidatePath, revalidateTag } from 'next/cache';
+
 // Services
 import { httpClient } from '@/services';
 
 // Constants
-import { API_ENDPOINT, QUERY_FILTER_URL, QUERY_URL } from '@/constants';
+import {
+  API_ENDPOINT,
+  QUERY_FILTER_URL,
+  QUERY_KEY,
+  QUERY_URL,
+  ROUTES,
+} from '@/constants';
 
 // Types
 import {
@@ -41,7 +49,9 @@ export const getTimeSlot = async () =>
 export const getBookingAppointmentByUserId = async (userId: string) =>
   safeHttpRequest<BookingSlot[]>((token) => {
     const url = `${API_ENDPOINT.BOOKING_SLOT}${QUERY_URL.APPOINTMENT_BY_USER_ID(userId)}`;
-    return httpClient.get<BookingSlotResponse>(url, token);
+    return httpClient.get<BookingSlotResponse>(url, token, {
+      cache: 'force-cache',
+    });
   }, true);
 
 /**
@@ -51,10 +61,15 @@ export const getBookingAppointmentByUserId = async (userId: string) =>
  * @param {string} date - The date to get booking time slots for.
  * @returns {Promise<BookingTimeSlots[]>} A promise that resolves to an array of booking time slots.
  */
-export const getBookingTimeSlotById = async (doctorId: string, date: string) =>
+export const getBookingTimeSlotByDoctorId = async (
+  doctorId: string,
+  date: string,
+) =>
   safeHttpRequest<BookingTimeSlots[]>((token) => {
     const url = `${API_ENDPOINT.BOOKING_SLOT}${QUERY_URL.BOOKING_TIME_SLOT(doctorId, date)}`;
-    return httpClient.get<DoctorTimeSlotsResponse>(url, token);
+    return httpClient.get<DoctorTimeSlotsResponse>(url, token, {
+      next: { tags: [QUERY_KEY.BOOKING_TIME_SLOT_BY_DOCTOR_ID(doctorId)] },
+    });
   }, true);
 
 /**
@@ -65,8 +80,8 @@ export const getBookingTimeSlotById = async (doctorId: string, date: string) =>
  */
 export const createBookingAppointment = async (
   payload: BookingAppointmentPayload,
-) =>
-  safeHttpRequest<BookingAppointmentPayload>(
+) => {
+  const response = safeHttpRequest<BookingAppointmentPayload>(
     (token) =>
       httpClient.post<
         BookingAppointmentPayloadResponse,
@@ -74,3 +89,8 @@ export const createBookingAppointment = async (
       >(API_ENDPOINT.BOOKING_SLOT, payload, token),
     true,
   );
+  revalidatePath(ROUTES.SCHEDULES);
+  revalidateTag(QUERY_KEY.BOOKING_TIME_SLOT_BY_DOCTOR_ID(payload.data.doctor));
+
+  return response;
+};

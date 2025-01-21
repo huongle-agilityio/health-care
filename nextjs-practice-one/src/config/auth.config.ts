@@ -40,6 +40,12 @@ export const authConfig = {
         !isLoggedIn &&
         PRIVATE_ROUTERS.some((route) => nextUrl.pathname.includes(route))
       ) {
+        if (nextUrl.pathname.includes(ROUTES.BOOKING_APPOINTMENTS)) {
+          return Response.redirect(
+            new URL(ROUTES.LOGIN + `?backTo=${ROUTES.APPOINTMENTS}`, nextUrl),
+          );
+        }
+
         return Response.redirect(new URL(ROUTES.LOGIN, nextUrl));
       }
 

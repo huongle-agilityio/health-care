@@ -80,7 +80,11 @@ interface SelectProps extends Omit<SelectNextUIProps, 'children' | 'value'> {
 
 export const Select = memo(
   ({ value = '', options, classNameItem, ...props }: SelectProps) => (
-    <SelectBase selectedKeys={[value]} labelPlacement="outside" {...props}>
+    <SelectBase
+      selectedKeys={[value?.toString()]}
+      labelPlacement="outside"
+      {...props}
+    >
       {options.map((option) => (
         <SelectItemBase key={option.value} classNames={classNameItem}>
           {option.label}
