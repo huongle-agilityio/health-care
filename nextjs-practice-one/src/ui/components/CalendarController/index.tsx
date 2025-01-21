@@ -49,7 +49,7 @@ export const CalendarController = <T extends FieldValues, K extends Path<T>>({
       onClick?.();
       clearErrors();
     },
-    [clearErrors, onChange],
+    [clearErrors, onChange, onClick],
   );
 
   return (
