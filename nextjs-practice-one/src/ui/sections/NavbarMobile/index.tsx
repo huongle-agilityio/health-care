@@ -12,7 +12,7 @@ import { usePathname } from 'next/navigation';
 import { NAVIGATION_ITEMS, ROUTES } from '@/constants';
 
 // Components
-import { Button } from '@/ui/components';
+import { Button, Text } from '@/ui/components';
 import { NavbarList } from './NavbarList';
 import { HeaderAuthButtons } from '../HeaderAuth/HeaderAuthButtons';
 
@@ -22,6 +22,7 @@ import {
   OutlineBurgerIcon,
   SchedulesIcon,
   SettingIcon,
+  UserIcon,
 } from '@/ui/icons';
 
 // HOCs
@@ -48,11 +49,12 @@ const NavBarMobileBase = extendVariants(ModalNextUI, {
 
 const LogoutButton = withLogoutModal(Button);
 
-export const NavBarMobile = ({
-  isAuthenticated,
-}: {
+interface NavBarMobileProps {
   isAuthenticated: boolean;
-}) => {
+  name?: string;
+}
+
+export const NavBarMobile = ({ isAuthenticated, name }: NavBarMobileProps) => {
   const pathname = usePathname();
   const { isOpen, onOpenChange } = useDisclosure();
 
@@ -88,6 +90,17 @@ export const NavBarMobile = ({
           <ModalContent>
             {(onClose) => (
               <ModalBody className="pt-25 px-12 gap-12">
+                {isAuthenticated && (
+                  <div className="flex gap-7 items-center mb-5">
+                    <UserIcon size="16" />
+                    <Text
+                      color="tertiary"
+                      className="text-ellipsis overflow-hidden whitespace-nowrap"
+                    >
+                      {name}
+                    </Text>
+                  </div>
+                )}
                 <div className="flex flex-col gap-12">
                   <NavbarList
                     pathname={pathname}

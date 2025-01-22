@@ -28,7 +28,12 @@ import { cn } from '@/utils';
 
 const MenuAuth = withLogoutModal(HeaderAuth);
 
-export const Header = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
+interface HeaderProps {
+  name?: string;
+}
+
+export const Header = ({ name }: HeaderProps) => {
+  const isAuthenticated = !!name;
   const pathname = usePathname();
   const listMenu = isAuthenticated
     ? [...NAVIGATION_ITEMS, ...NAVIGATION_AUTHENTICATED]
@@ -49,7 +54,7 @@ export const Header = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
           'flex items-center gap-[56px] xl:justify-start',
         )}
       >
-        <NavBarMobile isAuthenticated={isAuthenticated} />
+        <NavBarMobile isAuthenticated={isAuthenticated} name={name} />
         <Link
           href={ROUTES.HOME}
           className="flex gap-4 items-center m-auto xl:m-0"
@@ -77,7 +82,7 @@ export const Header = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
               );
             })}
           </div>
-          <MenuAuth isAuthenticated={isAuthenticated} />
+          <MenuAuth isAuthenticated={isAuthenticated} name={name} />
         </div>
       </nav>
     </header>

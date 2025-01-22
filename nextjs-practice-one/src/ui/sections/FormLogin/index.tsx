@@ -4,6 +4,7 @@ import { useState, useTransition } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 // Apis
 import { login } from '@/actions';
@@ -53,7 +54,7 @@ export const FormLogin = () => {
    * Handles form submission for login.
    * @param {FormData} data - The form data conforming to the login schema.
    */
-  const handleSubmit = (data: FormData) => {
+  const handleSubmit = (data: z.infer<typeof loginSchema>) => {
     startTransition(async () => {
       const backTo = searchParams.get('backTo');
       const error = await login(data);

@@ -51,6 +51,13 @@ export const formatBookingTimeSlotsWithStatus = (
   }));
 };
 
+export const formatWorkingExperience = Object.entries(
+  WORK_EXPERIENCE_YEARS,
+).map(([key, [min, max]]) => ({
+  value: key,
+  label: `${min}-${max} Years`,
+}));
+
 /**
  * Sorts booking appointments based on their status.
  * Ex: Today -> Upcoming -> Expired
@@ -79,10 +86,3 @@ export const sortedAppointments = (
 
   return sortedAppointments;
 };
-
-export const formatWorkingExperience = Object.entries(
-  WORK_EXPERIENCE_YEARS,
-).map(([key, [min, max]]) => ({
-  value: key,
-  label: `${min}-${max} Years`,
-}));

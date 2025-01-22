@@ -4,9 +4,6 @@ import { Montserrat } from 'next/font/google';
 // CSS
 import './globals.css';
 
-// Config
-import { auth } from '@/config';
-
 // Constants
 import { BASE_URL, BRAND, FAVICON_URL, IMAGES } from '@/constants';
 
@@ -18,6 +15,7 @@ import { Providers } from './providers';
 
 // Utils
 import { cn } from '@/utils';
+import { getUserFromSession } from '@/utils/auth';
 
 const montserrat = Montserrat({
   weight: ['400', '500'],
@@ -46,14 +44,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
-  const isAuthenticated = !!session?.user;
+  const { name } = await getUserFromSession();
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(montserrat.className, 'overflow-y-scroll')}>
         <Providers>
-          <Header isAuthenticated={isAuthenticated} />
+          <Header name={name} />
           <ToastWrapper>{children}</ToastWrapper>
         </Providers>
       </body>
