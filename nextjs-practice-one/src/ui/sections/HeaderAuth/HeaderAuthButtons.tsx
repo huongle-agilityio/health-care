@@ -8,7 +8,11 @@ import { ROUTES } from '@/constants';
 // Components
 import { Button } from '@/ui/components';
 
-export const HeaderAuthButtons = ({ onPress }: { onPress?: () => void }) => {
+interface HeaderAuthButtonsProps {
+  onPress?: () => void;
+}
+
+export const HeaderAuthButtons = ({ onPress }: HeaderAuthButtonsProps) => {
   const router = useRouter();
 
   const handleNavigateLogin = () => {
