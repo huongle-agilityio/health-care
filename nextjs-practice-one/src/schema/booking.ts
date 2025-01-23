@@ -15,3 +15,13 @@ export const bookingSchema = z.object({
   phone: validatePhone,
   email: validateEmail,
 });
+
+export const bookingPayloadAPISchema = z.object({
+  data: z.object({
+    date: validateRequired,
+    timeSlot: validateRequired,
+    doctor: validateRequired,
+    reason: validateRequired,
+    user: validateRequired,
+  }),
+});
