@@ -5,12 +5,12 @@ import {
   validateName,
   validatePassword,
   validatePhone,
-  validateRequired,
+  validateRequiredString,
 } from './validate';
 
 export const loginSchema = z.object({
   email: validateEmail,
-  password: validateRequired,
+  password: validateRequiredString,
 });
 
 export const signUpSchema = z.object({

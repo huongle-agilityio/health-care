@@ -1,13 +1,21 @@
 'use server';
 
+import { revalidateTag } from 'next/cache';
+import { createImage } from './image';
+
 // Constants
-import { API_ROUTE_ENDPOINT, BASE_URL } from '@/constants';
+import { API_ROUTE_ENDPOINT, BASE_URL, ERROR_MESSAGES } from '@/constants';
 
 // Services
 import { httpClient } from '@/services';
 
 // Types
-import { ApiPaginationResponse, Doctor, ListDoctorResponse } from '@/types';
+import {
+  Doctor,
+  DoctorPayload,
+  DoctorResponse,
+  ListDoctorResponse,
+} from '@/types';
 
 // Utils
 import { safeHttpRequest } from './safeHttpRequest';
@@ -42,7 +50,7 @@ export const getDoctorsByParams = async (queryString: string) =>
 export const getDoctorById = async (id: string) =>
   safeHttpRequest<Doctor>(() => {
     const endpoint = `${API_ROUTE_ENDPOINT.DOCTOR}/${id}`;
-    return httpClient.get<ApiPaginationResponse<Doctor>>({
+    return httpClient.get<DoctorResponse>({
       endpoint,
       options: {
         next: {
@@ -70,3 +78,39 @@ export const getDoctors = async () =>
       },
     }),
   );
+
+/**
+ * Creates a new doctor.
+ *
+ * @param {DoctorPayload} payload - The payload to create the doctor with.
+ * @returns {Promise<Doctor>} A promise that resolves to the created doctor.
+ */
+export const createDoctor = async (payload: DoctorPayload) => {
+  const response = safeHttpRequest<Doctor>(async (token) => {
+    if (!(payload.data.avatar instanceof File)) {
+      throw new Error(ERROR_MESSAGES.INVALID_IMAGE);
+    }
+
+    const responseImage = await createImage(payload.data.avatar);
+
+    const payloadDoctor: DoctorPayload = {
+      data: {
+        ...payload.data,
+        avatar: responseImage.data.url,
+      },
+    };
+
+    return httpClient.post<DoctorResponse, DoctorPayload>({
+      endpoint: API_ROUTE_ENDPOINT.DOCTOR,
+      body: payloadDoctor,
+      token,
+      options: {
+        baseUrl: BASE_URL,
+      },
+    });
+  }, true);
+
+  revalidateTag(API_ROUTE_ENDPOINT.DOCTOR_PARAMS);
+
+  return response;
+};

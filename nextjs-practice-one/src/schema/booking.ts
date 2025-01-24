@@ -4,24 +4,24 @@ import {
   validateEmail,
   validateName,
   validatePhone,
-  validateRequired,
+  validateRequiredString,
 } from './validate';
 
 export const bookingSchema = z.object({
-  time: validateRequired,
+  time: validateRequiredString,
   name: validateName,
-  reason: validateRequired,
-  date: validateRequired,
+  reason: validateRequiredString,
+  date: validateRequiredString,
   phone: validatePhone,
   email: validateEmail,
 });
 
 export const bookingPayloadAPISchema = z.object({
   data: z.object({
-    date: validateRequired,
-    timeSlot: validateRequired,
-    doctor: validateRequired,
-    reason: validateRequired,
-    user: validateRequired,
+    date: validateRequiredString,
+    timeSlot: validateRequiredString,
+    doctor: validateRequiredString,
+    reason: validateRequiredString,
+    user: validateRequiredString,
   }),
 });
