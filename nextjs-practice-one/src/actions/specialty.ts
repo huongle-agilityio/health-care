@@ -4,7 +4,7 @@
 import { httpClient } from '@/services';
 
 // Constants
-import { API_ENDPOINT } from '@/constants';
+import { API_ROUTE_ENDPOINT, BASE_URL } from '@/constants';
 
 // Types
 import { Specialty, SpecialtyResponse } from '@/types';
@@ -17,7 +17,13 @@ import { safeHttpRequest } from './safeHttpRequest';
  */
 export const getSpecialties = async () =>
   safeHttpRequest<Specialty[]>(() =>
-    httpClient.get<SpecialtyResponse>(API_ENDPOINT.SPECIALTY, '', {
-      cache: 'force-cache',
+    httpClient.get<SpecialtyResponse>({
+      endpoint: API_ROUTE_ENDPOINT.SPECIALTY,
+      options: {
+        next: {
+          tags: [API_ROUTE_ENDPOINT.SPECIALTY],
+        },
+        baseUrl: BASE_URL,
+      },
     }),
   );

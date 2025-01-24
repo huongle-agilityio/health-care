@@ -36,7 +36,7 @@ export const safeHttpRequest = async <T>(
       throw new Error(ERROR_MESSAGES.UNAUTHORIZED);
     }
 
-    const response = await request(token);
+    const response = await request(`Bearer ${token}`);
 
     return {
       data: response.data,

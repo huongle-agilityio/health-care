@@ -1,54 +1,36 @@
 'use server';
 
 // Constants
-import { WORK_EXPERIENCE_YEARS } from '@/constants/mocks';
-import { API_ENDPOINT, QUERY_URL, TIMING } from '@/constants';
+import { API_ROUTE_ENDPOINT, BASE_URL } from '@/constants';
 
 // Services
 import { httpClient } from '@/services';
 
 // Types
-import {
-  ApiPaginationResponse,
-  Doctor,
-  DoctorFilterParams,
-  ListDoctorResponse,
-} from '@/types';
+import { ApiPaginationResponse, Doctor, ListDoctorResponse } from '@/types';
 
 // Utils
 import { safeHttpRequest } from './safeHttpRequest';
 
 /**
- * Fetches a list of doctors based on the provided filter parameters.
+ * Fetches all doctors by the given query string.
  *
- * @param {string} params.specialty - The specialty of the doctors to filter by.
- * @param {number} params.rating - The rating of the doctors to filter by.
- * @param {string} params.experience - The experience level of the doctors to filter by.
- * @param {number} params.fee - The fee of the doctors to filter by.
- * @param {number} params.page - The page number for pagination.
- * @returns {Promise<Doctor[]>} A promise that resolves to an array of doctors matching the criteria.
+ * @param {string} queryString - The query string to filter doctors by.
+ * @returns {Promise<Doctor[]>} A promise that resolves to an array of doctors.
  */
-export const getDoctorsByParams = async ({
-  specialty,
-  rating,
-  experience,
-  fee,
-  page,
-}: DoctorFilterParams) =>
+export const getDoctorsByParams = async (queryString: string) =>
   safeHttpRequest<Doctor[]>(() => {
-    const [minExperience, maxExperience] = experience
-      ? WORK_EXPERIENCE_YEARS[experience]
-      : [0, 0];
-    const url = `${API_ENDPOINT.DOCTOR}${QUERY_URL.DOCTORS({
-      specialty,
-      rating,
-      maxExperience,
-      minExperience,
-      fee,
-      page,
-    })}`;
+    const endpoint = `${API_ROUTE_ENDPOINT.DOCTOR_PARAMS}?${queryString}`;
 
-    return httpClient.get<ListDoctorResponse>(url);
+    return httpClient.get<ListDoctorResponse>({
+      endpoint,
+      options: {
+        next: {
+          tags: [API_ROUTE_ENDPOINT.DOCTOR_PARAMS],
+        },
+        baseUrl: BASE_URL,
+      },
+    });
   });
 
 /**
@@ -59,8 +41,16 @@ export const getDoctorsByParams = async ({
  */
 export const getDoctorById = async (id: string) =>
   safeHttpRequest<Doctor>(() => {
-    const url = `${API_ENDPOINT.DOCTOR}${QUERY_URL.DOCTOR_BY_ID(id)}`;
-    return httpClient.get<ApiPaginationResponse<Doctor>>(url);
+    const endpoint = `${API_ROUTE_ENDPOINT.DOCTOR}/${id}`;
+    return httpClient.get<ApiPaginationResponse<Doctor>>({
+      endpoint,
+      options: {
+        next: {
+          tags: [`${API_ROUTE_ENDPOINT.DOCTOR}/${id}`],
+        },
+        baseUrl: BASE_URL,
+      },
+    });
   });
 
 /**
@@ -70,7 +60,13 @@ export const getDoctorById = async (id: string) =>
  */
 export const getDoctors = async () =>
   safeHttpRequest<Doctor[]>(() =>
-    httpClient.get<ListDoctorResponse>(API_ENDPOINT.DOCTOR, '', {
-      next: { revalidate: TIMING.REVALIDATE_AFTER_A_DAY },
+    httpClient.get<ListDoctorResponse>({
+      endpoint: API_ROUTE_ENDPOINT.DOCTOR,
+      options: {
+        next: {
+          tags: [API_ROUTE_ENDPOINT.DOCTOR],
+        },
+        baseUrl: BASE_URL,
+      },
     }),
   );

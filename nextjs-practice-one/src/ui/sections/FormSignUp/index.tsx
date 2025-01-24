@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 // Apis
-import { login, signUp } from '@/actions';
+import { signUp } from '@/actions';
 
 // Constants
 import { ROUTES } from '@/constants';
@@ -57,13 +57,7 @@ export const FormSignUp = () => {
     startTransition(async () => {
       const payload = { username: data.email, ...data };
       try {
-        const response = await signUp(payload);
-
-        // Fetch api login after signup success
-        const error = await login({
-          email: response.user.email,
-          password: data.password,
-        });
+        const error = await signUp(payload);
 
         if (error) {
           return setError(error);

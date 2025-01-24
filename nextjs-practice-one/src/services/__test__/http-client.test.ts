@@ -26,7 +26,7 @@ describe('HttpService', () => {
       json: async () => mockResponse,
     });
 
-    const response = await httpClient.get('endpoint');
+    const response = await httpClient.get({ endpoint: 'endpoint' });
     expect(response).toEqual(mockResponse);
     expect(fetch).toHaveBeenCalledWith(
       URL,
@@ -44,7 +44,10 @@ describe('HttpService', () => {
       json: async () => mockResponse,
     });
 
-    const response = await httpClient.post('endpoint', mockPayload);
+    const response = await httpClient.post({
+      endpoint: 'endpoint',
+      body: mockPayload,
+    });
     expect(response).toEqual(mockResponse);
     expect(fetch).toHaveBeenCalledWith(
       URL,
@@ -62,7 +65,7 @@ describe('HttpService', () => {
       json: async () => ({ error: { message: 'Something went wrong' } }),
     });
 
-    await expect(httpClient.get('endpoint')).rejects.toThrow(
+    await expect(httpClient.get({ endpoint: 'endpoint' })).rejects.toThrow(
       'Something went wrong',
     );
   });
@@ -74,7 +77,10 @@ describe('HttpService', () => {
       json: async () => mockResponse,
     });
 
-    const response = await httpClient.put('endpoint', mockPayload);
+    const response = await httpClient.put({
+      endpoint: 'endpoint',
+      body: mockPayload,
+    });
     expect(response).toEqual(mockResponse);
     expect(fetch).toHaveBeenCalledWith(
       URL,
@@ -93,7 +99,10 @@ describe('HttpService', () => {
       json: async () => mockResponse,
     });
 
-    const response = await httpClient.patch('endpoint', mockPayload);
+    const response = await httpClient.patch({
+      endpoint: 'endpoint',
+      body: mockPayload,
+    });
     expect(response).toEqual(mockResponse);
     expect(fetch).toHaveBeenCalledWith(
       URL,
@@ -111,7 +120,10 @@ describe('HttpService', () => {
       ok: true,
       json: async () => mockResponse,
     });
-    const response = await httpClient.delete('endpoint', mockPayload);
+    const response = await httpClient.delete({
+      endpoint: 'endpoint',
+      body: mockPayload,
+    });
 
     expect(response).toEqual(mockResponse);
     expect(fetch).toHaveBeenCalledWith(

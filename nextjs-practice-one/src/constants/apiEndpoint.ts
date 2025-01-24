@@ -14,3 +14,23 @@ export const API_ENDPOINT = {
 
   TIME_SLOT: 'time-slots',
 };
+
+export const API_ROUTE_ENDPOINT = {
+  SIGN_IN: 'auth/login',
+  SIGN_UP: 'auth/sign-up',
+
+  // Specialty
+  SPECIALTY: 'specialties',
+
+  // Doctor
+  DOCTOR: 'doctors',
+  DOCTOR_PARAMS: 'doctors/params',
+
+  // Booking
+  BOOKING_SLOT: 'booking-slots',
+  BOOKING_SLOT_USER: 'booking-slots/user/',
+  BOOKING_SLOT_DOCTOR: 'booking-slots/doctor/',
+
+  // Time Slot
+  TIME_SLOT: 'time-slots',
+};

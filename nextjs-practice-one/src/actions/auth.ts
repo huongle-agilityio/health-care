@@ -10,8 +10,9 @@ import { signIn, signOut } from '@/config';
 
 // Constants
 import {
-  API_ENDPOINT,
+  API_ROUTE_ENDPOINT,
   AUTH_METHOD,
+  BASE_URL,
   ERROR_MESSAGES,
   ERROR_TYPES,
   ROUTES,
@@ -54,8 +55,24 @@ export const login = async (
  * @param {AuthPayload} payload - The payload to sign up with.
  * @returns {Promise<AuthResponse>} The response from the API after signing up successfully.
  */
-export const signUp = async (payload: AuthPayload): Promise<AuthResponse> =>
-  httpClient.post<AuthResponse, AuthPayload>(API_ENDPOINT.SIGN_UP, payload);
+export const signUp = async (
+  payload: AuthPayload,
+): Promise<string | undefined> => {
+  const responseSignUp = await httpClient.post<AuthResponse, AuthPayload>({
+    endpoint: API_ROUTE_ENDPOINT.SIGN_UP,
+    body: payload,
+    options: {
+      baseUrl: BASE_URL,
+    },
+  });
+
+  const loginPayload = {
+    email: responseSignUp.user.email,
+    password: payload.password,
+  };
+
+  return login(loginPayload);
+};
 
 /**
  * Logout and redirects to the login page.

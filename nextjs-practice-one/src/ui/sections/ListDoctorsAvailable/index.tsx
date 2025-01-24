@@ -8,29 +8,14 @@ import { DOCTOR_LIST_AVAILABLE_SECTION_ID } from '@/constants';
 import { Text } from '@/ui/components';
 import { ListDoctors } from './ListDoctors';
 
-// Types
-import { DoctorFilterParams } from '@/types';
-
-type ListDoctorsAvailableProps = DoctorFilterParams;
+type ListDoctorsAvailableProps = {
+  queryString: string;
+};
 
 export const ListDoctorsAvailable = async ({
-  page,
-  specialty,
-  rating,
-  experience,
-  fee,
+  queryString,
 }: ListDoctorsAvailableProps) => {
-  const {
-    data: doctors,
-    meta,
-    error,
-  } = await getDoctorsByParams({
-    page,
-    specialty,
-    rating,
-    experience,
-    fee,
-  });
+  const { data: doctors, meta, error } = await getDoctorsByParams(queryString);
   const {
     page: currentPage = 1,
     pageCount = 0,
