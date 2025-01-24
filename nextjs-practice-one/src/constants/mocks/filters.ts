@@ -20,7 +20,7 @@ export const RATING = [
     label: '4',
   },
   {
-    value: '5',
+    value: 5,
     label: '5',
   },
 ];

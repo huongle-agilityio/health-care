@@ -14,7 +14,6 @@ import { Header, ToastWrapper } from '@/ui/sections';
 import { Providers } from './providers';
 
 // Utils
-import { cn } from '@/utils';
 import { getUserFromSession } from '@/utils/auth';
 
 const montserrat = Montserrat({
@@ -47,8 +46,8 @@ export default async function RootLayout({
   const { name } = await getUserFromSession();
 
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={cn(montserrat.className, 'overflow-y-scroll')}>
+    <html lang="en" suppressHydrationWarning className="overflow-y-scroll">
+      <body className={montserrat.className}>
         <Providers>
           <Header name={name} />
           <ToastWrapper>{children}</ToastWrapper>

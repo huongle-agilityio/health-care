@@ -1,7 +1,5 @@
 import { KEY_UPLOAD_IMAGE, UPLOAD_IMAGE_URL } from './envVars';
 
-export const BASE_API = process.env.NEXT_PUBLIC_API_URL;
-
 export const API_ENDPOINT = {
   SIGN_IN: 'auth/local',
   SIGN_UP: 'auth/local/register',
