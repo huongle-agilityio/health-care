@@ -13,6 +13,8 @@ export const getErrorMessage = (error: any): string => {
     return error.message;
   } else if (error && typeof error === 'object' && 'message' in error) {
     return error.message;
+  } else if (typeof error === 'string') {
+    return error;
   }
 
   return ERROR_MESSAGES.DEFAULT_API_ERROR;

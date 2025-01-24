@@ -19,9 +19,9 @@ describe('getErrorMessage', () => {
     expect(getErrorMessage(error)).toBe(ERROR_MESSAGES.DEFAULT_API_ERROR);
   });
 
-  it('Should return the default error message for a non-object', () => {
+  it('Should return the message if it is a string', () => {
     const error = 'String error';
-    expect(getErrorMessage(error)).toBe(ERROR_MESSAGES.DEFAULT_API_ERROR);
+    expect(getErrorMessage(error)).toBe('String error');
   });
 
   it('Should return the default error message for undefined', () => {

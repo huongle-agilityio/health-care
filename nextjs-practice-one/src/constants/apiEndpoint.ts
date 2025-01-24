@@ -1,3 +1,5 @@
+import { KEY_UPLOAD_IMAGE, UPLOAD_IMAGE_URL } from './envVars';
+
 export const BASE_API = process.env.NEXT_PUBLIC_API_URL;
 
 export const API_ENDPOINT = {
@@ -13,4 +15,6 @@ export const API_ENDPOINT = {
   BOOKING_SLOT: 'booking-time-slots',
 
   TIME_SLOT: 'time-slots',
+
+  IMAGE: `${UPLOAD_IMAGE_URL}?key=${KEY_UPLOAD_IMAGE}`,
 };
