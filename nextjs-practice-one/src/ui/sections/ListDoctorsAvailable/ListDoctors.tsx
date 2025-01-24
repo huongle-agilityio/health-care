@@ -23,7 +23,7 @@ export const ListDoctors = memo(
           <Text color="tertiary">No results found.</Text>
         </div>
       ) : (
-        <div className="flex flex-wrap gap-x-8 gap-y-20 w-full">
+        <div className="flex flex-wrap gap-x-8 gap-y-20 w-full justify-center lg:justify-start">
           {doctors.map(
             ({
               id,

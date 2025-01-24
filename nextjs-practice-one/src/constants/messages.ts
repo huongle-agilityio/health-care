@@ -14,5 +14,6 @@ export const ERROR_MESSAGES = {
     'Password must be 8+ characters with uppercase, number, and special character.',
 
   INVALID_PHONE: 'Please enter a valid phone number',
+  INVALID_IMAGE: 'Please upload a valid image',
   MAX_PHONE_NUMBER: 'Phone number must be 10 digits.',
 };
