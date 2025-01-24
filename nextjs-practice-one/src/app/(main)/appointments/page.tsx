@@ -29,7 +29,10 @@ const Page = async ({
   searchParams?: Promise<DoctorFilterParams>;
 }) => {
   const params = await searchParams;
-  const { specialty, rating, experience, fee, page } = params || {};
+  const { specialty, rating, experience, fee } = params || {};
+  const queryString = new URLSearchParams(
+    params && Object.entries(params),
+  ).toString();
 
   return (
     <>
@@ -88,13 +91,7 @@ const Page = async ({
           </div>
         </div>
         <Suspense fallback={<ListDoctorsAvailableSkeleton />}>
-          <ListDoctorsAvailable
-            page={page}
-            specialty={specialty}
-            rating={rating}
-            experience={experience}
-            fee={fee}
-          />
+          <ListDoctorsAvailable queryString={queryString} />
         </Suspense>
       </div>
     </>

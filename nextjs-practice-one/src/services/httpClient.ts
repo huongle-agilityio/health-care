@@ -8,12 +8,23 @@ enum HttpMethod {
   DELETE = 'DELETE',
 }
 
+interface RequestInitExtended extends Omit<RequestInit, 'body'> {
+  baseUrl?: string;
+}
+
 interface IApiClient<T> {
   endpoint: string;
   method: string;
   body?: T;
   token?: string;
-  options?: RequestInit;
+  options?: RequestInitExtended;
+}
+
+interface ApiProps<T> {
+  endpoint: string;
+  body: T;
+  token?: string;
+  options?: RequestInitExtended;
 }
 
 class HttpService {
@@ -44,10 +55,11 @@ class HttpService {
     token,
     options,
   }: IApiClient<TPayload>): Promise<TResponse> {
+    const baseUrl = options?.baseUrl || this.apiUrl;
     const initOptions: RequestInit = {
       method,
       headers: {
-        ...(token && { Authorization: `Bearer ${token}` }),
+        ...(token && { Authorization: token }),
         'Content-Type': 'application/json',
       },
       ...options,
@@ -58,13 +70,18 @@ class HttpService {
     }
 
     try {
-      const response = await fetch(
-        `${this.apiUrl}api/${endpoint}`,
-        initOptions,
-      );
+      const response = await fetch(`${baseUrl}api/${endpoint}`, initOptions);
 
       if (!response.ok) {
         const error = await response.json();
+
+        if (Array.isArray(error)) {
+          throw new Error(
+            error.length > 1
+              ? `Invalid fields: ${error.map((err) => err.path[1]).join(', ')}`
+              : `Invalid field: ${error[0].path[1]}`,
+          );
+        }
 
         throw new Error(
           error.error.message ||
@@ -91,11 +108,11 @@ class HttpService {
    * @param {RequestInit} [options] - Optional additional request options.
    * @returns {Promise<TResponse>} - A promise that resolves to the response data.
    */
-  async get<TResponse>(
-    endpoint: string,
-    token?: string,
-    options?: RequestInit,
-  ): Promise<TResponse> {
+  async get<TResponse>({
+    endpoint,
+    token,
+    options,
+  }: Omit<ApiProps<TResponse>, 'body'>): Promise<TResponse> {
     return this.createRequest<TResponse>({
       endpoint,
       method: HttpMethod.GET,
@@ -114,16 +131,18 @@ class HttpService {
    * @param {string} [token] - Optional authorization token for the request.
    * @returns {Promise<TResponse>} - A promise that resolves to the response data.
    */
-  async post<TResponse, TPayload>(
-    endpoint: string,
-    body: TPayload,
-    token?: string,
-  ): Promise<TResponse> {
+  async post<TResponse, TPayload>({
+    endpoint,
+    body,
+    token,
+    options,
+  }: ApiProps<TPayload>): Promise<TResponse> {
     return this.createRequest<TResponse, TPayload>({
       endpoint,
       method: HttpMethod.POST,
       body,
       token,
+      options,
     });
   }
 
@@ -137,16 +156,18 @@ class HttpService {
    * @param {string} [token] - Optional authorization token for the request.
    * @returns {Promise<TResponse>} - A promise that resolves to the response data.
    */
-  async put<TResponse, TPayload>(
-    endpoint: string,
-    body: TPayload,
-    token?: string,
-  ): Promise<TResponse> {
+  async put<TResponse, TPayload>({
+    endpoint,
+    body,
+    token,
+    options,
+  }: ApiProps<TPayload>): Promise<TResponse> {
     return this.createRequest<TResponse, TPayload>({
       endpoint,
       method: HttpMethod.PUT,
       body,
       token,
+      options,
     });
   }
 
@@ -159,16 +180,18 @@ class HttpService {
    * @param {string} [token] - Optional authorization token for the request.
    * @returns {Promise<TResponse>} - A promise that resolves to the response data.
    */
-  async patch<TResponse, TPayload>(
-    endpoint: string,
-    body: TPayload,
-    token?: string,
-  ): Promise<TResponse> {
+  async patch<TResponse, TPayload>({
+    endpoint,
+    body,
+    token,
+    options,
+  }: ApiProps<TPayload>): Promise<TResponse> {
     return this.createRequest<TResponse, TPayload>({
       endpoint,
       method: HttpMethod.PATCH,
       body,
       token,
+      options,
     });
   }
 
@@ -181,16 +204,18 @@ class HttpService {
    * @param {string} [token] - Optional authorization token for the request.
    * @returns {Promise<TResponse>} - A promise that resolves to the response data.
    */
-  async delete<TResponse, TPayload>(
-    endpoint: string,
-    body: TPayload,
-    token?: string,
-  ): Promise<TResponse> {
+  async delete<TResponse, TPayload>({
+    endpoint,
+    body,
+    token,
+    options,
+  }: ApiProps<TPayload>): Promise<TResponse> {
     return this.createRequest<TResponse, TPayload>({
       endpoint,
       body,
       method: HttpMethod.DELETE,
       token,
+      options,
     });
   }
 }

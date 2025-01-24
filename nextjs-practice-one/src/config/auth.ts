@@ -5,7 +5,7 @@ import Credentials from 'next-auth/providers/credentials';
 import { httpClient } from '@/services';
 
 // Constants
-import { API_ENDPOINT } from '@/constants';
+import { API_ROUTE_ENDPOINT, BASE_URL } from '@/constants';
 
 // Config
 import { authConfig } from './auth.config';
@@ -28,10 +28,13 @@ const CredentialsProvider = Credentials({
       password,
     };
 
-    const response = await httpClient.post<AuthResponse, AuthPayload>(
-      API_ENDPOINT.SIGN_IN,
-      payload,
-    );
+    const response = await httpClient.post<AuthResponse, AuthPayload>({
+      endpoint: API_ROUTE_ENDPOINT.SIGN_IN,
+      body: payload,
+      options: {
+        baseUrl: BASE_URL,
+      },
+    });
 
     const { user, jwt } = response;
 
