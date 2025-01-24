@@ -5,7 +5,7 @@ import { httpClient } from '@/services';
 import { API_ENDPOINT } from '@/constants';
 
 // Types
-import { DoctorResponse } from '@/types';
+import { ListDoctorResponse } from '@/types';
 
 // Utils
 import { handleAPIRouteRequest } from '@/utils/auth';
@@ -13,7 +13,7 @@ import { handleAPIRouteRequest } from '@/utils/auth';
 export const GET = async () =>
   handleAPIRouteRequest({
     requestHandler: () =>
-      httpClient.get<DoctorResponse>({
+      httpClient.get<ListDoctorResponse>({
         endpoint: API_ENDPOINT.DOCTOR,
       }),
   });

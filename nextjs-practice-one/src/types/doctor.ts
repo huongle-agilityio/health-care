@@ -38,5 +38,17 @@ export interface Doctor {
   bookingTimeSlots?: BookingTimeSlots[];
 }
 
-export type DoctorResponse = ApiPaginationResponse<Doctor[]>;
+export interface DoctorPayload {
+  data: {
+    name: string;
+    fee: number;
+    rating: number;
+    experience: number;
+    avatar: string | File[];
+    specialty: string;
+  };
+}
+
+export type DoctorResponse = ApiPaginationResponse<Doctor>;
+export type ListDoctorResponse = ApiPaginationResponse<Doctor[]>;
 export type DoctorTimeSlotsResponse = ApiPaginationResponse<BookingTimeSlots[]>;

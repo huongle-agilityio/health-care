@@ -12,7 +12,7 @@ import {
   ApiPaginationResponse,
   Doctor,
   DoctorFilterParams,
-  DoctorResponse,
+  ListDoctorResponse,
 } from '@/types';
 
 // Utils
@@ -48,7 +48,7 @@ export const getDoctorsByParams = async ({
       page,
     })}`;
 
-    return httpClient.get<DoctorResponse>(url);
+    return httpClient.get<ListDoctorResponse>(url);
   });
 
 /**
@@ -70,7 +70,7 @@ export const getDoctorById = async (id: string) =>
  */
 export const getDoctors = async () =>
   safeHttpRequest<Doctor[]>(() =>
-    httpClient.get<DoctorResponse>(API_ENDPOINT.DOCTOR, '', {
+    httpClient.get<ListDoctorResponse>(API_ENDPOINT.DOCTOR, '', {
       next: { revalidate: TIMING.REVALIDATE_AFTER_A_DAY },
     }),
   );

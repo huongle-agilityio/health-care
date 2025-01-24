@@ -8,7 +8,7 @@ import { API_ENDPOINT, QUERY_URL } from '@/constants';
 import { WORK_EXPERIENCE_YEARS } from '@/constants/mocks';
 
 // Types
-import { DoctorFilterParams, DoctorResponse } from '@/types';
+import { DoctorFilterParams, ListDoctorResponse } from '@/types';
 
 // Utils
 import { handleAPIRouteRequest } from '@/utils/auth';
@@ -34,7 +34,7 @@ export const GET = async (request: NextRequest) =>
         page,
       })}`;
 
-      return httpClient.get<DoctorResponse>({
+      return httpClient.get<ListDoctorResponse>({
         endpoint,
       });
     },
