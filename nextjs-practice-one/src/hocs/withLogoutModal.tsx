@@ -7,8 +7,8 @@ import dynamic from 'next/dynamic';
 // Apis
 import { logout } from '@/actions';
 
-const ConfirmModal = dynamic(
-  () => import('@/ui/sections/ConfirmModal').then((mod) => mod.ConfirmModal),
+const BaseModal = dynamic(
+  () => import('@/ui/components/BaseModal').then((mod) => mod.BaseModal),
   {
     ssr: false,
   },
@@ -28,8 +28,11 @@ export const withLogoutModal = <P extends object>(
     return (
       <>
         <WrappedComponent onClick={onOpenChange} {...props} />
-        <ConfirmModal
+        <BaseModal
           isOpen={isOpen}
+          title="Confirm Logout"
+          subTitle="Are you sure you want to log out your account?"
+          textConfirmButton="Yes, Log out Now"
           onOpenChange={onOpenChange}
           onSubmit={handleConfirmLogout}
         />

@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import ImageNext, { ImageProps } from 'next/image';
 
 // Constants
@@ -36,6 +36,12 @@ export const Image = memo(
     const handleLoad = () => {
       setIsImageLoaded(true);
     };
+
+    useEffect(() => {
+      if (src) {
+        setImgSrc(src);
+      }
+    }, [src]);
 
     return (
       <div className={cn('relative overflow-hidden', classNameWrapper)}>

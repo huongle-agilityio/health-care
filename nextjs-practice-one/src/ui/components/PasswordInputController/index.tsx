@@ -55,9 +55,9 @@ export const PasswordInputController = <
   const handleOnChange = useCallback(
     (text: string) => {
       onChange(text);
-      clearErrors();
+      clearErrors(name);
     },
-    [clearErrors, onChange],
+    [clearErrors, name, onChange],
   );
 
   return (

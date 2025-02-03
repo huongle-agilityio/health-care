@@ -1,6 +1,6 @@
 'use client';
 
-import { memo } from 'react';
+import { memo, ReactNode } from 'react';
 import {
   Modal as ModalNextUI,
   ModalContent,
@@ -15,11 +15,14 @@ import { Button, Text } from '@/ui/components';
 // Icons
 import { CloseIcon } from '@/ui/icons';
 
+// Utils
+import { cn } from '@/utils';
+
 const ModalBase = extendVariants(ModalNextUI, {
   variants: {
     color: {
       default: {
-        base: 'mx-17 py-20 md:max-w-[400px]',
+        base: 'py-15 md:py-20 md:max-w-[500px] max-h-[90vh]',
         closeButton: 'mr-6 mt-6',
       },
     },
@@ -32,32 +35,40 @@ const ModalBase = extendVariants(ModalNextUI, {
 
 export interface ConfirmModalProps {
   isOpen: boolean;
-  title?: string;
+  title: string;
   subTitle?: string;
-  textCancelButton?: string;
   textConfirmButton?: string;
+  textCancelButton?: string;
+  classNameFooter?: string;
+  classNameContent?: string;
+  isLoading?: boolean;
+  children?: ReactNode;
   onSubmit: () => void;
   onOpenChange: () => void;
 }
 
-export const ConfirmModal = memo(
+export const BaseModal = memo(
   ({
-    title = 'Confirm Logout',
-    subTitle = 'Are you sure you want to log out your account?',
-    textConfirmButton = 'Yes, Log out Now',
-    textCancelButton = 'Cancel',
     isOpen,
+    subTitle,
+    title,
+    textConfirmButton,
+    textCancelButton = 'Cancel',
+    classNameFooter,
+    classNameContent,
     onSubmit,
+    isLoading,
     onOpenChange,
+    children,
   }: ConfirmModalProps) => (
     <ModalBase
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       closeButton={<CloseIcon size="16" />}
     >
-      <ModalContent>
+      <ModalContent className={cn(classNameContent)}>
         {(onClose) => (
-          <div className="px-8">
+          <div className="px-5 md:px-8 overflow-auto">
             <ModalBody className="pb-17">
               <Text color="tertiary" size="2xl" className="text-center">
                 {title}
@@ -65,18 +76,22 @@ export const ConfirmModal = memo(
               <Text size="xs" color="holder" className="pt-4">
                 {subTitle}
               </Text>
+              {children}
             </ModalBody>
-            <ModalFooter className="flex flex-col gap-8">
-              <Button
-                size="xs"
-                variant="bordered"
-                color="bordered"
-                onPress={onSubmit}
-              >
+            <ModalFooter
+              className={cn('flex gap-8', 'flex-col', classNameFooter)}
+            >
+              <Button isLoading={isLoading} size="xs" onPress={onSubmit}>
                 {textConfirmButton}
               </Button>
 
-              <Button size="xs" onPress={onClose}>
+              <Button
+                isDisabled={isLoading}
+                size="xs"
+                variant="bordered"
+                color="bordered"
+                onPress={onClose}
+              >
                 {textCancelButton}
               </Button>
             </ModalFooter>
@@ -87,4 +102,4 @@ export const ConfirmModal = memo(
   ),
 );
 
-ConfirmModal.displayName = 'ConfirmModal';
+BaseModal.displayName = 'BaseModal';
