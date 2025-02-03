@@ -20,6 +20,7 @@ interface SelectControllerProps<T extends FieldValues, K extends Path<T>>
   extends ComponentProps<typeof Select> {
   label: string;
   name: K;
+  type?: 'number' | 'string';
   options: Option[];
   control: Control<T>;
   clearErrors: UseFormClearErrors<T>;

@@ -44,7 +44,7 @@ export interface DoctorPayload {
     fee: number;
     rating: number;
     experience: number;
-    avatar: string | File[];
+    avatar: string | File;
     specialty: string;
   };
 }
