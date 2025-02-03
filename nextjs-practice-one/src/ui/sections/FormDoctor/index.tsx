@@ -5,7 +5,7 @@ import { Control, UseFormClearErrors } from 'react-hook-form';
 import { z } from 'zod';
 
 // Constants
-import { BOOKING_REASONS, IMAGES } from '@/constants';
+import { IMAGES } from '@/constants';
 import { RATING } from '@/constants/mocks';
 
 // Components
@@ -19,10 +19,14 @@ import {
 // Schema
 import { doctorPayload } from '@/schema';
 
+// Types
+import { Specialty } from '@/types';
+
 // Utils
 import { cn } from '@/utils';
 
 interface FormDoctorProps {
+  specialties: Specialty[];
   control: Control<z.infer<typeof doctorPayload>>;
   clearErrors: UseFormClearErrors<z.infer<typeof doctorPayload>>;
   onSubmit: () => void;
@@ -30,11 +34,18 @@ interface FormDoctorProps {
 
 export const FormDoctor = ({
   control,
+  specialties,
   clearErrors,
   onSubmit,
 }: FormDoctorProps) => {
   const commonProps = { control, clearErrors };
   const [preview, setPreview] = useState<string>(IMAGES.FALLBACK_URL);
+  const formatSpecialtiesOption = specialties.map(
+    ({ name, documentId = '' }) => ({
+      value: documentId,
+      label: name,
+    }),
+  );
 
   return (
     <form onSubmit={onSubmit}>
@@ -77,7 +88,7 @@ export const FormDoctor = ({
           name="rating"
           label="Rating"
           aria-label="Choice doctor's rating"
-          options={RATING.slice(1)}
+          options={RATING.slice(-5)}
           placeholder="Choice doctor's rating"
           classNames={{
             mainWrapper: 'mt-8',
@@ -91,12 +102,11 @@ export const FormDoctor = ({
           name="experience"
           {...commonProps}
         />
-        {/* TODO: handle call api get specialties */}
         <SelectController
           name="specialty"
           label="Specialty"
           aria-label="Choice doctor's specialty"
-          options={BOOKING_REASONS}
+          options={formatSpecialtiesOption}
           placeholder="Choice doctor's specialty"
           classNames={{
             mainWrapper: 'mt-8',

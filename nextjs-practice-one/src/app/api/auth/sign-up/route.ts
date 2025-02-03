@@ -21,7 +21,7 @@ export const POST = async (request: NextRequest) =>
     schema: signUpSchema,
     requestHandler: async (body) =>
       httpClient.post<AuthResponse, AuthPayload>({
-        endpoint: API_ENDPOINT.SIGN_IN,
+        endpoint: API_ENDPOINT.SIGN_UP,
         body,
       }),
   });
