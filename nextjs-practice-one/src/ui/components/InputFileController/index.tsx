@@ -12,6 +12,9 @@ import {
 // Components
 import { Input } from '..';
 
+// Constants
+import { ACCEPTED_IMAGE_TYPES } from '@/constants';
+
 interface InputFileControllerProps<T extends FieldValues, K extends Path<T>>
   extends ComponentProps<typeof Input> {
   name: K;
@@ -23,7 +26,7 @@ interface InputFileControllerProps<T extends FieldValues, K extends Path<T>>
 export const InputFileController = <T extends FieldValues, K extends Path<T>>({
   label,
   type = 'file',
-  accept = 'image/jpeg,image/jpg,image/png,image/webp',
+  accept = ACCEPTED_IMAGE_TYPES.join(','),
   name,
   control,
   isDisabled,

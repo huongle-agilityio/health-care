@@ -23,3 +23,12 @@ export const IMAGE_DETAILS = {
     alt: '"A stethoscope on an open spiral notebook with white pills to the left and a wooden spoon with green leaves in the upper right corner.',
   },
 };
+
+export const ACCEPTED_IMAGE_TYPES = [
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/webp',
+];
+
+export const FILE_SIZE_LIMIT = 5 * 1024 * 1024; // 5MB
