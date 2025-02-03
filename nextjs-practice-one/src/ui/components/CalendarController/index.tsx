@@ -47,9 +47,9 @@ export const CalendarController = <T extends FieldValues, K extends Path<T>>({
     (text: DateValue) => {
       onChange(getDateWithFormat(text));
       onClick?.();
-      clearErrors();
+      clearErrors(name);
     },
-    [clearErrors, onChange, onClick],
+    [clearErrors, name, onChange, onClick],
   );
 
   return (

@@ -51,9 +51,9 @@ export const CheckboxController = <T extends FieldValues, K extends Path<T>>({
   const handleOnChange = useCallback(
     async (text: ChangeEvent<HTMLInputElement>) => {
       onChange(text.target.value);
-      clearErrors();
+      clearErrors(name);
     },
-    [clearErrors, onChange],
+    [clearErrors, name, onChange],
   );
 
   return (

@@ -47,14 +47,14 @@ export const InputController = <T extends FieldValues, K extends Path<T>>({
   const handleOnChange = useCallback(
     (text: string) => {
       // Remove non number characters if type is tel
-      if (type === 'tel' && maxLength) {
+      if ((type === 'tel' && maxLength) || type === 'number') {
         text = text.replace(REGEX_NON_NUMBER, '');
       }
 
       onChange(text);
-      clearErrors();
+      clearErrors(name);
     },
-    [clearErrors, maxLength, onChange, type],
+    [clearErrors, maxLength, name, onChange, type],
   );
 
   return (
@@ -62,7 +62,7 @@ export const InputController = <T extends FieldValues, K extends Path<T>>({
       type={type}
       label={label}
       maxLength={maxLength}
-      value={value}
+      value={value?.toString()}
       onBlur={onBlur}
       autoComplete="off"
       isDisabled={isDisabled}

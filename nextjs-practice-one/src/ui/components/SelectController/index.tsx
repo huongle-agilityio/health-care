@@ -48,9 +48,9 @@ export const SelectController = <T extends FieldValues, K extends Path<T>>({
   const handleOnChange = useCallback(
     (text: SharedSelection) => {
       onChange(text['anchorKey']);
-      clearErrors();
+      clearErrors(name);
     },
-    [clearErrors, onChange],
+    [clearErrors, name, onChange],
   );
 
   return (
@@ -62,7 +62,7 @@ export const SelectController = <T extends FieldValues, K extends Path<T>>({
       onSelectionChange={handleOnChange}
       errorMessage={error?.message}
       {...props}
-      value={value}
+      value={value?.toString()}
     />
   );
 };
