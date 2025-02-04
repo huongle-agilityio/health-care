@@ -30,12 +30,11 @@ export const POST = withAuthenticated(async (request: NextRequest, token) =>
   handleAPIRouteRequest<DoctorResponse, DoctorPayload>({
     request,
     schema: doctorPayloadAPISchema,
-    requestHandler: async (payload: DoctorPayload) => {
-      return await httpClient.post<DoctorResponse, DoctorPayload>({
+    requestHandler: (payload: DoctorPayload) =>
+      httpClient.post<DoctorResponse, DoctorPayload>({
         endpoint: API_ENDPOINT.DOCTOR,
         body: payload,
         token,
-      });
-    },
+      }),
   }),
 );

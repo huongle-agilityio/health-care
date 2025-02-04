@@ -8,6 +8,7 @@ export const bookingCardMock = {
 };
 
 export const cardMock = {
+  id: '1',
   name: 'John Doe',
   specialty: 'Dentist',
   experience: 5,

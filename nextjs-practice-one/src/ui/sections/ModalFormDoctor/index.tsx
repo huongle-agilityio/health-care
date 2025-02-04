@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
 import { z } from 'zod';
 
 // Apis
-import { createDoctor } from '@/actions';
+import { createOrUpdateDoctor } from '@/actions';
 
 // Components
 import { FormDoctor } from '../FormDoctor';
@@ -57,8 +57,9 @@ export const ModalFormDoctor = ({
     const payload = {
       data: data,
     };
+
     startTransition(async () => {
-      const { data: doctor, error } = await createDoctor(payload);
+      const { data: doctor, error } = await createOrUpdateDoctor(payload);
 
       if (error) {
         return showToast({ description: error });
