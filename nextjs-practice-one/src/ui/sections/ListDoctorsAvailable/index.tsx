@@ -5,7 +5,7 @@ import { getDoctorsByParams, getSpecialties } from '@/actions';
 import { DOCTOR_LIST_AVAILABLE_SECTION_ID } from '@/constants';
 
 // Components
-import { Text } from '@/ui/components';
+import { Pagination, Text } from '@/ui/components';
 import { ListDoctors } from './ListDoctors';
 import { ButtonAddNew } from './ButtonAddNew';
 
@@ -61,11 +61,20 @@ export const ListDoctorsAvailable = async ({
             <Text color="error">{error}</Text>
           </div>
         ) : (
-          <ListDoctors
-            doctors={doctors}
-            currentPage={currentPage}
-            pageCount={pageCount}
-          />
+          <>
+            {!doctors.length ? (
+              <div className="px-10 py-25">
+                <Text color="tertiary">No results found.</Text>
+              </div>
+            ) : (
+              <ListDoctors doctors={doctors} specialties={specialties} />
+            )}
+            <Pagination
+              page={currentPage}
+              total={pageCount}
+              scrollTo={`#${DOCTOR_LIST_AVAILABLE_SECTION_ID}`}
+            />
+          </>
         )}
       </div>
     </>

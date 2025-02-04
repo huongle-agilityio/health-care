@@ -43,6 +43,7 @@ export interface ConfirmModalProps {
   classNameFooter?: string;
   classNameContent?: string;
   isLoading?: boolean;
+  isDisabledSubmitButton?: boolean;
   children?: ReactNode;
   onSubmit: () => void;
   onOpenChange: () => void;
@@ -59,6 +60,7 @@ export const BaseModal = memo(
     classNameContent,
     onSubmit,
     isLoading,
+    isDisabledSubmitButton,
     onOpenChange,
     children,
   }: ConfirmModalProps) => (
@@ -82,7 +84,12 @@ export const BaseModal = memo(
             <ModalFooter
               className={cn('flex gap-8', 'flex-col', classNameFooter)}
             >
-              <Button isLoading={isLoading} size="xs" onPress={onSubmit}>
+              <Button
+                isDisabled={isDisabledSubmitButton}
+                isLoading={isLoading}
+                size="xs"
+                onPress={onSubmit}
+              >
                 {textConfirmButton}
               </Button>
 

@@ -21,3 +21,5 @@ export * from './UpComingIcon';
 export * from './WarningIcon';
 export * from './SchedulesIcon';
 export * from './SvgFactory';
+export * from './TrashIcon';
+export * from './EditIcon';

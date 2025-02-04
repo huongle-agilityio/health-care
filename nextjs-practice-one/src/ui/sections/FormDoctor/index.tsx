@@ -1,11 +1,9 @@
 'use client';
 
-import { useState } from 'react';
 import { Control, UseFormClearErrors } from 'react-hook-form';
 import { z } from 'zod';
 
 // Constants
-import { IMAGES } from '@/constants';
 import { RATING } from '@/constants/mocks';
 
 // Components
@@ -26,20 +24,23 @@ import { Specialty } from '@/types';
 import { cn } from '@/utils';
 
 interface FormDoctorProps {
+  preview: string;
   specialties: Specialty[];
   control: Control<z.infer<typeof doctorPayload>>;
   clearErrors: UseFormClearErrors<z.infer<typeof doctorPayload>>;
+  onPreview: (preview: string) => void;
   onSubmit: () => void;
 }
 
 export const FormDoctor = ({
+  preview,
   control,
   specialties,
   clearErrors,
+  onPreview,
   onSubmit,
 }: FormDoctorProps) => {
   const commonProps = { control, clearErrors };
-  const [preview, setPreview] = useState<string>(IMAGES.FALLBACK_URL);
   const formatSpecialtiesOption = specialties.map(
     ({ name, documentId = '' }) => ({
       value: documentId,
@@ -65,7 +66,7 @@ export const FormDoctor = ({
             label="Avatar"
             name="avatar"
             placeholder="Choice your avatar"
-            onChangePreview={setPreview}
+            onChangePreview={onPreview}
             {...commonProps}
           />
         </div>
