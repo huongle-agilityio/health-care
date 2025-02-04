@@ -80,12 +80,15 @@ export const getDoctors = async () =>
   );
 
 /**
- * Creates a new doctor.
+ * Creates a new doctor or updates an existing one.
  *
  * @param {DoctorPayload} payload - The payload to create the doctor with.
  * @returns {Promise<Doctor>} A promise that resolves to the created doctor.
  */
-export const createDoctor = async (payload: DoctorPayload) => {
+export const createOrUpdateDoctor = async (
+  payload: DoctorPayload,
+  id?: string,
+) => {
   const response = safeHttpRequest<Doctor>(async (token) => {
     if (!(payload.data.avatar instanceof File)) {
       throw new Error(ERROR_MESSAGES.INVALID_IMAGE);
@@ -99,11 +102,32 @@ export const createDoctor = async (payload: DoctorPayload) => {
         avatar: responseImage.data.url,
       },
     };
-
-    return httpClient.post<DoctorResponse, DoctorPayload>({
-      endpoint: API_ROUTE_ENDPOINT.DOCTOR,
-      body: payloadDoctor,
+    const httpProps = {
       token,
+      endpoint: id
+        ? `${API_ROUTE_ENDPOINT.DOCTOR}/${id}`
+        : API_ROUTE_ENDPOINT.DOCTOR,
+      body: payloadDoctor,
+      options: {
+        baseUrl: BASE_URL,
+      },
+    };
+
+    return httpClient[id ? 'put' : 'post']<DoctorResponse, DoctorPayload>(
+      httpProps,
+    );
+  }, true);
+
+  revalidateTag(API_ROUTE_ENDPOINT.DOCTOR_PARAMS);
+
+  return response;
+};
+
+export const deleteDoctor = async (id: string) => {
+  const response = safeHttpRequest<Doctor>(async (token) => {
+    return httpClient.delete<DoctorResponse>({
+      token,
+      endpoint: `${API_ROUTE_ENDPOINT.DOCTOR}/${id}`,
       options: {
         baseUrl: BASE_URL,
       },

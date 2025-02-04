@@ -39,8 +39,8 @@ export const safeHttpRequest = async <T>(
     const response = await request(`Bearer ${token}`);
 
     return {
-      data: response.data,
-      meta: response.meta,
+      data: response?.data || ({} as T),
+      meta: response?.meta || {},
       error: null,
     };
   } catch (error) {

@@ -22,6 +22,7 @@ const ModalBase = extendVariants(ModalNextUI, {
   variants: {
     color: {
       default: {
+        wrapper: 'overflow-y-scroll',
         base: 'py-15 md:py-20 md:max-w-[500px] max-h-[90vh]',
         closeButton: 'mr-6 mt-6',
       },

@@ -40,6 +40,7 @@ export interface Doctor {
 
 export interface DoctorPayload {
   data: {
+    id?: string;
     name: string;
     fee: number;
     rating: number;

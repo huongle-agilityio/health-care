@@ -17,6 +17,9 @@ export const ROUTES = {
 
   // Schedules
   SCHEDULES: '/schedules',
+
+  // History
+  BOOKING_HISTORY: '/booking-history',
 };
 
 export const PRIVATE_ROUTERS = [

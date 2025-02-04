@@ -115,14 +115,12 @@ describe('HttpService', () => {
   });
 
   it('Should make a DELETE request and return the response', async () => {
-    const mockPayload = { id: 1 };
     (fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
       json: async () => mockResponse,
     });
     const response = await httpClient.delete({
       endpoint: 'endpoint',
-      body: mockPayload,
     });
 
     expect(response).toEqual(mockResponse);
@@ -130,7 +128,6 @@ describe('HttpService', () => {
       URL,
       expect.objectContaining({
         method: 'DELETE',
-        body: JSON.stringify(mockPayload),
         ...headers,
       }),
     );

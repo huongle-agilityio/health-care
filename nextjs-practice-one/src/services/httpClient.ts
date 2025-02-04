@@ -1,4 +1,4 @@
-import { BASE_API, ERROR_MESSAGES } from '@/constants';
+import { BASE_API, ERROR_MESSAGES, ERROR_STATUS } from '@/constants';
 
 enum HttpMethod {
   GET = 'GET',
@@ -89,7 +89,11 @@ class HttpService {
         );
       }
 
-      return await response.json();
+      if (response.status === ERROR_STATUS.NO_CONTENT) {
+        return null as TResponse;
+      }
+
+      return await response?.json();
     } catch (error) {
       if (error instanceof Error) {
         throw error;
@@ -204,15 +208,13 @@ class HttpService {
    * @param {string} [token] - Optional authorization token for the request.
    * @returns {Promise<TResponse>} - A promise that resolves to the response data.
    */
-  async delete<TResponse, TPayload>({
+  async delete<TResponse>({
     endpoint,
-    body,
     token,
     options,
-  }: ApiProps<TPayload>): Promise<TResponse> {
-    return this.createRequest<TResponse, TPayload>({
+  }: Omit<ApiProps<TResponse>, 'body'>): Promise<TResponse> {
+    return this.createRequest<TResponse>({
       endpoint,
-      body,
       method: HttpMethod.DELETE,
       token,
       options,
