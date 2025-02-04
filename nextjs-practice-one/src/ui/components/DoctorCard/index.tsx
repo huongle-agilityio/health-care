@@ -12,7 +12,12 @@ import { Button } from '../Button';
 import { Rating } from '../Rating';
 
 // Icons
-import { HourglassIcon, StethoscopeIcon } from '@/ui/icons';
+import {
+  EditIcon,
+  HourglassIcon,
+  StethoscopeIcon,
+  TrashIcon,
+} from '@/ui/icons';
 
 // Utils
 import { cn } from '@/utils';
@@ -22,10 +27,11 @@ const CardBase = extendVariants(Card, {
     color: {
       default: {
         base: cn(
+          'relative',
           'py-10 px-6 md:py-17',
           'bg-background-200 border-secondary-100 border-2',
           'flex-row',
-          'md:w-[430px] md:flex-col md:h-[508px] md:py-17 md:px-20 md:items-center',
+          'md:w-[430px] md:flex-col md:py-17 md:px-20 md:items-center',
         ),
       },
     },
@@ -73,80 +79,140 @@ const CardBodyBase = extendVariants(CardBody, {
 });
 
 interface CardProps {
+  id: string;
   rating: number;
   experience: number;
   name: string;
   href: string;
   imageSrc: string;
   specialty: string;
+  hasPermission?: boolean;
+  onOpenEditModal?: (id: string) => void;
+  onOpenDeleteModal?: (id: string) => void;
 }
 
 export const DoctorCard = memo(
-  ({ specialty, name, imageSrc, experience, rating, href }: CardProps) => (
-    <CardBase>
-      <CardHeaderBase>
-        <Image
-          src={imageSrc}
-          alt={`Dr ${name}'s avatar`}
-          sizes="(max-width: 768px) 75px, 150px"
-          classNameWrapper={cn(
-            'rounded-full mt-10 md:mt-0',
-            'w-[75px] h-[75px]',
-            'md:w-[150px] md:h-[150px]',
-          )}
-        />
-      </CardHeaderBase>
-      <CardBodyBase>
-        <div className="w-[180px] md:w-fit">
-          <Text size="2xl" color="tertiary" className="md:text-center">
-            Dr {name}
-          </Text>
+  ({
+    id,
+    hasPermission,
+    specialty,
+    name,
+    imageSrc,
+    experience,
+    rating,
+    href,
+    onOpenEditModal,
+    onOpenDeleteModal,
+  }: CardProps) => {
+    const handleEdit = () => {
+      onOpenEditModal?.(id);
+    };
 
-          <div className="pt-5 flex flex-col md:flex-row gap-[15px]">
-            <div className="flex gap-3">
-              <StethoscopeIcon />
-              <Text size="xs" color="holder">
-                {specialty}
-              </Text>
-            </div>
+    const handleDelete = () => {
+      onOpenDeleteModal?.(id);
+    };
 
-            <div className="flex gap-3">
-              <HourglassIcon />
-              <Text size="xs" color="holder">
-                {experience} Years
-              </Text>
-            </div>
+    return (
+      <CardBase className={cn({ 'md:h-[508px]': !hasPermission })}>
+        {hasPermission && (
+          <div className="hidden md:flex absolute top-5 right-5 md:top-10 md:right-10 gap-5">
+            <EditIcon
+              className="w-10 h-10 md:w-12 md:h-12 cursor-pointer"
+              onClick={handleEdit}
+            />
+            <TrashIcon
+              className="w-10 h-10 md:w-12 md:h-12 cursor-pointer"
+              onClick={handleDelete}
+            />
           </div>
-
-          <div className="flex gap-6 pt-4 md:pt-[30px]">
-            <Text size="xs" color="holder">
-              Ratings:
+        )}
+        <CardHeaderBase>
+          <Image
+            src={imageSrc}
+            alt={`Dr ${name}'s avatar`}
+            sizes="(max-width: 768px) 75px, 150px"
+            classNameWrapper={cn(
+              'rounded-full mt-10 md:mt-0',
+              'w-[75px] h-[75px]',
+              'md:w-[150px] md:h-[150px]',
+            )}
+          />
+        </CardHeaderBase>
+        <CardBodyBase>
+          <div className="w-[180px] md:w-fit">
+            <Text size="2xl" color="tertiary" className="md:text-center">
+              Dr {name}
             </Text>
-            <Rating value={rating} />
+
+            <div className="pt-5 flex flex-col md:flex-row gap-[15px]">
+              <div className="flex gap-3">
+                <StethoscopeIcon />
+                <Text size="xs" color="holder">
+                  {specialty}
+                </Text>
+              </div>
+
+              <div className="flex gap-3">
+                <HourglassIcon />
+                <Text size="xs" color="holder">
+                  {experience} Years
+                </Text>
+              </div>
+            </div>
+
+            <div className="flex gap-6 pt-4 md:pt-[30px]">
+              <Text size="xs" color="holder">
+                Ratings:
+              </Text>
+              <Rating value={rating} />
+            </div>
           </div>
-        </div>
 
-        <Link href={href} aria-label="Navigate to booking page">
-          <Button
-            size="xs"
-            color="bordered"
-            variant="bordered"
-            className="md:hidden"
-          >
-            Book
-          </Button>
-        </Link>
-      </CardBodyBase>
-
-      <CardFooterBase>
-        <Link href={href}>
-          <Button color="bordered" variant="bordered">
-            Book Appointment
-          </Button>
-        </Link>
-      </CardFooterBase>
-    </CardBase>
-  ),
+          {!hasPermission && (
+            <Link href={href} aria-label="Navigate to booking page">
+              <Button
+                size="xs"
+                color="bordered"
+                variant="bordered"
+                className="md:hidden"
+              >
+                Book
+              </Button>
+            </Link>
+          )}
+          {hasPermission && (
+            <div className="flex md:hidden gap-5">
+              <Button
+                color="bordered"
+                variant="bordered"
+                size="xs"
+                onPress={handleEdit}
+              >
+                Edit
+              </Button>
+              <Button
+                variant="bordered"
+                color="danger"
+                size="xs"
+                onPress={handleDelete}
+              >
+                Delete
+              </Button>
+            </div>
+          )}
+        </CardBodyBase>
+        {!hasPermission && (
+          <CardFooterBase>
+            <Link href={href}>
+              <Button color="bordered" variant="bordered">
+                Book Appointment
+              </Button>
+            </Link>
+          </CardFooterBase>
+        )}
+      </CardBase>
+    );
+  },
 );
 
 DoctorCard.displayName = 'DoctorCard';

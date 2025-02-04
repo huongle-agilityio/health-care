@@ -1,59 +1,112 @@
-import { memo } from 'react';
+'use client';
+
+import { memo, useCallback, useContext, useState } from 'react';
+import { useDisclosure } from '@heroui/react';
+
+// Apis
+import { deleteDoctor } from '@/actions';
 
 // Components
-import { DoctorCard, Pagination, Text } from '@/ui/components';
+import { ModalFormDoctor } from '../ModalFormDoctor';
+import { BaseModal, DoctorCard } from '@/ui/components';
 
 // Constants
-import { DOCTOR_LIST_AVAILABLE_SECTION_ID, ROUTES } from '@/constants';
+import { ROUTES } from '@/constants';
 
-// Constants
-import { Doctor } from '@/types';
+// Contexts
+import { ToastContext } from '@/contexts';
+
+// Types
+import { Doctor, Specialty } from '@/types';
 
 interface ListDoctors {
-  pageCount: number;
-  currentPage: number;
   doctors: Doctor[];
+  specialties: Specialty[];
 }
 
-export const ListDoctors = memo(
-  ({ doctors, currentPage, pageCount }: ListDoctors) => (
+export const ListDoctors = memo(({ doctors, specialties }: ListDoctors) => {
+  const [doctorId, setDoctorId] = useState<string>('');
+  const { isOpen: isOpenConfirmModal, onOpenChange: onOpenChangeConfirmModal } =
+    useDisclosure();
+  const { isOpen, onOpenChange } = useDisclosure();
+  const { showToast } = useContext(ToastContext);
+
+  const handleOpenEditModal = useCallback(
+    (id: string) => {
+      setDoctorId(id);
+      onOpenChange();
+    },
+    [onOpenChange],
+  );
+
+  const handleOpenDeleteModal = useCallback(
+    (id: string) => {
+      setDoctorId(id);
+      onOpenChangeConfirmModal();
+    },
+    [onOpenChangeConfirmModal],
+  );
+
+  const handleConfirmDelete = useCallback(async () => {
+    const { error } = await deleteDoctor(doctorId);
+
+    if (error) {
+      return showToast({ description: error });
+    }
+    onOpenChangeConfirmModal();
+  }, [doctorId, onOpenChangeConfirmModal, showToast]);
+
+  return (
     <>
-      {!doctors.length ? (
-        <div className="px-10 py-25">
-          <Text color="tertiary">No results found.</Text>
-        </div>
-      ) : (
-        <div className="flex flex-wrap gap-x-8 gap-y-20 w-full justify-center lg:justify-start">
-          {doctors.map(
-            ({
-              id,
-              documentId = '',
-              experience,
-              avatar,
-              name,
-              rating,
-              specialty,
-            }) => (
-              <DoctorCard
-                key={`doctor-${id}`}
-                experience={experience}
-                imageSrc={avatar}
-                name={name}
-                href={ROUTES.BOOKING_APPOINTMENTS_DETAIL(documentId)}
-                rating={rating}
-                specialty={specialty?.name || ''}
-              />
-            ),
-          )}
-        </div>
+      <div className="flex flex-wrap gap-x-8 gap-y-20 w-full justify-center lg:justify-start">
+        {doctors.map(
+          ({
+            id,
+            documentId = '',
+            experience,
+            avatar,
+            name,
+            rating,
+            specialty,
+          }) => (
+            <DoctorCard
+              id={documentId}
+              key={`doctor-${id}`}
+              experience={experience}
+              imageSrc={avatar}
+              name={name}
+              href={ROUTES.BOOKING_APPOINTMENTS_DETAIL(documentId)}
+              rating={rating}
+              specialty={specialty?.name || ''}
+              onOpenEditModal={handleOpenEditModal}
+              onOpenDeleteModal={handleOpenDeleteModal}
+            />
+          ),
+        )}
+      </div>
+
+      {isOpen && (
+        <ModalFormDoctor
+          isOpen={isOpen}
+          isAddNew={false}
+          doctorId={doctorId}
+          specialties={specialties}
+          onToggleModal={onOpenChange}
+        />
       )}
-      <Pagination
-        page={currentPage}
-        total={pageCount}
-        scrollTo={`#${DOCTOR_LIST_AVAILABLE_SECTION_ID}`}
-      />
+
+      {isOpenConfirmModal && (
+        <BaseModal
+          isOpen={isOpenConfirmModal}
+          title="Confirm Delete"
+          subTitle="Are you sure you want to delete this doctor?"
+          textConfirmButton="Delete"
+          onSubmit={handleConfirmDelete}
+          onOpenChange={onOpenChangeConfirmModal}
+        />
+      )}
     </>
-  ),
-);
+  );
+});
 
 ListDoctors.displayName = 'ListDoctors';
