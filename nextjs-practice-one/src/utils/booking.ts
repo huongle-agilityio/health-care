@@ -12,6 +12,7 @@ import {
   OptionCheckBox,
   TimeSlot,
 } from '@/types';
+import dayjs from 'dayjs';
 
 /**
  * Gets the status of a booking based on the given date.
@@ -66,7 +67,6 @@ export const formatWorkingExperience = Object.entries(
  * @param {BookingSlot[]} bookingAppointments - The array of booking appointments to sort.
  * @returns {BookingSlot[]} The sorted array of booking appointments.
  */
-
 export const sortedAppointments = (
   bookingAppointments: BookingSlot[],
 ): BookingSlot[] => {
@@ -94,7 +94,7 @@ export const sortedAppointments = (
  * Ex: BookingSlot[] -> [{ date: string, bookings: BookingSlot[] }]
  *
  * @param {BookingSlot[]} data - The array of booking time slots to group and format.
- * @returns {Array<{date: string, bookings: BookingSlot[]}>} The grouped and formatted booking time slots.
+ * @returns {BookingSlotsByDate} The grouped and formatted booking time slots.
  */
 export const groupAndFormatBookings = (data: BookingSlot[]) => {
   // Group data by date
@@ -112,4 +112,17 @@ export const groupAndFormatBookings = (data: BookingSlot[]) => {
     date,
     bookings,
   }));
+};
+
+/**
+ * Formats a given time string to a 12-hour clock format with AM/PM.
+ * Ex: 10:00 -> 10:00 AM
+ *
+ * @param {string} time The time string in 'HH:MM' format.
+ * @returns {string} The formatted time string in 'h:mm AM/PM' format.
+ */
+export const formatTime = (time: string): string => {
+  const [hour, minute] = time.split(':').map(Number);
+
+  return dayjs().hour(hour).minute(minute).format('h:mm A');
 };

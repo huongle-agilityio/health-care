@@ -20,3 +20,4 @@ export * from './CheckboxController';
 export * from './PasswordInputController';
 export * from './BaseModal';
 export * from './InputFileController';
+export * from './BookingHistoryItem';
