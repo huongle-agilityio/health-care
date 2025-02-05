@@ -20,6 +20,7 @@ export const QUERY_FILTER_URL = {
   BY_SPECIALTY: (specialty: string) =>
     specialty && `&filters[specialty][name][$eq]=${specialty}`,
   SORT_BY_TIME: 'sort[time]=asc',
+  SORT_BY_DATE: 'sort[date]=desc',
 };
 
 export const QUERY_URL = {
@@ -41,4 +42,6 @@ export const QUERY_URL = {
     `?filters[date][$eq]=${date}&populate[timeSlot][fields][0]=time&filters[doctor][documentId][$eq]=${doctorId}`,
   APPOINTMENT_BY_USER_ID: (id: string) =>
     `?filters[user][$eq]=${id}&populate[doctor][fields][0]=*&populate[timeSlot][fields][0]=time&sort[date]=asc&sort[timeSlot][time]=asc`,
+  APPOINTMENT_HISTORY: (page = CURRENT_PAGE, pageSize = 10) =>
+    `?&populate[doctor][fields][0]=*&populate[doctor][populate][specialty][fields][0]=name&populate[user][fields][0]=name&populate[timeSlot][fields][0]=time&sort[timeSlot][time]=asc&${QUERY_FILTER_URL.SORT_BY_DATE}${QUERY_FILTER_URL.PAGINATION(page, pageSize)}`,
 };
