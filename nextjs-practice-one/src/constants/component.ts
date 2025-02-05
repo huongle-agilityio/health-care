@@ -12,3 +12,4 @@ export const STYLE_HEADER_HEIGHT_DESKTOP = 'xl:h-[128px]';
 export const STYLE_FOOTER_HEIGHT = 'h-25';
 
 export const DOCTOR_LIST_AVAILABLE_SECTION_ID = 'doctor-list-available-section';
+export const BOOKING_HISTORY_SECTION_ID = 'booking-history-section';

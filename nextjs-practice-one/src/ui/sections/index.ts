@@ -15,3 +15,5 @@ export * from './ToastWrapper';
 export * from './FormBooking/FormBookingBaseSkeleton';
 export * from './ErrorPage';
 export * from './FormFilterDoctors/FilterSkeleton';
+export * from './BookingHistory';
+export * from './BookingHistory/BookingHistorySkeleton';
