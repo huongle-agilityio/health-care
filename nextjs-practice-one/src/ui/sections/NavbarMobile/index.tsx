@@ -9,7 +9,7 @@ import {
 } from '@heroui/react';
 import { usePathname } from 'next/navigation';
 
-import { NAVIGATION_ITEMS, ROUTES } from '@/constants';
+import { getNavigationItemsHiddenByRole, USER_ROLE } from '@/constants';
 
 // Components
 import { Button, Text } from '@/ui/components';
@@ -17,13 +17,7 @@ import { NavbarList } from './NavbarList';
 import { HeaderAuthButtons } from '../HeaderAuth/HeaderAuthButtons';
 
 // Icons
-import {
-  CloseIcon,
-  OutlineBurgerIcon,
-  SchedulesIcon,
-  SettingIcon,
-  UserIcon,
-} from '@/ui/icons';
+import { CloseIcon, OutlineBurgerIcon, UserIcon } from '@/ui/icons';
 
 // HOCs
 import { withLogoutModal } from '@/hocs';
@@ -52,27 +46,16 @@ const LogoutButton = withLogoutModal(Button);
 interface NavBarMobileProps {
   isAuthenticated: boolean;
   name?: string;
+  userRole?: USER_ROLE;
 }
 
-export const NavBarMobile = ({ isAuthenticated, name }: NavBarMobileProps) => {
+export const NavBarMobile = ({
+  isAuthenticated,
+  userRole,
+  name,
+}: NavBarMobileProps) => {
   const pathname = usePathname();
   const { isOpen, onOpenChange } = useDisclosure();
-
-  const options = isAuthenticated
-    ? [
-        ...NAVIGATION_ITEMS,
-        {
-          title: 'Setting',
-          url: ROUTES.SETTING,
-          icon: SettingIcon,
-        },
-        {
-          url: ROUTES.SCHEDULES,
-          title: 'Schedules',
-          icon: SchedulesIcon,
-        },
-      ]
-    : NAVIGATION_ITEMS;
 
   return (
     <div className="absolute top-6 left-12">
@@ -104,7 +87,7 @@ export const NavBarMobile = ({ isAuthenticated, name }: NavBarMobileProps) => {
                 <div className="flex flex-col gap-12">
                   <NavbarList
                     pathname={pathname}
-                    options={options}
+                    options={getNavigationItemsHiddenByRole(userRole)}
                     onClose={onClose}
                   />
 

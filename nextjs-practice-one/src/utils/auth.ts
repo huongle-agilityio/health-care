@@ -2,7 +2,9 @@ import { getErrorMessage } from './error';
 
 // Config
 import { auth } from '@/config';
-import { ERROR_STATUS } from '@/constants';
+
+// Constants
+import { ERROR_STATUS, USER_ROLE } from '@/constants';
 
 // Constants
 import { INIT_USER_SESSION } from '@/constants/mocks';
@@ -17,8 +19,10 @@ import { APIRouteRequestProps, UserSession } from '@/types';
  */
 export const getUserFromSession = async (): Promise<Required<UserSession>> => {
   const session = await auth();
+  const isAdmin = session?.user?.role?.name === USER_ROLE.ADMIN;
+  const isCustomer = session?.user?.role?.name === USER_ROLE.CUSTOMER;
 
-  return { ...INIT_USER_SESSION, ...session?.user };
+  return { ...INIT_USER_SESSION, ...session?.user, isAdmin, isCustomer };
 };
 
 /**

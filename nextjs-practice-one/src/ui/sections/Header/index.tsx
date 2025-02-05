@@ -5,11 +5,11 @@ import { usePathname } from 'next/navigation';
 
 // Constants
 import {
-  NAVIGATION_AUTHENTICATED,
-  NAVIGATION_ITEMS,
+  getNavigationItemsHiddenByRole,
   ROUTES,
   STYLE_HEADER_HEIGHT_DESKTOP,
   STYLE_HEADER_HEIGHT_MOBILE,
+  USER_ROLE,
 } from '@/constants';
 
 // Components
@@ -30,14 +30,12 @@ const MenuAuth = withLogoutModal(HeaderAuth);
 
 interface HeaderProps {
   name?: string;
+  userRole?: USER_ROLE;
 }
 
-export const Header = ({ name }: HeaderProps) => {
+export const Header = ({ name, userRole }: HeaderProps) => {
   const isAuthenticated = !!name;
   const pathname = usePathname();
-  const listMenu = isAuthenticated
-    ? [...NAVIGATION_ITEMS, ...NAVIGATION_AUTHENTICATED]
-    : NAVIGATION_ITEMS;
 
   return (
     <header
@@ -54,7 +52,11 @@ export const Header = ({ name }: HeaderProps) => {
           'flex items-center gap-[56px] xl:justify-start',
         )}
       >
-        <NavBarMobile isAuthenticated={isAuthenticated} name={name} />
+        <NavBarMobile
+          isAuthenticated={isAuthenticated}
+          userRole={userRole}
+          name={name}
+        />
         <Link
           href={ROUTES.HOME}
           className="flex gap-4 items-center m-auto xl:m-0"
@@ -67,20 +69,22 @@ export const Header = ({ name }: HeaderProps) => {
 
         <div className={cn('hidden xl:flex', 'w-full justify-between')}>
           <div className="flex gap-17 items-center">
-            {listMenu.map(({ url = '', title }, index) => {
-              const isActive = url === pathname;
+            {getNavigationItemsHiddenByRole(userRole).map(
+              ({ url = '', title }, index) => {
+                const isActive = url === pathname;
 
-              return (
-                <Link key={`nav-${index}`} href={url}>
-                  <Text
-                    color={isActive ? 'primary' : 'holder'}
-                    className="hover:text-primary-100"
-                  >
-                    {title}
-                  </Text>
-                </Link>
-              );
-            })}
+                return (
+                  <Link key={`nav-${index}`} href={url}>
+                    <Text
+                      color={isActive ? 'primary' : 'holder'}
+                      className="hover:text-primary-100"
+                    >
+                      {title}
+                    </Text>
+                  </Link>
+                );
+              },
+            )}
           </div>
           <MenuAuth isAuthenticated={isAuthenticated} name={name} />
         </div>

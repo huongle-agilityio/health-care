@@ -43,13 +43,16 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { name } = await getUserFromSession();
+  const {
+    name,
+    role: { name: userRole },
+  } = await getUserFromSession();
 
   return (
     <html lang="en" suppressHydrationWarning className="overflow-y-scroll">
       <body className={montserrat.className}>
         <Providers>
-          <Header name={name} />
+          <Header name={name} userRole={userRole} />
           <ToastWrapper>{children}</ToastWrapper>
         </Providers>
       </body>

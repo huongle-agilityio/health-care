@@ -11,6 +11,7 @@ import { ButtonAddNew } from './ButtonAddNew';
 
 // Utils
 import { cn } from '@/utils';
+import { getUserFromSession } from '@/utils/auth';
 
 type ListDoctorsAvailableProps = {
   queryString: string;
@@ -21,15 +22,13 @@ export const ListDoctorsAvailable = async ({
 }: ListDoctorsAvailableProps) => {
   const { data: doctors, meta, error } = await getDoctorsByParams(queryString);
   const { data: specialties } = await getSpecialties();
+  const { isAdmin } = await getUserFromSession();
 
   const {
     page: currentPage = 1,
     pageCount = 0,
     total = 0,
   } = meta?.pagination || {};
-
-  // TODO: implement admin role
-  const isAdmin = true;
 
   return (
     <>
@@ -67,7 +66,11 @@ export const ListDoctorsAvailable = async ({
                 <Text color="tertiary">No results found.</Text>
               </div>
             ) : (
-              <ListDoctors doctors={doctors} specialties={specialties} />
+              <ListDoctors
+                isAdmin={isAdmin}
+                doctors={doctors}
+                specialties={specialties}
+              />
             )}
             <Pagination
               page={currentPage}

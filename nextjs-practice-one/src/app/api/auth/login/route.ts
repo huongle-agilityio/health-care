@@ -7,7 +7,7 @@ import { API_ENDPOINT } from '@/constants';
 import { httpClient } from '@/services';
 
 // Types
-import { AuthPayload, AuthResponse } from '@/types';
+import { AuthPayload, AuthResponse, User } from '@/types';
 
 // Schema
 import { loginSchema } from '@/schema';
@@ -19,9 +19,17 @@ export const POST = async (request: NextRequest) =>
   handleAPIRouteRequest<AuthResponse, AuthPayload>({
     request,
     schema: loginSchema,
-    requestHandler: async (body) =>
-      httpClient.post<AuthResponse, AuthPayload>({
+    requestHandler: async (body) => {
+      const { user, jwt } = await httpClient.post<AuthResponse, AuthPayload>({
         endpoint: API_ENDPOINT.SIGN_IN,
         body,
-      }),
+      });
+
+      const userResponse = await httpClient.get<User>({
+        endpoint: `${API_ENDPOINT.USER}/${user?.id}?populate=role`,
+        token: jwt,
+      });
+
+      return { user: { ...user, role: userResponse?.role }, jwt };
+    },
   });
