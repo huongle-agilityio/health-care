@@ -4,7 +4,7 @@ import { revalidateTag } from 'next/cache';
 import { createImage } from './image';
 
 // Constants
-import { API_ROUTE_ENDPOINT, BASE_URL, ERROR_MESSAGES } from '@/constants';
+import { API_ROUTE_ENDPOINT, BASE_URL } from '@/constants';
 
 // Services
 import { httpClient } from '@/services';
@@ -90,24 +90,17 @@ export const createOrUpdateDoctor = async (
   id?: string,
 ) => {
   const response = safeHttpRequest<Doctor>(async (token) => {
-    if (!(payload.data.avatar instanceof File)) {
-      throw new Error(ERROR_MESSAGES.INVALID_IMAGE);
-    }
+    const avatarUrl =
+      typeof payload.avatar === 'string'
+        ? payload.avatar
+        : (await createImage(payload.avatar)).data.url;
 
-    const responseImage = await createImage(payload.data.avatar);
-
-    const payloadDoctor: DoctorPayload = {
-      data: {
-        ...payload.data,
-        avatar: responseImage.data.url,
-      },
-    };
     const httpProps = {
       token,
       endpoint: id
         ? `${API_ROUTE_ENDPOINT.DOCTOR}/${id}`
         : API_ROUTE_ENDPOINT.DOCTOR,
-      body: payloadDoctor,
+      body: { ...payload, avatar: avatarUrl },
       options: {
         baseUrl: BASE_URL,
       },

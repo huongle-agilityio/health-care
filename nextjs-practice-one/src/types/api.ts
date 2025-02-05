@@ -13,3 +13,7 @@ export interface ApiPaginationResponse<T1> {
     pagination: ApiPagination;
   };
 }
+
+export interface PayloadData<T> {
+  data: T;
+}

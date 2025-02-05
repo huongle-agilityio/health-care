@@ -62,13 +62,9 @@ export const ModalFormDoctor = ({
   });
 
   const onSubmit = (data: z.infer<typeof doctorPayload>) => {
-    const payload = {
-      data: data,
-    };
-
     startTransition(async () => {
       const { data: doctor, error } = await createOrUpdateDoctor(
-        payload,
+        data,
         doctorId,
       );
 

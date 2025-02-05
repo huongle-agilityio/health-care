@@ -12,6 +12,7 @@ import {
   Doctor,
   DoctorPayload,
   DoctorResponse,
+  PayloadData,
 } from '@/types';
 
 // HOCs
@@ -58,12 +59,16 @@ export const PUT = withAuthenticated(
       request,
       schema: doctorPayloadAPISchema,
       requestHandler: async (payload: DoctorPayload) => {
+        const payloadDoctor = {
+          data: payload,
+        };
+
         const id = (await params)?.id;
         const endpoint = `${API_ENDPOINT.DOCTOR}/${id}`;
 
-        return httpClient.put<DoctorResponse, DoctorPayload>({
+        return httpClient.put<DoctorResponse, PayloadData<DoctorPayload>>({
           endpoint,
-          body: payload,
+          body: payloadDoctor,
           token,
         });
       },

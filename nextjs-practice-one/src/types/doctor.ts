@@ -39,15 +39,13 @@ export interface Doctor {
 }
 
 export interface DoctorPayload {
-  data: {
-    id?: string;
-    name: string;
-    fee: number;
-    rating: number;
-    experience: number;
-    avatar: string | File;
-    specialty: string;
-  };
+  id?: string;
+  name: string;
+  fee: number;
+  rating: number;
+  experience: number;
+  avatar: string | File;
+  specialty: string;
 }
 
 export type DoctorResponse = ApiPaginationResponse<Doctor>;
