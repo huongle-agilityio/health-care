@@ -111,12 +111,7 @@ export const FormSignUp = () => {
         <Button isLoading={isPending} type="submit">
           Submit
         </Button>
-        <Button
-          isLoading={isPending}
-          type="reset"
-          color="primary"
-          isDisabled={!isDirty}
-        >
+        <Button type="reset" color="primary" isDisabled={!isDirty || isPending}>
           Reset
         </Button>
       </div>

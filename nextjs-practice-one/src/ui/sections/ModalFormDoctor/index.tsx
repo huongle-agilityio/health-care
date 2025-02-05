@@ -72,17 +72,12 @@ export const ModalFormDoctor = ({
         return showToast({ description: error });
       }
 
-      if (doctor) {
-        showToast({
-          title: 'Success',
-          description: `${isAddNew ? 'Add' : 'Update'} doctor ${doctor.name} successfully`,
-          variant: 'success',
-        });
-      }
-
-      if (!error) {
-        onToggleModal();
-      }
+      showToast({
+        title: 'Success',
+        description: `${isAddNew ? 'Add' : 'Update'} doctor ${doctor.name} successfully`,
+        variant: 'success',
+      });
+      onToggleModal();
     });
   };
 

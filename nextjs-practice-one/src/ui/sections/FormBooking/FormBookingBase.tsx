@@ -244,7 +244,7 @@ export const FormBookingBase = ({
           </Button>
           <Button
             color="primary"
-            isLoading={isPending}
+            isDisabled={isPending}
             onPress={handleReset}
             className="w-full"
           >

@@ -97,9 +97,8 @@ export const FormLogin = () => {
             Submit
           </Button>
           <Button
-            isLoading={isPending}
             type="reset"
-            isDisabled={!isDirty}
+            isDisabled={!isDirty || isPending}
             color="primary"
           >
             Reset
