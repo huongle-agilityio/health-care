@@ -26,6 +26,7 @@ export interface OptionCheckBox extends Option {
 export interface OptionMenu {
   title: string;
   url?: string;
+  hidden?: string[];
   action?: () => void;
   icon?: ComponentType<SvgFactoryProps>;
 }

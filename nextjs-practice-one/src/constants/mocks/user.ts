@@ -10,5 +10,10 @@ export const INIT_USER_SESSION = {
   name: '',
   username: '',
   phone: '',
+  avatar: '',
   jwt: '',
+  role: {
+    documentId: '',
+    name: undefined,
+  },
 };
