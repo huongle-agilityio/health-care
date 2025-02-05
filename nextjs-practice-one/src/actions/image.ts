@@ -15,6 +15,10 @@ import { ImageResponse } from '@/types';
  * @throws Will throw an error if the server response is not ok.
  */
 export const createImage = async (file: File): Promise<ImageResponse> => {
+  if (!(file instanceof File)) {
+    throw new Error(ERROR_MESSAGES.INVALID_IMAGE);
+  }
+
   const form = new FormData();
   form.append('image', file);
 

@@ -7,7 +7,12 @@ import { httpClient } from '@/services';
 import { API_ENDPOINT } from '@/constants';
 
 // Types
-import { DoctorPayload, DoctorResponse, ListDoctorResponse } from '@/types';
+import {
+  DoctorPayload,
+  DoctorResponse,
+  ListDoctorResponse,
+  PayloadData,
+} from '@/types';
 
 // HOCs
 import { withAuthenticated } from '@/hocs';
@@ -30,11 +35,16 @@ export const POST = withAuthenticated(async (request: NextRequest, token) =>
   handleAPIRouteRequest<DoctorResponse, DoctorPayload>({
     request,
     schema: doctorPayloadAPISchema,
-    requestHandler: (payload: DoctorPayload) =>
-      httpClient.post<DoctorResponse, DoctorPayload>({
+    requestHandler: (payload: DoctorPayload) => {
+      const payloadDoctor = {
+        data: payload,
+      };
+
+      return httpClient.post<DoctorResponse, PayloadData<DoctorPayload>>({
         endpoint: API_ENDPOINT.DOCTOR,
-        body: payload,
+        body: payloadDoctor,
         token,
-      }),
+      });
+    },
   }),
 );
