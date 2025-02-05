@@ -38,7 +38,7 @@ const Page = async ({
         </Text>
       </div>
 
-      <div className="min-h-[500px]">
+      <div className="flex flex-col md:flex-row w-full flex-wrap gap-15 justify-center min-h-[500px]">
         <Suspense fallback={<BookingHistorySkeleton />}>
           <BookingHistory queryString={queryString} />
         </Suspense>
