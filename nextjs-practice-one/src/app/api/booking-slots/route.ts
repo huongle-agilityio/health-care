@@ -4,7 +4,7 @@ import { NextRequest } from 'next/server';
 import { httpClient } from '@/services';
 
 // Constants
-import { API_ENDPOINT } from '@/constants';
+import { API_ENDPOINT, CURRENT_PAGE, QUERY_URL } from '@/constants';
 
 // HOCs
 import { withAuthenticated } from '@/hocs';
@@ -13,12 +13,14 @@ import { withAuthenticated } from '@/hocs';
 import {
   BookingAppointmentPayload,
   BookingAppointmentPayloadResponse,
+  BookingSlotResponse,
 } from '@/types';
 
 // Schema
 import { bookingPayloadAPISchema } from '@/schema';
 
 // Utils
+import { groupAndFormatBookings } from '@/utils';
 import { handleAPIRouteRequest } from '@/utils/auth';
 
 export const POST = withAuthenticated(async (request: NextRequest, token) =>
@@ -37,5 +39,24 @@ export const POST = withAuthenticated(async (request: NextRequest, token) =>
         body,
         token,
       }),
+  }),
+);
+
+export const GET = withAuthenticated(async (request: NextRequest, token) =>
+  handleAPIRouteRequest({
+    requestHandler: async () => {
+      const page =
+        Number(request.nextUrl.searchParams.get('page')) || CURRENT_PAGE;
+      const response = await httpClient.get<BookingSlotResponse>({
+        endpoint: `${API_ENDPOINT.BOOKING_SLOT}${QUERY_URL.APPOINTMENT_HISTORY(page)}`,
+        token,
+      });
+      const formattedResponse = groupAndFormatBookings(response.data);
+
+      return {
+        ...response,
+        data: formattedResponse,
+      };
+    },
   }),
 );

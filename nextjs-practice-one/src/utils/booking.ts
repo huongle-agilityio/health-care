@@ -7,6 +7,7 @@ import { WORK_EXPERIENCE_YEARS } from '@/constants/mocks';
 // Types
 import {
   BookingSlot,
+  BookingSlotsByDate,
   BookingTimeSlots,
   OptionCheckBox,
   TimeSlot,
@@ -85,4 +86,30 @@ export const sortedAppointments = (
   );
 
   return sortedAppointments;
+};
+
+/**
+ * Groups booking time slots data by date and formats it
+ * to the desired response structure.
+ * Ex: BookingSlot[] -> [{ date: string, bookings: BookingSlot[] }]
+ *
+ * @param {BookingSlot[]} data - The array of booking time slots to group and format.
+ * @returns {Array<{date: string, bookings: BookingSlot[]}>} The grouped and formatted booking time slots.
+ */
+export const groupAndFormatBookings = (data: BookingSlot[]) => {
+  // Group data by date
+  const groupedData = data.reduce<BookingSlotsByDate>(
+    (groupedBookings, booking) => ({
+      ...groupedBookings,
+      [booking.date]: [...(groupedBookings[booking.date] || []), booking],
+    }),
+    {},
+  );
+
+  // Format data
+  // Ex: { date: '2023-01-01', bookings: [BookingSlot] }
+  return Object.entries(groupedData).map(([date, bookings]) => ({
+    date,
+    bookings,
+  }));
 };

@@ -12,12 +12,34 @@ import { API_ROUTE_ENDPOINT, BASE_URL, QUERY_KEY, ROUTES } from '@/constants';
 import {
   BookingAppointmentPayload,
   BookingAppointmentPayloadResponse,
+  BookingHistory,
+  BookingHistoryResponse,
   BookingSlot,
   BookingSlotResponse,
   BookingTimeSlots,
   DoctorTimeSlotsResponse,
 } from '@/types';
 import { safeHttpRequest } from './safeHttpRequest';
+
+/**
+ * Fetches all booking history filtered by the given query string.
+ *
+ * @param {string} queryString - The query string to filter booking history by.
+ * @returns {Promise<BookingSlot[]>} A promise that resolves to an array of booking history.
+ */
+export const getBookingHistory = async (queryString: string) =>
+  safeHttpRequest<BookingHistory[]>((token) =>
+    httpClient.get<BookingHistoryResponse>({
+      endpoint: `${API_ROUTE_ENDPOINT.BOOKING_SLOT}?${queryString}`,
+      token,
+      options: {
+        next: {
+          tags: [API_ROUTE_ENDPOINT.BOOKING_SLOT],
+        },
+        baseUrl: BASE_URL,
+      },
+    }),
+  );
 
 /**
  * Gets booking appointments by user id.
