@@ -96,7 +96,7 @@ export const ModalFormDoctor = ({
             specialty: data.specialty?.documentId,
             experience: data.experience,
             rating: data.rating,
-            avatar: undefined,
+            avatar: data.avatar,
             fee: data.fee,
           });
           setPreview(data.avatar);

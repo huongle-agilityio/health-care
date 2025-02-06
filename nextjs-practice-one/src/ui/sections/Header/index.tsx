@@ -30,10 +30,11 @@ const MenuAuth = withLogoutModal(HeaderAuth);
 
 interface HeaderProps {
   name?: string;
+  avatar?: string;
   userRole?: USER_ROLE;
 }
 
-export const Header = ({ name, userRole }: HeaderProps) => {
+export const Header = ({ name, avatar, userRole }: HeaderProps) => {
   const isAuthenticated = !!name;
   const pathname = usePathname();
 
@@ -56,6 +57,7 @@ export const Header = ({ name, userRole }: HeaderProps) => {
           isAuthenticated={isAuthenticated}
           userRole={userRole}
           name={name}
+          avatar={avatar}
         />
         <Link
           href={ROUTES.HOME}
@@ -86,7 +88,11 @@ export const Header = ({ name, userRole }: HeaderProps) => {
               },
             )}
           </div>
-          <MenuAuth isAuthenticated={isAuthenticated} name={name} />
+          <MenuAuth
+            avatar={avatar}
+            isAuthenticated={isAuthenticated}
+            name={name}
+          />
         </div>
       </nav>
     </header>
