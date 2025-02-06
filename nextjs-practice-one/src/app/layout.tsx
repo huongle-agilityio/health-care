@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 
@@ -15,6 +16,7 @@ import { Providers } from './providers';
 
 // Utils
 import { getUserFromSession } from '@/utils/auth';
+import { auth } from '@/config';
 
 const montserrat = Montserrat({
   weight: ['400', '500'],
@@ -38,21 +40,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+interface Props {
+  children: ReactNode;
+}
+
+export default async function RootLayout({ children }: Props) {
+  const session = await auth();
   const {
     name,
+    avatar,
     role: { name: userRole },
   } = await getUserFromSession();
 
   return (
     <html lang="en" suppressHydrationWarning className="overflow-y-scroll">
       <body className={montserrat.className}>
-        <Providers>
-          <Header name={name} userRole={userRole} />
+        <Providers session={session}>
+          <Header name={name} avatar={avatar} userRole={userRole} />
           <ToastWrapper>{children}</ToastWrapper>
         </Providers>
       </body>

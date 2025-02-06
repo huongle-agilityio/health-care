@@ -1,6 +1,7 @@
 'use server';
 
 import { AuthError } from 'next-auth';
+import { revalidatePath } from 'next/cache';
 
 // Services
 import { httpClient } from '@/services';
@@ -80,3 +81,5 @@ export const signUp = async (
 export const logout = async () => {
   await signOut({ redirectTo: ROUTES.LOGIN });
 };
+
+export const revalidateHomeLayout = async () => revalidatePath('/', 'layout');

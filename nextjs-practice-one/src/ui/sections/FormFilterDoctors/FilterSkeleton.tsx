@@ -32,7 +32,7 @@ export const SkeletonFilter = () => (
     </div>
     <div className="flex flex-col 2xl:flex-row gap-8 2xl:gap-21 w-full 2xl:w-[352px]">
       <Button isLoading>Search</Button>
-      <Button color="primary" isLoading>
+      <Button isDisabled color="primary">
         Reset
       </Button>
     </div>

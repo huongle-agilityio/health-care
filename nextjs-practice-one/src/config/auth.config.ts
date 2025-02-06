@@ -1,7 +1,13 @@
 import type { NextAuthConfig } from 'next-auth';
 
 // Constants
-import { AUTH_ROUTERS, PRIVATE_ROUTERS, ROUTES, TIMING } from '../constants';
+import {
+  AUTH_ROUTERS,
+  PRIVATE_ROUTERS,
+  ROUTES,
+  TIMING,
+  USER_ROLE,
+} from '../constants';
 
 // Types
 import { UserSession } from '../types';
@@ -29,9 +35,15 @@ export const authConfig = {
      */
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
+      const isAdmin = auth?.user?.role?.name === USER_ROLE.ADMIN;
 
-      // If the user is logged in and trying to access a private route, redirect to the home page.
+      // If the user is logged in and trying to access a login/ register route, redirect to the home page.
       if (isLoggedIn && AUTH_ROUTERS.includes(nextUrl.pathname)) {
+        return Response.redirect(new URL(ROUTES.HOME, nextUrl));
+      }
+
+      // If the user is not admin and trying to access a booking history route, redirect to the home page.
+      if (!isAdmin && nextUrl.pathname.includes(ROUTES.BOOKING_HISTORY)) {
         return Response.redirect(new URL(ROUTES.HOME, nextUrl));
       }
 
@@ -58,8 +70,14 @@ export const authConfig = {
      * @param {SessionToken} params.token - The user's JSON Web Token.
      * @returns {Promise<SessionToken>} The updated JSON Web Token.
      */
-    jwt: async ({ user, token }) => {
-      if (token) Object.assign(token, user);
+    jwt: async ({ token, user, trigger, session }) => {
+      if (trigger === 'update' && session?.user) {
+        return { ...token, ...session.user };
+      }
+
+      if (user) {
+        return Object.assign(token, user);
+      }
 
       return token;
     },

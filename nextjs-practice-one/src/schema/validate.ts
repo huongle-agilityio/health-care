@@ -26,15 +26,18 @@ export const validateRequiredStringToNumber = z
   })
   .transform((value) => Number(value));
 
-export const validateRequiredFile = z
-  .instanceof(File, { message: ERROR_MESSAGES.REQUIRED })
-  .refine(
-    (file) => ACCEPTED_IMAGE_TYPES.includes(file.type),
-    ERROR_MESSAGES.INVALID_FILE,
-  )
-  .refine((file) => file.size <= FILE_SIZE_LIMIT, {
-    message: ERROR_MESSAGES.MAX_FILE_SIZE,
-  });
+export const validateRequiredFile = z.union([
+  z
+    .instanceof(File, { message: ERROR_MESSAGES.REQUIRED })
+    .refine(
+      (file) => ACCEPTED_IMAGE_TYPES.includes(file.type),
+      ERROR_MESSAGES.INVALID_FILE,
+    )
+    .refine((file) => file.size <= FILE_SIZE_LIMIT, {
+      message: ERROR_MESSAGES.MAX_FILE_SIZE,
+    }),
+  z.string(),
+]);
 
 export const validateName = validateRequiredString.regex(REGEX_NAME, {
   message: ERROR_MESSAGES.INVALID_NAME,

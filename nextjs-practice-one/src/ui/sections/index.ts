@@ -17,3 +17,4 @@ export * from './ErrorPage';
 export * from './FormFilterDoctors/FilterSkeleton';
 export * from './BookingHistory';
 export * from './BookingHistory/BookingHistorySkeleton';
+export * from './FormUserInfo';

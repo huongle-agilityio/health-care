@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 // Components
 import { Text } from '@/ui/components';
-import { ListUserInfo } from '@/ui/sections';
+import { FormUserInfo } from '@/ui/sections';
 
 // Icons
 import { UserIcon } from '@/ui/icons';
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 const Page = async () => {
-  const { email, name, phone } = await getUserFromSession();
+  const { email, name, phone, avatar, id } = await getUserFromSession();
 
   return (
     <div className="container">
@@ -37,8 +37,14 @@ const Page = async () => {
           </Text>
         </div>
 
-        <div className="flex flex-col md:grid grid-cols-2 gap-x-8 gap-y-8">
-          <ListUserInfo email={email} name={name} phone={phone} />
+        <div className="flex flex-col">
+          <FormUserInfo
+            id={id}
+            email={email}
+            name={name}
+            phone={phone}
+            avatar={avatar}
+          />
         </div>
       </div>
     </div>
