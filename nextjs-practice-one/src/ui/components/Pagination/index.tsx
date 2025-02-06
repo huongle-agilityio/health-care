@@ -47,7 +47,7 @@ interface PaginationProps {
 export const Pagination = memo(
   ({ page = 1, total, scrollTo = '' }: PaginationProps) => {
     const pathname = usePathname();
-    const { replace } = useRouter();
+    const { push } = useRouter();
     const searchParams = useSearchParams();
 
     const params = useMemo(
@@ -62,9 +62,9 @@ export const Pagination = memo(
       (value: number) => {
         // Update URL
         params.set('page', value.toString());
-        replace(`${pathname}?${params.toString()}${scrollTo}`);
+        push(`${pathname}?${params.toString()}${scrollTo}`);
       },
-      [params, replace, pathname, scrollTo],
+      [params, push, pathname, scrollTo],
     );
 
     const handlePrevPage = useCallback(() => {
